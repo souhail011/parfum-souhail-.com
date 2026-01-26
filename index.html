@@ -51,8 +51,8 @@
 <body>
     <div class="banner">
         <div>
-            <h1>Bienvenue  !</h1>
-            <p>Vêtements et chaussures de qualité </p>
+            <h1>Bienvenue dans notre Hanout !</h1>
+            <p>Vêtements et chaussures de qualité - All your fashion needs!</p>
         </div>
     </div>
 
@@ -66,7 +66,7 @@
     </div>
 
     <header>
-        
+        <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Souhail Shop">
         <div>
             <h1>Boutique Souhail - Souhail Shop</h1>
             <p>Vêtements et Chaussures - Clothes and Shoes!</p>
@@ -118,21 +118,49 @@
                 <p>Prix : 90 MAD</p>
                 <button onclick="addToCart('Sandales', 90); event.stopPropagation();">Ajouter au panier</button>
             </div>
+            <div class="product" onclick="openModal('Chemise Blanche', 'Chemise classique en coton, parfaite pour le bureau ou les occasions.', 100, 'https://images.unsplash.com/photo-1598033129183-c4f50c736f60?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f60?w=250&h=200&fit=crop" alt="Chemise Blanche">
+                <h3>Chemise Blanche</h3>
+                <p>Chemise élégante et polyvalente.</p>
+                <p>Prix : 100 MAD</p>
+                <button onclick="addToCart('Chemise Blanche', 100); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Pull Gris', 'Pull chaud en laine mérinos, idéal pour l'automne et l'hiver.', 180, 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=250&h=200&fit=crop" alt="Pull Gris">
+                <h3>Pull Gris</h3>
+                <p>Pull chaud et confortable.</p>
+                <p>Prix : 180 MAD</p>
+                <button onclick="addToCart('Pull Gris', 180); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Jupe Plissée', 'Jupe plissée en tissu léger, féminine et tendance.', 130, 'https://images.unsplash.com/photo-1583496661160-fb5886a6aaaa?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a6aaaa?w=250&h=200&fit=crop" alt="Jupe Plissée">
+                <h3>Jupe Plissée</h3>
+                <p>Jupe élégante pour toutes occasions.</p>
+                <p>Prix : 130 MAD</p>
+                <button onclick="addToCart('Jupe Plissée', 130); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Bottes Marron', 'Bottes en cuir véritable, résistantes et stylées pour l'hiver.', 300, 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=250&h=200&fit=crop" alt="Bottes Marron">
+                <h3>Bottes Marron</h3>
+                <p>Bottes chaudes et durables.</p>
+                <p>Prix : 300 MAD</p>
+                <button onclick="addToCart('Bottes Marron', 300); event.stopPropagation();">Ajouter au panier</button>
+            </div>
             <!-- Ajoutez plus de produits ici -->
         </div>
 
         <div class="contact">
             <h2>Contactez-nous</h2>
-            <p><strong>Localisation :</strong> av hay amal sale</p>
-            <p>Téléphone : 0695979661</p>
-            <p>Email : souhailshop11@gmail.com</p>
-            <p>Adresse : av hay amal </p>
+            <p><strong>Localisation :</strong> Saïdia, Hajji Sale, Maroc</p>
+            <p>Téléphone : +212 6XX XXX XXX (remplace par ton numéro)</p>
+            <p>Email : souhailshop@example.com (remplace par ton email)</p>
+            <p>Adresse : Rue Exemple, Saïdia, Maroc</p>
             <div class="map">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.123456789012!2d-2.3000!3d35.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b1b1b1b1b1b1b%3A0x123456789abcdef!2sSa%C3%ADdia%2C%20Maroc!5e0!3m2!1sfr!2sma!4v1690000000000!5m2!1sfr!2sma" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="social">
                 <a href="https://www.instagram.com/toncompte" target="_blank">📷 Instagram</a>
-                <a href="https://wa.me 0695979661" target="_blank">💬 WhatsApp</a>
+                <a href="https://wa.me/2126XXXXXXX" target="_blank">💬 WhatsApp</a>
                 <a href="https://www.facebook.com/toncompte" target="_blank">📘 Facebook</a>
             </div>
             <form>
@@ -146,83 +174,3 @@
     
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modal-img" src="" alt="Produit">
-            <h2 id="modal-title"></h2>
-            <p id="modal-desc"></p>
-            <p>Prix : <span id="modal-price"></span> MAD</p>
-            <button onclick="addToCartFromModal()">Ajouter au panier</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2023 Boutique Souhail. Tous droits réservés.</p>
-    </footer>
-
-    <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let currentProduct = {};
-        updateCart();
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCart();
-            alert(name + ' ajouté au panier !');
-        }
-
-        function updateCart() {
-            const cartItems = document.getElementById('cart-items');
-            const total = document.getElementById('total');
-            const count = document.getElementById('cart-count');
-            cartItems.innerHTML = '';
-            let sum = 0;
-            cart.forEach(item => {
-                cartItems.innerHTML += `<li>${item.name} - ${item.price} MAD</li>`;
-                sum += item.price;
-            });
-            total.textContent = sum + ' MAD';
-            count.textContent = cart.length;
-        }
-
-        function clearCart() {
-            cart = [];
-            localStorage.removeItem('cart');
-            updateCart();
-        }
-
-        function toggleCart() {
-            const cartDiv = document.getElementById('cart');
-            cartDiv.style.display = cartDiv.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function checkout() {
-            alert('Fonction de commande à implémenter (ex. : redirection vers WhatsApp ou paiement).');
-        }
-
-        function openModal(name, desc, price, img) {
-            currentProduct = { name, desc, price, img };
-            document.getElementById('modal-title').textContent = name;
-            document.getElementById('modal-desc').textContent = desc;
-            document.getElementById('modal-price').textContent = price;
-            document.getElementById('modal-img').src = img;
-            document.getElementById('myModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
-        }
-
-        function addToCartFromModal() {
-            addToCart(currentProduct.name, currentProduct.price);
-            closeModal();
-        }
-
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('myModal')) {
-                closeModal();
-            }
-        }
-    </script>
-</body>
-</html>

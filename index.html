@@ -10,12 +10,10 @@
 <title>Salon Souhail - Coiffure pour Hommes</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ===== Reset & Base ===== */
 * { margin:0; padding:0; box-sizing:border-box; font-family: 'Roboto', sans-serif; }
 body { line-height:1.6; color:#333; scroll-behavior:smooth; }
 a { text-decoration:none; color:inherit; }
 
-/* ===== Header ===== */
 header { background:#222; color:#fff; padding:20px 0; position:sticky; top:0; z-index:1000; }
 .container { width:90%; max-width:1200px; margin:0 auto; }
 nav { display:flex; justify-content:space-between; align-items:center; }
@@ -25,19 +23,16 @@ nav a { color:#fff; font-weight:500; transition:0.3s; }
 nav a:hover { color:#f39c12; }
 .menu-toggle { display:none; cursor:pointer; font-size:1.5em; color:#fff; }
 
-/* ===== Banner ===== */
-.banner { background:url('https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080') no-repeat center center/cover; height:90vh; display:flex; justify-content:center; align-items:center; color:#fff; text-align:center; position:relative; }
-.banner h1 { font-size:3em; margin-bottom:20px; text-shadow: 2px 2px 5px #000; animation: fadeInDown 1s ease-in; }
-.banner a { background:#f39c12; color:#fff; padding:15px 30px; border-radius:5px; font-weight:bold; transition:0.3s; animation: fadeInUp 1s ease-in; }
+.banner { background:url('https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080&q=80') no-repeat center center/cover; height:90vh; display:flex; justify-content:center; align-items:center; color:#fff; text-align:center; position:relative; }
+.banner h1 { font-size:3em; margin-bottom:20px; text-shadow:2px 2px 5px #000; animation:fadeInDown 1s ease-in; }
+.banner a { background:#f39c12; color:#fff; padding:15px 30px; border-radius:5px; font-weight:bold; transition:0.3s; animation:fadeInUp 1s ease-in; }
 .banner a:hover { background:#e67e22; }
 @keyframes fadeInDown { from {opacity:0; transform:translateY(-50px);} to {opacity:1; transform:translateY(0);} }
 @keyframes fadeInUp { from {opacity:0; transform:translateY(50px);} to {opacity:1; transform:translateY(0);} }
 
-/* ===== Sections ===== */
 section { padding:60px 0; }
 h2 { text-align:center; margin-bottom:40px; font-size:2.5em; color:#222; }
 
-/* ===== Services ===== */
 .services { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
 .service { flex:1 1 250px; background:#f4f4f4; padding:20px; border-radius:10px; text-align:center; transition:0.3s; opacity:0; transform:translateY(30px); }
 .service.show { opacity:1; transform:translateY(0); transition:0.6s; }
@@ -48,7 +43,6 @@ h2 { text-align:center; margin-bottom:40px; font-size:2.5em; color:#222; }
 .bonus p { margin:5px 0; color:#f39c12; }
 .service-price { font-weight:bold; color:#222; margin-top:10px; font-size:1.1em; }
 
-/* ===== Khlfiya / Pourquoi nous choisir ===== */
 .features { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
 .feature { flex:1 1 220px; background:#f4f4f4; padding:25px; border-radius:15px; text-align:center; transition:0.3s; opacity:0; transform:translateY(30px); }
 .feature.show { opacity:1; transform:translateY(0); }
@@ -56,37 +50,30 @@ h2 { text-align:center; margin-bottom:40px; font-size:2.5em; color:#222; }
 .feature h3 { color:#f39c12; margin-bottom:10px; }
 .feature p { font-size:0.95em; }
 
-/* ===== Galerie ===== */
 .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; }
 .gallery img { width:100%; border-radius:10px; transition:0.3s; }
 .gallery img:hover { transform:scale(1.05); }
 
-/* ===== Contact ===== */
 .contact form { max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:15px; }
 .contact input, .contact textarea, .contact select { padding:10px; border-radius:5px; border:1px solid #ccc; width:100%; }
 .contact button { padding:15px; border:none; border-radius:5px; background:#f39c12; color:#fff; font-weight:bold; cursor:pointer; transition:0.3s; }
 .contact button:hover { background:#e67e22; }
 
-/* ===== Avis Clients ===== */
 .testimonials { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
 .testimonial { background:#f4f4f4; padding:20px; border-radius:10px; max-width:300px; text-align:center; opacity:0; transform:translateY(30px); transition:0.6s; }
 .testimonial.show { opacity:1; transform:translateY(0); }
 .testimonial p { font-style:italic; margin-bottom:10px; }
 .testimonial h4 { color:#f39c12; }
 
-/* ===== Localisation ===== */
 .map-container { margin:40px auto; max-width:800px; border-radius:10px; overflow:hidden; }
 
-/* ===== Footer ===== */
 footer { background:#222; color:#fff; padding:30px 0; text-align:center; position:relative; }
 footer a { color:#f39c12; margin:0 10px; }
 
-/* ===== Réseaux flottants ===== */
 .social-floating { position:fixed; top:50%; right:0; transform:translateY(-50%); display:flex; flex-direction:column; }
 .social-floating a { background:#f39c12; color:#fff; padding:10px 15px; margin:5px 0; border-radius:5px 0 0 5px; transition:0.3s; text-align:center; }
 .social-floating a:hover { background:#e67e22; }
 
-/* ===== Responsive ===== */
 @media(max-width:768px) {
     nav ul { flex-direction:column; background:#222; position:absolute; top:60px; right:0; width:200px; display:none; }
     nav ul.show { display:flex; }
@@ -98,7 +85,6 @@ footer a { color:#f39c12; margin:0 10px; }
 </head>
 <body>
 
-<!-- ===== Header ===== -->
 <header>
     <div class="container">
         <nav>
@@ -117,7 +103,6 @@ footer a { color:#f39c12; margin:0 10px; }
     </div>
 </header>
 
-<!-- ===== Banner ===== -->
 <section class="banner" id="accueil">
     <div>
         <h1>Votre style, notre passion</h1>
@@ -125,59 +110,57 @@ footer a { color:#f39c12; margin:0 10px; }
     </div>
 </section>
 
-<!-- ===== Services ===== -->
 <section id="services">
-    <div class="container">
-        <h2>Nos Services</h2>
-        <div class="services">
-            <div class="service">
-                <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coupe Classique">
-                <h3>Coupe Classique</h3>
-                <p>Une coupe parfaite adaptée à votre style, réalisée par nos coiffeurs expérimentés.</p>
-                <div class="bonus">
-                    <p>✔ Coupe personnalisée</p>
-                    <p>✔ Conseils pour votre style</p>
-                    <p>✔ Coiffage inclus</p>
-                </div>
-                <div class="service-price">120 MAD</div>
-            </div>
-            <div class="service">
-                <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Rasage & Barbe">
-                <h3>Rasage & Barbe</h3>
-                <p>Soins de barbe et rasage précis pour un look élégant et net.</p>
-                <div class="bonus">
-                    <p>✔ Rasage traditionnel</p>
-                    <p>✔ Soin barbe</p>
-                    <p>✔ Conseils entretien</p>
-                </div>
-                <div class="service-price">80 MAD</div>
-            </div>
-            <div class="service">
-                <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coloration & Soin">
-                <h3>Coloration & Soin</h3>
-                <p>Coloration moderne et soins capillaires pour garder vos cheveux en pleine santé.</p>
-                <div class="bonus">
-                    <p>✔ Coloration tendance</p>
-                    <p>✔ Protection cheveux</p>
-                    <p>✔ Hydratation incluse</p>
-                </div>
-                <div class="service-price">200 MAD</div>
-            </div>
-            <div class="service">
-                <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Massage cuir chevelu">
-                <h3>Massage du cuir chevelu</h3>
-                <p>Relaxation et stimulation pour favoriser la croissance et la santé des cheveux.</p>
-                <div class="bonus">
-                    <p>✔ Détente totale</p>
-                    <p>✔ Stimulation du cuir chevelu</p>
-                </div>
-                <div class="service-price">100 MAD</div>
-            </div>
+  <div class="container">
+    <h2>Nos Services</h2>
+    <div class="services">
+      <div class="service">
+        <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coupe Classique">
+        <h3>Coupe Classique</h3>
+        <p>Une coupe parfaite adaptée à votre style, réalisée par nos coiffeurs expérimentés.</p>
+        <div class="bonus">
+          <p>✔ Coupe personnalisée</p>
+          <p>✔ Conseils pour votre style</p>
+          <p>✔ Coiffage inclus</p>
         </div>
+        <div class="service-price">120 MAD</div>
+      </div>
+      <div class="service">
+        <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Rasage & Barbe">
+        <h3>Rasage & Barbe</h3>
+        <p>Soins de barbe et rasage précis pour un look élégant et net.</p>
+        <div class="bonus">
+          <p>✔ Rasage traditionnel</p>
+          <p>✔ Soin barbe</p>
+          <p>✔ Conseils entretien</p>
+        </div>
+        <div class="service-price">80 MAD</div>
+      </div>
+      <div class="service">
+        <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coloration & Soin">
+        <h3>Coloration & Soin</h3>
+        <p>Coloration moderne et soins capillaires pour garder vos cheveux en pleine santé.</p>
+        <div class="bonus">
+          <p>✔ Coloration tendance</p>
+          <p>✔ Protection cheveux</p>
+          <p>✔ Hydratation incluse</p>
+        </div>
+        <div class="service-price">200 MAD</div>
+      </div>
+      <div class="service">
+        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Massage cuir chevelu">
+        <h3>Massage du cuir chevelu</h3>
+        <p>Relaxation et stimulation pour favoriser la croissance et la santé des cheveux.</p>
+        <div class="bonus">
+          <p>✔ Détente totale</p>
+          <p>✔ Stimulation du cuir chevelu</p>
+        </div>
+        <div class="service-price">100 MAD</div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ===== Khlfiya / Pourquoi nous choisir ===== -->
 <section id="khlfiya">
   <div class="container">
     <h2>Pourquoi choisir Salon Souhail ?</h2>
@@ -206,100 +189,90 @@ footer a { color:#f39c12; margin:0 10px; }
   </div>
 </section>
 
-<!-- ===== Galerie ===== -->
 <section id="galerie">
-    <div class="container">
-        <h2>Galerie</h2>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1592338034315-4c00ec02c857?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 1">
-            <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 2">
-            <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 3">
-            <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 4">
-        </div>
+  <div class="container">
+    <h2>Galerie</h2>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1592338034315-4c00ec02c857?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 1">
+      <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 2">
+      <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 3">
+      <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 4">
+      <img src="https://images.unsplash.com/photo-1591363600731-8e3c68c2101f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 5">
+      <img src="https://images.unsplash.com/photo-1573164574237-73c6d0f36f6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Salon 6">
     </div>
+  </div>
 </section>
 
-<!-- ===== Avis Clients ===== -->
 <section id="avis">
-    <div class="container">
-        <h2>Avis Clients</h2>
-        <div class="testimonials">
-            <div class="testimonial">
-                <p>"Excellent service ! Mon style n’a jamais été aussi parfait."</p>
-                <h4>— Ahmed</h4>
-            </div>
-            <div class="testimonial">
-                <p>"Equipe très professionnelle et ambiance chaleureuse."</p>
-                <h4>— Karim</h4>
-            </div>
-            <div class="testimonial">
-                <p>"Je recommande vivement ce salon pour les hommes modernes."</p>
-                <h4>— Youssef</h4>
-            </div>
-        </div>
+  <div class="container">
+    <h2>Avis Clients</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"Excellent service ! Mon style n’a jamais été aussi parfait."</p>
+        <h4>— Ahmed</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Equipe très professionnelle et ambiance chaleureuse."</p>
+        <h4>— Karim</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Je recommande vivement ce salon pour les hommes modernes."</p>
+        <h4>— Youssef</h4>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ===== Contact / Rendez-vous ===== -->
 <section id="contact">
-    <div class="container">
-        <h2>Prendre Rendez-vous</h2>
-        <div class="contact">
-            <form onsubmit="alert('Merci ! Votre rendez-vous a été enregistré.'); return false;">
-                <input type="text" name="nom" placeholder="Votre nom" required>
-                <input type="email" name="email" placeholder="Votre email" required>
-                <input type="date" name="date" required>
-                <input type="time" name="heure" required>
-                <textarea name="message" placeholder="Votre message" rows="4"></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-            <a href="https://wa.me/212600000000" target="_blank" style="display:inline-block; margin-top:10px; background:#25D366; color:white; padding:10px 20px; border-radius:5px;">WhatsApp Direct</a>
-        </div>
+  <div class="container">
+    <h2>Prendre Rendez-vous</h2>
+    <div class="contact">
+      <form onsubmit="alert('Merci ! Votre rendez-vous a été enregistré.'); return false;">
+        <input type="text" name="nom" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <input type="date" name="date" required>
+        <input type="time" name="heure" required>
+        <textarea name="message" placeholder="Votre message" rows="4"></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+      <a href="https://wa.me/212600000000" target="_blank" style="display:inline-block; margin-top:10px; background:#25D366; color:white; padding:10px 20px; border-radius:5px;">WhatsApp Direct</a>
     </div>
+  </div>
 </section>
 
-<!-- ===== Localisation ===== -->
 <section id="localisation">
-    <div class="container">
-        <h2>Localisation</h2>
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps?q=Said+Hajji+Salé&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
+  <div class="container">
+    <h2>Localisation</h2>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps?q=Said+Hajji+Salé&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
+  </div>
 </section>
 
-<!-- ===== Footer ===== -->
 <footer>
-    <p>© 2026 Salon Souhail. Tous droits réservés.</p>
-    <div>
-        <a href="#">Instagram</a> | 
-        <a href="#">Facebook</a> | 
-        <a href="#">WhatsApp</a>
-    </div>
+  <p>© 2026 Salon Souhail. Tous droits réservés.</p>
+  <div>
+    <a href="https://instagram.com/toncompteinsta" target="_blank">Instagram</a> | 
+    <a href="https://facebook.com/toncomptefacebook" target="_blank">Facebook</a> | 
+    <a href="tel:+212600000000">Téléphone</a>
+  </div>
 </footer>
 
-<!-- ===== Réseaux flottants ===== -->
 <div class="social-floating">
-    <a href="#">IG</a>
-    <a href="#">FB</a>
-    <a href="#">WA</a>
+  <a href="https://instagram.com/toncompteinsta" target="_blank">IG</a>
+  <a href="https://facebook.com/toncomptefacebook" target="_blank">FB</a>
+  <a href="https://wa.me/212600000000" target="_blank">WA</a>
 </div>
 
 <script>
-// Menu toggle mobile
 const toggle = document.querySelector('.menu-toggle');
 const menu = document.querySelector('nav ul');
 toggle.addEventListener('click', () => { menu.classList.toggle('show'); });
 
-// Animation services, features & testimonials
 function revealElements() {
     const elements = document.querySelectorAll('.service, .feature, .testimonial');
     const triggerBottom = window.innerHeight * 0.9;
-
-    elements.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if(top < triggerBottom){ el.classList.add('show'); }
-    });
+    elements.forEach(el => { if(el.getBoundingClientRect().top < triggerBottom){ el.classList.add('show'); }});
 }
 window.addEventListener('scroll', revealElements);
 window.addEventListener('load', revealElements);
@@ -307,5 +280,6 @@ window.addEventListener('load', revealElements);
 
 </body>
 </html>
+
 
 

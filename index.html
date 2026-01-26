@@ -17,9 +17,10 @@
         header img { width: 80px; height: 80px; margin-right: 20px; border-radius: 50%; }
         .container { max-width: 1200px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .product { border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; }
+        .product { border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+        .product:hover { transform: scale(1.05); }
         .product img { max-width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
-        .product button { background: #28a745; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+        .product button { background: #28a745; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
         .product button:hover { background: #218838; }
         .cart { position: fixed; top: 10px; right: 10px; background: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 200px; }
         .cart h3 { margin: 0; }
@@ -33,14 +34,19 @@
         .social a { margin: 0 10px; text-decoration: none; color: #28a745; font-size: 1.5em; }
         .map { margin-top: 20px; }
         .map iframe { width: 100%; height: 300px; border: none; border-radius: 8px; }
+        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+        .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 8px; text-align: center; }
+        .modal-content img { max-width: 100%; height: 300px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close:hover { color: black; }
         footer { text-align: center; padding: 10px; background: #28a745; color: white; margin-top: 20px; }
     </style>
 </head>
 <body>
     <div class="banner">
         <div>
-            <h1>Bienvenue dans notre Hanout !</h1>
-            <p>Vêtements et chaussures de qualité - All your fashion needs!</p>
+            <h1>Bienvenue  !</h1>
+            <p>Vêtements et chaussures de qualité </p>
         </div>
     </div>
 
@@ -62,47 +68,47 @@
     <div class="container">
         <h2>Nos Produits - Our Products</h2>
         <div class="products">
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=250&h=200&fit=crop" alt="T-shirt Blanc">
+            <div class="product" onclick="openModal('T-shirt Blanc', 'T-shirt en coton 100% bio, confortable et durable. Disponible en plusieurs tailles.', 80, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=250&h=200&fit=crop" alt="T-shirt Blanc">
                 <h3>T-shirt Blanc</h3>
                 <p>T-shirt en coton confortable.</p>
                 <p>Prix : 80 MAD</p>
-                <button onclick="addToCart('T-shirt Blanc', 80)">Ajouter au panier</button>
+                <button onclick="addToCart('T-shirt Blanc', 80); event.stopPropagation();">Ajouter au panier</button>
             </div>
-            <div class="product">
+            <div class="product" onclick="openModal('Chaussures de Sport', 'Chaussures légères et respirantes, idéales pour le running et les entraînements quotidiens.', 250, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop')">
                 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="Chaussures de Sport">
                 <h3>Chaussures de Sport</h3>
                 <p>Chaussures confortables pour le sport.</p>
                 <p>Prix : 250 MAD</p>
-                <button onclick="addToCart('Chaussures de Sport', 250)">Ajouter au panier</button>
+                <button onclick="addToCart('Chaussures de Sport', 250); event.stopPropagation();">Ajouter au panier</button>
             </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=250&h=200&fit=crop" alt="Jean Bleu">
+            <div class="product" onclick="openModal('Jean Bleu', 'Jean slim fit en denim de qualité supérieure, résistant et stylé.', 150, 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=250&h=200&fit=crop" alt="Jean Bleu">
                 <h3>Jean Bleu</h3>
                 <p>Jean classique et durable.</p>
                 <p>Prix : 150 MAD</p>
-                <button onclick="addToCart('Jean Bleu', 150)">Ajouter au panier</button>
+                <button onclick="addToCart('Jean Bleu', 150); event.stopPropagation();">Ajouter au panier</button>
             </div>
-            <div class="product">
+            <div class="product" onclick="openModal('Baskets Noires', 'Baskets urbaines en cuir synthétique, confortables pour la ville.', 200, 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop')">
                 <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=250&h=200&fit=crop" alt="Baskets Noires">
                 <h3>Baskets Noires</h3>
                 <p>Baskets élégantes pour tous les jours.</p>
                 <p>Prix : 200 MAD</p>
-                <button onclick="addToCart('Baskets Noires', 200)">Ajouter au panier</button>
+                <button onclick="addToCart('Baskets Noires', 200); event.stopPropagation();">Ajouter au panier</button>
             </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=250&h=200&fit=crop" alt="Robe d'Été">
+            <div class="product" onclick="openModal('Robe d\'Été', 'Robe légère en tissu fluide, parfaite pour les journées chaudes.', 120, 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=250&h=200&fit=crop" alt="Robe d'Été">
                 <h3>Robe d'Été</h3>
                 <p>Robe légère et colorée.</p>
                 <p>Prix : 120 MAD</p>
-                <button onclick="addToCart('Robe d'Été', 120)">Ajouter au panier</button>
+                <button onclick="addToCart('Robe d\'Été', 120); event.stopPropagation();">Ajouter au panier</button>
             </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=250&h=200&fit=crop" alt="Sandales">
+            <div class="product" onclick="openModal('Sandales', 'Sandales en cuir véritable, confortables et résistantes à l\'eau.', 90, 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=250&h=200&fit=crop" alt="Sandales">
                 <h3>Sandales</h3>
                 <p>Sandales confortables pour l'été.</p>
                 <p>Prix : 90 MAD</p>
-                <button onclick="addToCart('Sandales', 90)">Ajouter au panier</button>
+                <button onclick="addToCart('Sandales', 90); event.stopPropagation();">Ajouter au panier</button>
             </div>
             <!-- Ajoutez plus de produits ici -->
         </div>
@@ -110,15 +116,15 @@
         <div class="contact">
             <h2>Contactez-nous</h2>
             <p><strong>Localisation :</strong> Saïdia, Hajji Sale, Maroc</p>
-            <p>Téléphone : +212 6XX XXX XXX (remplace par ton numéro)</p>
-            <p>Email : souhailshop@example.com (remplace par ton email)</p>
-            <p>Adresse : Rue Exemple, Saïdia, Maroc</p>
+            <p>Téléphone : 06 95 97 96 61</p>
+            <p>Email : souhailshop@gmail.com</p>
+            <p>Adresse : av hay amal sale</p>
             <div class="map">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.123456789012!2d-2.3000!3d35.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b1b1b1b1b1b1b%3A0x123456789abcdef!2sSa%C3%ADdia%2C%20Maroc!5e0!3m2!1sfr!2sma!4v1690000000000!5m2!1sfr!2sma" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="social">
-                <a href="https://www.instagram.com/toncompte" target="_blank">📷 Instagram</a>
-                <a href="https://wa.me/2126XXXXXXX" target="_blank">💬 WhatsApp</a>
+                <a href="https://www.instagram.com/souhailshop_1 target="_blank">📷 Instagram</a>
+                <a href="https://wa.me/06 95 97 96 61 target="_blank">💬 WhatsApp</a>
                 <a href="https://www.facebook.com/toncompte" target="_blank">📘 Facebook</a>
             </div>
             <form>
@@ -130,12 +136,24 @@
         </div>
     </div>
     
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-img" src="" alt="Produit">
+            <h2 id="modal-title"></h2>
+            <p id="modal-desc"></p>
+            <p>Prix : <span id="modal-price"></span> MAD</p>
+            <button onclick="addToCartFromModal()">Ajouter au panier</button>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2023 Boutique Souhail. Tous droits réservés.</p>
     </footer>
 
     <script>
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentProduct = {};
         updateCart();
 
         function addToCart(name, price) {
@@ -161,6 +179,30 @@
             cart = [];
             localStorage.removeItem('cart');
             updateCart();
+        }
+
+        function openModal(name, desc, price, img) {
+            currentProduct = { name, desc, price, img };
+            document.getElementById('modal-title').textContent = name;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-img').src = img;
+            document.getElementById('myModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        function addToCartFromModal() {
+            addToCart(currentProduct.name, currentProduct.price);
+            closeModal();
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('myModal')) {
+                closeModal();
+            }
         }
     </script>
 </body>

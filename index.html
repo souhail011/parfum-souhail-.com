@@ -4,227 +4,203 @@
 </body>
 </html><!DOCTYPE html>
 <html lang="fr">
-
-<!DOCTYPE html>
-<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Salon Souhail | Coiffure Homme à Salé</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#f4f4f4;
-  color:#333;
+:root {
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+  --card-bg: #fff;
+  --card-shadow: rgba(0,0,0,.15);
+  --btn-bg: #000;
+  --btn-color: #fff;
+  --header-gradient: rgba(0,0,0,.7), rgba(0,0,0,.7);
 }
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
+body{background:var(--bg-color);color:var(--text-color);}
 header{
-  background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
-  url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70");
-  background-size:cover;
-  background-position:center;
-  color:#fff;
-  text-align:center;
-  padding:100px 20px;
+  background:linear-gradient(var(--header-gradient)),
+  url("https://images.unsplash.com/photo-1595475884562-073c30d45670?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;background-position:center;
+  text-align:center;color:#fff;padding:120px 20px;position:relative;overflow:hidden;transition:background-position 0.3s;
 }
-header h1{font-size:50px;margin-bottom:10px}
-header p{font-size:18px}
+header h1, header p{opacity:0;transform:translateY(30px);transition:all 1s ease;}
+header.show-text h1, header.show-text p{opacity:1;transform:translateY(0);}
+#theme-toggle{position:absolute;top:20px;right:20px;padding:10px 20px;background:#000;color:#fff;border:none;border-radius:8px;cursor:pointer;transition:0.3s;}
+#theme-toggle:hover{background:#333;}
 
-section{
-  padding:60px 20px;
-  max-width:1100px;
-  margin:auto;
-}
-h2{text-align:center;margin-bottom:40px}
+/* Services Slider */
+.services-slider{display:flex;overflow-x:hidden;gap:20px;scroll-behavior:smooth;position:relative;margin:40px 0;}
+.service-slide{min-width:300px;background:var(--card-bg);padding:20px;border-radius:15px;text-align:center;box-shadow:0 8px 20px var(--card-shadow);cursor:pointer;transition:all 0.5s ease;flex-shrink:0;opacity:0;transform:translateY(50px);}
+.service-slide img{width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:10px;transition:transform 0.4s ease;}
+.service-slide:hover img{transform:scale(1.05);}
+.service-slide:hover{box-shadow:0 15px 30px var(--card-shadow);}
+.price{font-size:20px;font-weight:bold;margin-top:5px;color:#000;}
+.slider-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:30px;color:#000;background:#fff;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);z-index:2;}
+#prev{left:-20px;} #next{right:-20px;}
 
-.services,.gallery,.reviews{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-}
-.card{
-  background:#fff;
-  padding:30px;
-  border-radius:15px;
-  text-align:center;
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
-}
-.price{
-  font-size:20px;
-  font-weight:bold;
-  margin-top:10px;
-  color:#000;
-}
+/* Reviews */
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px;}
+.reviews .review{display:flex;flex-direction:column;align-items:center;background:var(--card-bg);padding:20px;border-radius:12px;box-shadow:0 8px 20px var(--card-shadow);opacity:0;transform:translateY(50px);transition:all 0.6s ease;}
+.reviews .review img{width:50px;height:50px;border-radius:50%;margin-bottom:10px;}
+.stars{font-size:20px;margin-bottom:10px;color:#FFD700;letter-spacing:2px;}
 
-.gallery img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:15px;
-}
+/* Contact */
+.contact{background:#111;color:#fff;text-align:center;padding:60px 20px;}
+iframe{width:100%;height:300px;border:0;border-radius:15px;margin-top:30px;}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;width:60px;height:60px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:28px;text-decoration:none;box-shadow:0 5px 15px rgba(0,0,0,.3);transition:transform 0.3s ease;}
+.whatsapp:hover{transform:scale(1.2);}
 
-form{
-  background:#fff;
-  padding:35px;
-  border-radius:15px;
-  max-width:500px;
-  margin:auto;
-  box-shadow:0 8px 20px rgba(0,0,0,.1);
-}
-input,select,button{
-  width:100%;
-  padding:14px;
-  margin-bottom:15px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-family:'Poppins',sans-serif;
-}
-button{
-  background:#000;
-  color:#fff;
-  font-size:16px;
-  border:none;
-  cursor:pointer;
-}
-button:hover{background:#333}
+/* Popup réservation */
+#popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;animation:fadeIn 0.5s;}
+#popup .popup-content{background:#fff;padding:30px;border-radius:15px;max-width:400px;width:90%;position:relative;transform:scale(0.5);animation:popupOpen 0.5s forwards;}
+#popup .close-btn{position:absolute;top:10px;right:15px;font-size:20px;font-weight:bold;cursor:pointer;}
+input,select,button{width:100%;padding:14px;margin-bottom:15px;border-radius:8px;border:1px solid #ccc;font-family:'Poppins',sans-serif;}
+button{background:var(--btn-bg);color:var(--btn-color);font-size:16px;border:none;cursor:pointer;transition:0.3s;}
+button:hover{background:#333;}
 
-.review{
-  font-style:italic;
-}
-
-.contact{
-  background:#111;
-  color:#fff;
-  text-align:center;
-  padding:60px 20px;
-}
-
-iframe{
-  width:100%;
-  height:300px;
-  border:0;
-  border-radius:15px;
-  margin-top:30px;
-}
-
-.whatsapp{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#25D366;
-  color:#fff;
-  width:60px;
-  height:60px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  font-size:28px;
-  text-decoration:none;
-  box-shadow:0 5px 15px rgba(0,0,0,.3);
-}
-
-footer{
-  background:#000;
-  color:#fff;
-  text-align:center;
-  padding:20px;
-}
+/* Animations */
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes popupOpen{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+.show-on-scroll{opacity:1 !important;transform:translateY(0) !important;}
 </style>
 </head>
-
 <body>
 
-<header>
+<header id="header">
   <h1>Salon Souhail</h1>
   <p>Salon de coiffure pour hommes à Salé</p>
   <p>Coupe moderne • Barbe • Soins premium</p>
+  <button id="theme-toggle">Changer le thème</button>
 </header>
 
 <section>
 <h2>Nos Services & Prix</h2>
-<div class="services">
-  <div class="card"><h3>Coupe classique</h3><p class="price">20 DH</p></div>
-  <div class="card"><h3>Coupe moderne / Dégradé</h3><p class="price">30 DH</p></div>
-  <div class="card"><h3>Taille de barbe</h3><p class="price">15 DH</p></div>
-  <div class="card"><h3>Coupe + Barbe</h3><p class="price">40 DH</p></div>
-  <div class="card"><h3>Soins cheveux</h3><p class="price">20 DH</p></div>
-  <div class="card"><h3>Nettoyage visage</h3><p class="price">15 DH</p></div>
+<div class="services-slider" id="servicesSlider">
+  <div class="service-slide" data-service="Coupe classique">
+    <img src="https://images.pexels.com/photos/3992873/pexels-photo-3992873.jpeg" alt="Coupe classique">
+    <h3>Coupe classique</h3>
+    <p class="price">20 DH</p>
+  </div>
+  <div class="service-slide" data-service="Coupe moderne / Dégradé">
+    <img src="https://images.pexels.com/photos/3992874/pexels-photo-3992874.jpeg" alt="Coupe moderne">
+    <h3>Coupe moderne / Dégradé</h3>
+    <p class="price">30 DH</p>
+  </div>
+  <div class="service-slide" data-service="Taille de barbe">
+    <img src="https://images.pexels.com/photos/3992876/pexels-photo-3992876.jpeg" alt="Barbe">
+    <h3>Taille de barbe</h3>
+    <p class="price">15 DH</p>
+  </div>
+  <div class="service-slide" data-service="Coupe + Barbe">
+    <img src="https://images.pexels.com/photos/3992880/pexels-photo-3992880.jpeg" alt="Coupe + Barbe">
+    <h3>Coupe + Barbe</h3>
+    <p class="price">40 DH</p>
+  </div>
 </div>
-</section>
-
-<section>
-<h2>Galerie</h2>
-<div class="gallery">
-  <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033">
-  <img src="https://images.unsplash.com/photo-1599351431613-18ef1fdd27e1">
-  
-</div>
-</section>
-
-<section>
-<h2>Réservation (WhatsApp)</h2>
-<form onsubmit="sendWhatsApp(); return false;">
-  <input id="name" placeholder="Nom complet" required>
-  <input id="phone" placeholder="Téléphone" required>
-  <select id="service">
-    <option>Coupe classique</option>
-    <option>Coupe moderne</option>
-    <option>Barbe</option>
-    <option>Coupe + Barbe</option>
-  </select>
-  <input id="date" type="date" required>
-  <button>Réserver sur WhatsApp</button>
-</form>
+<div id="prev" class="slider-nav">&#10094;</div>
+<div id="next" class="slider-nav">&#10095;</div>
 </section>
 
 <section>
 <h2>Avis Clients</h2>
 <div class="reviews">
-  <div class="card review">⭐️⭐️⭐️⭐️<br>Service propre et rapide 👌</div>
-  <div class="card review">⭐️⭐️⭐️⭐️⭐️<br>Meilleur salon à Salé 💯</div>
-  <div class="card review">⭐️⭐️⭐️⭐️<br>Très professionnel et accueillant</div>
+  <div class="review"><img src="https://randomuser.me/api/portraits/men/32.jpg"><div class="stars" data-stars="5">☆☆☆☆☆</div><p>"Service rapide et propre, équipe très sympa!" – Youssef</p></div>
+  <div class="review"><img src="https://randomuser.me/api/portraits/men/45.jpg"><div class="stars" data-stars="5">☆☆☆☆☆</div><p>"Super ambiance et très bon rapport qualité/prix." – Karim</p></div>
+  <div class="review"><img src="https://randomuser.me/api/portraits/men/56.jpg"><div class="stars" data-stars="5">☆☆☆☆☆</div><p>"Je recommande pour les coupes modernes et barbe." – Mehdi</p></div>
 </div>
 </section>
 
 <section class="contact">
 <h2>Contact & Localisation</h2>
 <p>📍 Salé, Maroc</p>
-<p>📞 06 95 97 96 61</p>
+<p>📞 06 XX XX XX XX</p>
 <p>🕒 09h – 22h | 7j/7</p>
-
-<iframe 
-src="https://www.google.com/maps?q=Salé&output=embed">
-</iframe>
-
+<iframe src="https://www.google.com/maps?q=Salé&output=embed"></iframe>
 <p>📸 Instagram : @salonsouhail</p>
 </section>
 
 <a class="whatsapp" href="https://wa.me/2126XXXXXXXX" target="_blank">💬</a>
 
-<footer>
-© 2026 Salon Souhail – Tous droits réservés
-</footer>
+<div id="popup">
+  <div class="popup-content">
+    <span class="close-btn" id="closePopup">&times;</span>
+    <h3>Réserver ce service</h3>
+    <input id="popupName" placeholder="Nom complet" required>
+    <input id="popupPhone" placeholder="Téléphone" required>
+    <input id="popupDate" type="date" required>
+    <button id="popupReserve">Réserver sur WhatsApp</button>
+  </div>
+</div>
+
+<footer>© 2026 Salon Souhail – Tous droits réservés</footer>
 
 <script>
-function sendWhatsApp(){
-  var name=document.getElementById("name").value;
-  var phone=document.getElementById("phone").value;
-  var service=document.getElementById("service").value;
-  var date=document.getElementById("date").value;
+// Header animation
+window.addEventListener('load',()=>{document.getElementById('header').classList.add('show-text');});
 
-  var message="Bonjour, je souhaite réserver:%0A"
-  +"Nom: "+name+"%0A"
-  +"Téléphone: "+phone+"%0A"
-  +"Service: "+service+"%0A"
-  +"Date: "+date;
+// Parallax header
+window.addEventListener('scroll',()=>{document.getElementById('header').style.backgroundPositionY = window.scrollY*0.5 + "px";});
 
-  window.open("https://wa.me/2126XXXXXXXX?text="+message,"_blank");
+// Theme toggle
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  const r=document.documentElement;
+  if(r.style.getPropertyValue('--bg-color')=='#f4f4f4'){
+    r.style.setProperty('--bg-color','#111'); r.style.setProperty('--text-color','#f4f4f4');
+    r.style.setProperty('--card-bg','#1a1a1a'); r.style.setProperty('--card-shadow','rgba(255,215,0,.3)');
+    r.style.setProperty('--btn-bg','#d4af37'); r.style.setProperty('--btn-color','#111');
+  }else{
+    r.style.setProperty('--bg-color','#f4f4f4'); r.style.setProperty('--text-color','#333');
+    r.style.setProperty('--card-bg','#fff'); r.style.setProperty('--card-shadow','rgba(0,0,0,.15)');
+    r.style.setProperty('--btn-bg','#000'); r.style.setProperty('--btn-color','#fff');
+  }
+});
+
+// Scroll animations
+function scrollAnimation(){
+  document.querySelectorAll('.service-slide, .review').forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 100){el.classList.add('show-on-scroll'); fillStars(el);}
+  });
 }
-</script>
+function fillStars(el){
+  const stars=el.querySelector('.stars');
+  if(!stars) return;
+  const count=parseInt(stars.getAttribute('data-stars'));
+  let i=0;
+  const interval=setInterval(()=>{i++; stars.textContent='★'.repeat(i)+'☆'.repeat(count-i); if(i>=count) clearInterval(interval);},150);
+}
+window.addEventListener('scroll',scrollAnimation);
+window.addEventListener('load',scrollAnimation);
 
+// Slider services auto
+const slider=document.getElementById('servicesSlider');
+function slideLeft(){slider.scrollBy({left:-320,behavior:'smooth'});}
+function slideRight(){slider.scrollBy({left:320,behavior:'smooth'});}
+document.getElementById('prev').addEventListener('click',slideLeft);
+document.getElementById('next').addEventListener('click',slideRight);
+setInterval(slideRight,5000);
+
+// Popup réservation
+const popup=document.getElementById('popup');
+const closePopup=document.getElementById('closePopup');
+const reserveBtn=document.getElementById('popupReserve');
+let selectedService='';
+document.querySelectorAll('.service-slide').forEach(slide=>{
+  slide.addEventListener('click',()=>{selectedService=slide.getAttribute('data-service'); popup.style.display='flex';});
+});
+closePopup.addEventListener('click',()=>{popup.style.display='none';});
+reserveBtn.addEventListener('click',()=>{
+  const name=document.getElementById('popupName').value;
+  const phone=document.getElementById('popupPhone').value;
+  const date=document.getElementById('popupDate').value;
+  if(!name || !phone || !date){alert('Remplissez tous les champs');return;}
+  const message=`Bonjour, je souhaite réserver:%0ANom: ${name}%0ATéléphone: ${phone}%0AService: ${selectedService}%0ADate: ${date}`;
+  window.open("https://wa.me/2126XXXXXXXX?text="+message,"_blank");
+});
+</script>
 </body>
 </html>

@@ -44,6 +44,17 @@ h2 { text-align:center; margin-bottom:40px; font-size:2.5em; color:#222; }
 .service img { width:100%; border-radius:10px; margin-bottom:15px; }
 .service h3 { margin-bottom:10px; color:#f39c12; }
 .service p { font-size:0.95em; }
+/* ===== Bonus services (latmina) ===== */
+.bonus { margin-top:15px; background:#fff3e0; padding:10px; border-radius:8px; font-size:0.9em; }
+.bonus p { margin:5px 0; color:#f39c12; }
+
+/* ===== Khlfiya / Pourquoi nous choisir ===== */
+.features { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
+.feature { flex:1 1 220px; background:#f4f4f4; padding:25px; border-radius:15px; text-align:center; transition:0.3s; opacity:0; transform:translateY(30px); }
+.feature.show { opacity:1; transform:translateY(0); }
+.feature img { width:80px; margin-bottom:15px; }
+.feature h3 { color:#f39c12; margin-bottom:10px; }
+.feature p { font-size:0.95em; }
 
 /* ===== Galerie ===== */
 .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; }
@@ -93,6 +104,7 @@ footer a { color:#f39c12; margin:0 10px; }
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#khlfiya">Pourquoi nous choisir</a></li>
                 <li><a href="#galerie">Galerie</a></li>
                 <li><a href="#avis">Avis</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -118,19 +130,63 @@ footer a { color:#f39c12; margin:0 10px; }
                 <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coupe">
                 <h3>Coupe Classique</h3>
                 <p>Une coupe parfaite adaptée à votre style, réalisée par nos coiffeurs expérimentés.</p>
+                <div class="bonus">
+                    <p>✔ Coupe personnalisée</p>
+                    <p>✔ Conseils pour votre style</p>
+                    <p>✔ Coiffage inclus</p>
+                </div>
             </div>
             <div class="service">
                 <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Rasage">
                 <h3>Rasage & Barbe</h3>
                 <p>Soins de barbe et rasage précis pour un look élégant et net.</p>
+                <div class="bonus">
+                    <p>✔ Rasage traditionnel</p>
+                    <p>✔ Soin barbe</p>
+                    <p>✔ Conseils entretien</p>
+                </div>
             </div>
             <div class="service">
                 <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coloration">
                 <h3>Coloration & Soin</h3>
                 <p>Coloration moderne et soins capillaires pour garder vos cheveux en pleine santé.</p>
+                <div class="bonus">
+                    <p>✔ Coloration tendance</p>
+                    <p>✔ Protection cheveux</p>
+                    <p>✔ Hydratation incluse</p>
+                </div>
             </div>
         </div>
     </div>
+</section>
+
+<!-- ===== Khlfiya / Pourquoi nous choisir ===== -->
+<section id="khlfiya">
+  <div class="container">
+    <h2>Pourquoi choisir Salon Souhail ?</h2>
+    <div class="features">
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/000000/hair-salon.png" alt="Professionnels">
+        <h3>Coiffeurs Professionnels</h3>
+        <p>Une équipe expérimentée pour un style impeccable et moderne.</p>
+      </div>
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/000000/hair-dryer.png" alt="Produits">
+        <h3>Produits de Qualité</h3>
+        <p>Nous utilisons uniquement des produits premium pour vos cheveux.</p>
+      </div>
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/000000/clock--v1.png" alt="Ponctualité">
+        <h3>Ponctualité</h3>
+        <p>Nous respectons votre temps et vos rendez-vous à la minute près.</p>
+      </div>
+      <div class="feature">
+        <img src="https://img.icons8.com/color/96/000000/smile.png" alt="Ambiance">
+        <h3>Ambiance Chaleureuse</h3>
+        <p>Un environnement agréable pour vous détendre pendant votre coupe.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== Galerie ===== -->
@@ -207,17 +263,12 @@ const toggle = document.querySelector('.menu-toggle');
 const menu = document.querySelector('nav ul');
 toggle.addEventListener('click', () => { menu.classList.toggle('show'); });
 
-// Animation services & testimonials
+// Animation services, features & testimonials
 function revealElements() {
-    const services = document.querySelectorAll('.service');
-    const testimonials = document.querySelectorAll('.testimonial');
+    const elements = document.querySelectorAll('.service, .feature, .testimonial');
     const triggerBottom = window.innerHeight * 0.9;
 
-    services.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if(top < triggerBottom){ el.classList.add('show'); }
-    });
-    testimonials.forEach(el => {
+    elements.forEach(el => {
         const top = el.getBoundingClientRect().top;
         if(top < triggerBottom){ el.classList.add('show'); }
     });

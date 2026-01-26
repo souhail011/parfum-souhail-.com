@@ -44,9 +44,9 @@ h2 { text-align:center; margin-bottom:40px; font-size:2.5em; color:#222; }
 .service img { width:100%; border-radius:10px; margin-bottom:15px; }
 .service h3 { margin-bottom:10px; color:#f39c12; }
 .service p { font-size:0.95em; }
-/* ===== Bonus services (latmina) ===== */
 .bonus { margin-top:15px; background:#fff3e0; padding:10px; border-radius:8px; font-size:0.9em; }
 .bonus p { margin:5px 0; color:#f39c12; }
+.service-price { font-weight:bold; color:#222; margin-top:10px; font-size:1.1em; }
 
 /* ===== Khlfiya / Pourquoi nous choisir ===== */
 .features { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
@@ -73,6 +73,9 @@ h2 { text-align:center; margin-bottom:40px; font-size:2.5em; color:#222; }
 .testimonial.show { opacity:1; transform:translateY(0); }
 .testimonial p { font-style:italic; margin-bottom:10px; }
 .testimonial h4 { color:#f39c12; }
+
+/* ===== Localisation ===== */
+.map-container { margin:40px auto; max-width:800px; border-radius:10px; overflow:hidden; }
 
 /* ===== Footer ===== */
 footer { background:#222; color:#fff; padding:30px 0; text-align:center; position:relative; }
@@ -108,6 +111,7 @@ footer a { color:#f39c12; margin:0 10px; }
                 <li><a href="#galerie">Galerie</a></li>
                 <li><a href="#avis">Avis</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="#localisation">Localisation</a></li>
             </ul>
         </nav>
     </div>
@@ -127,7 +131,7 @@ footer a { color:#f39c12; margin:0 10px; }
         <h2>Nos Services</h2>
         <div class="services">
             <div class="service">
-                <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coupe">
+                <img src="https://images.unsplash.com/photo-1590080875790-c30c2f2745f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coupe Classique">
                 <h3>Coupe Classique</h3>
                 <p>Une coupe parfaite adaptée à votre style, réalisée par nos coiffeurs expérimentés.</p>
                 <div class="bonus">
@@ -135,9 +139,10 @@ footer a { color:#f39c12; margin:0 10px; }
                     <p>✔ Conseils pour votre style</p>
                     <p>✔ Coiffage inclus</p>
                 </div>
+                <div class="service-price">120 MAD</div>
             </div>
             <div class="service">
-                <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Rasage">
+                <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Rasage & Barbe">
                 <h3>Rasage & Barbe</h3>
                 <p>Soins de barbe et rasage précis pour un look élégant et net.</p>
                 <div class="bonus">
@@ -145,9 +150,10 @@ footer a { color:#f39c12; margin:0 10px; }
                     <p>✔ Soin barbe</p>
                     <p>✔ Conseils entretien</p>
                 </div>
+                <div class="service-price">80 MAD</div>
             </div>
             <div class="service">
-                <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coloration">
+                <img src="https://images.unsplash.com/photo-1611580058303-0e923f86b29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Coloration & Soin">
                 <h3>Coloration & Soin</h3>
                 <p>Coloration moderne et soins capillaires pour garder vos cheveux en pleine santé.</p>
                 <div class="bonus">
@@ -155,6 +161,17 @@ footer a { color:#f39c12; margin:0 10px; }
                     <p>✔ Protection cheveux</p>
                     <p>✔ Hydratation incluse</p>
                 </div>
+                <div class="service-price">200 MAD</div>
+            </div>
+            <div class="service">
+                <img src="https://images.unsplash.com/photo-1600185365402-5b9e0e9c2e6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&q=80" alt="Massage cuir chevelu">
+                <h3>Massage du cuir chevelu</h3>
+                <p>Relaxation et stimulation pour favoriser la croissance et la santé des cheveux.</p>
+                <div class="bonus">
+                    <p>✔ Détente totale</p>
+                    <p>✔ Stimulation du cuir chevelu</p>
+                </div>
+                <div class="service-price">100 MAD</div>
             </div>
         </div>
     </div>
@@ -236,6 +253,17 @@ footer a { color:#f39c12; margin:0 10px; }
                 <textarea name="message" placeholder="Votre message" rows="4"></textarea>
                 <button type="submit">Envoyer</button>
             </form>
+            <a href="https://wa.me/212600000000" target="_blank" style="display:inline-block; margin-top:10px; background:#25D366; color:white; padding:10px 20px; border-radius:5px;">WhatsApp Direct</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Localisation ===== -->
+<section id="localisation">
+    <div class="container">
+        <h2>Localisation</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps?q=Said+Hajji+Salé&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
 </section>
@@ -279,3 +307,5 @@ window.addEventListener('load', revealElements);
 
 </body>
 </html>
+
+

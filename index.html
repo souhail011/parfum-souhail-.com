@@ -4,90 +4,227 @@
 </body>
 </html><!DOCTYPE html>
 <html lang="fr">
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
+<title>Salon Souhail | Coiffure Homme à Salé</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salon souhail</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Lato&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
-  /* Reset & Base */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Lato', sans-serif; color: #fff; background-color: #111; }
-  a { text-decoration: none; color: inherit; }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#f4f4f4;
+  color:#333;
+}
+header{
+  background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+  url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70");
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+  text-align:center;
+  padding:100px 20px;
+}
+header h1{font-size:50px;margin-bottom:10px}
+header p{font-size:18px}
 
-  /* Header */
-  header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #111; }
-  .logo { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: #d4af37; font-weight: bold; }
-  nav a { margin: 0 1rem; color: #fff; font-weight: 500; transition: color 0.3s; }
-  nav a:hover { color: #d4af37; }
-  .cta { padding: 0.5rem 1rem; border: 2px solid #d4af37; color: #d4af37; border-radius: 5px; transition: all 0.3s; }
-  .cta:hover { background-color: #d4af37; color: #111; }
+section{
+  padding:60px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+h2{text-align:center;margin-bottom:40px}
 
-  /* Hero */
-  .hero { height: 90vh; background: url('hero-image.jpg') center/cover no-repeat; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3rem; margin-bottom: 1rem; }
-  .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+.services,.gallery,.reviews{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+.card{
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+.price{
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px;
+  color:#000;
+}
 
-  /* Sections */
-  section { padding: 4rem 2rem; }
-  .section-title { font-family: 'Montserrat', sans-serif; font-size: 2rem; margin-bottom: 2rem; color: #d4af37; text-align: center; }
+.gallery img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:15px;
+}
 
-  /* Services */
-  .services { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
-  .service-card { background: #222; padding: 1.5rem; border-radius: 10px; width: 250px; text-align: center; transition: transform 0.3s; }
-  .service-card:hover { transform: translateY(-10px); }
-  .service-card h3 { font-family: 'Montserrat', sans-serif; margin-bottom: 0.5rem; }
-  .service-card p { margin-bottom: 0.5rem; color: #ccc; }
+form{
+  background:#fff;
+  padding:35px;
+  border-radius:15px;
+  max-width:500px;
+  margin:auto;
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+input,select,button{
+  width:100%;
+  padding:14px;
+  margin-bottom:15px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-family:'Poppins',sans-serif;
+}
+button{
+  background:#000;
+  color:#fff;
+  font-size:16px;
+  border:none;
+  cursor:pointer;
+}
+button:hover{background:#333}
 
-  /* Footer */
-  footer { background: #111; text-align: center; padding: 2rem; color: #ccc; font-size: 0.9rem; }
+.review{
+  font-style:italic;
+}
+
+.contact{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:60px 20px;
+}
+
+iframe{
+  width:100%;
+  height:300px;
+  border:0;
+  border-radius:15px;
+  margin-top:30px;
+}
+
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:#fff;
+  width:60px;
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  font-size:28px;
+  text-decoration:none;
+  box-shadow:0 5px 15px rgba(0,0,0,.3);
+}
+
+footer{
+  background:#000;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="logo">Salon souhail</div>
-  <nav>
-    <a href="#services">Services</a>
-    <a href="#gallery">Galerie</a>
-    <a href="#team">Équipe</a>
-    <a href="#testimonials">Témoignages</a>
-    <a href="#contact" class="cta">Prendre rendez-vous</a>
-  </nav>
+  <h1>Salon Souhail</h1>
+  <p>Salon de coiffure pour hommes à Salé</p>
+  <p>Coupe moderne • Barbe • Soins premium</p>
 </header>
 
-<section class="hero">
-  <h1></h1>
-  <p>Des coupes et barbes haut de gamme pour l’homme moderne</p>
-  <a href="#contact" class="cta">Réservez maintenant</a>
+<section>
+<h2>Nos Services & Prix</h2>
+<div class="services">
+  <div class="card"><h3>Coupe classique</h3><p class="price">20 DH</p></div>
+  <div class="card"><h3>Coupe moderne / Dégradé</h3><p class="price">30 DH</p></div>
+  <div class="card"><h3>Taille de barbe</h3><p class="price">15 DH</p></div>
+  <div class="card"><h3>Coupe + Barbe</h3><p class="price">40 DH</p></div>
+  <div class="card"><h3>Soins cheveux</h3><p class="price">20 DH</p></div>
+  <div class="card"><h3>Nettoyage visage</h3><p class="price">15 DH</p></div>
+</div>
 </section>
 
-<section id="services">
-  <h2 class="section-title">Nos Services</h2>
-  <div class="services">
-    <div class="service-card">
-      <h3>Coupe Classique</h3>
-      <p>30dh</p>
-      <p>Une coupe précise et élégante adaptée à votre style.</p>
-    </div>
-    <div class="service-card">
-      <h3>Taille de Barbe</h3>
-      <p>20dh</p>
-      <p>Affinez votre barbe avec soin et professionnalisme.</p>
-    </div>
-    <div class="service-card">
-      <h3>Coloration</h3>
-      <p>100dh</p>
-      <p>Ajoutez de la profondeur et du style à votre chevelure.</p>
-    </div>
-  </div>
+<section>
+<h2>Galerie</h2>
+<div class="gallery">
+  <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033">
+  <img src="https://images.unsplash.com/photo-1599351431613-18ef1fdd27e1">
+  <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438">
+</div>
 </section>
+
+<section>
+<h2>Réservation (WhatsApp)</h2>
+<form onsubmit="sendWhatsApp(); return false;">
+  <input id="name" placeholder="Nom complet" required>
+  <input id="phone" placeholder="Téléphone" required>
+  <select id="service">
+    <option>Coupe classique</option>
+    <option>Coupe moderne</option>
+    <option>Barbe</option>
+    <option>Coupe + Barbe</option>
+  </select>
+  <input id="date" type="date" required>
+  <button>Réserver sur WhatsApp</button>
+</form>
+</section>
+
+<section>
+<h2>Avis Clients</h2>
+<div class="reviews">
+  <div class="card review">⭐️⭐️⭐️⭐️⭐️<br>Service propre et rapide 👌</div>
+  <div class="card review">⭐️⭐️⭐️⭐️⭐️<br>Meilleur salon à Salé 💯</div>
+  <div class="card review">⭐️⭐️⭐️⭐️⭐️<br>Très professionnel et accueillant</div>
+</div>
+</section>
+
+<section class="contact">
+<h2>Contact & Localisation</h2>
+<p>📍 Salé, Maroc</p>
+<p>📞 06 95 97 96 61</p>
+<p>🕒 09h – 22h | 7j/7</p>
+
+<iframe 
+src="https://www.google.com/maps?q=Salé&output=embed">
+</iframe>
+
+<p>📸 Instagram : @salonsouhail</p>
+</section>
+
+<a class="whatsapp" href="https://wa.me/2126XXXXXXXX" target="_blank">💬</a>
 
 <footer>
-  © 2026 Salon Élégance | 123 Rue du Style, Paris | <a href="#">Instagram * shl__0 </a> | <a href="#">Facebook</a>
+© 2026 Salon Souhail – Tous droits réservés
 </footer>
+
+<script>
+function sendWhatsApp(){
+  var name=document.getElementById("name").value;
+  var phone=document.getElementById("phone").value;
+  var service=document.getElementById("service").value;
+  var date=document.getElementById("date").value;
+
+  var message="Bonjour, je souhaite réserver:%0A"
+  +"Nom: "+name+"%0A"
+  +"Téléphone: "+phone+"%0A"
+  +"Service: "+service+"%0A"
+  +"Date: "+date;
+
+  window.open("https://wa.me/2126XXXXXXXX?text="+message,"_blank");
+}
+</script>
 
 </body>
 </html>
-
-

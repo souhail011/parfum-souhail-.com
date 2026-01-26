@@ -10,7 +10,10 @@
     <title>Souhail Shop - Boutique Souhail</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        header { background-color: #007bff; color: white; text-align: center; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .banner { background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=300&fit=crop'); background-size: cover; background-position: center; height: 300px; display: flex; align-items: center; justify-content: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .banner h1 { margin: 0; font-size: 2.5em; }
+        .banner p { margin: 5px 0; font-size: 1.2em; }
+        header { background-color: #28a745; color: white; text-align: center; padding: 20px; display: flex; align-items: center; justify-content: center; }
         header img { width: 80px; height: 80px; margin-right: 20px; border-radius: 50%; }
         .container { max-width: 1200px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
@@ -25,11 +28,22 @@
         .contact { margin-top: 40px; text-align: center; }
         .contact form { max-width: 400px; margin: 0 auto; }
         .contact input, .contact textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-        .contact button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
-        footer { text-align: center; padding: 10px; background: #007bff; color: white; margin-top: 20px; }
+        .contact button { background: #28a745; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+        .social { margin-top: 20px; }
+        .social a { margin: 0 10px; text-decoration: none; color: #28a745; font-size: 1.5em; }
+        .map { margin-top: 20px; }
+        .map iframe { width: 100%; height: 300px; border: none; border-radius: 8px; }
+        footer { text-align: center; padding: 10px; background: #28a745; color: white; margin-top: 20px; }
     </style>
 </head>
 <body>
+    <div class="banner">
+        <div>
+            <h1>Bienvenue dans notre Hanout !</h1>
+            <p>Vêtements et chaussures de qualité - All your fashion needs!</p>
+        </div>
+    </div>
+
     <div class="cart">
         <h3>Panier</h3>
         <ul id="cart-items"></ul>
@@ -41,7 +55,7 @@
         <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Souhail Shop">
         <div>
             <h1>Boutique Souhail - Souhail Shop</h1>
-            <p>Tous vos besoins en produits variés - All your needs in one place!</p>
+            <p>Vêtements et Chaussures - Clothes and Shoes!</p>
         </div>
     </header>
     
@@ -49,32 +63,11 @@
         <h2>Nos Produits - Our Products</h2>
         <div class="products">
             <div class="product">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=250&h=200&fit=crop" alt="Casque Audio">
-                <h3>Casque Audio</h3>
-                <p>Casque sans fil de haute qualité.</p>
-                <p>Prix : 150 MAD</p>
-                <button onclick="addToCart('Casque Audio', 150)">Ajouter au panier</button>
-            </div>
-            <div class="product">
                 <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=250&h=200&fit=crop" alt="T-shirt Blanc">
                 <h3>T-shirt Blanc</h3>
                 <p>T-shirt en coton confortable.</p>
                 <p>Prix : 80 MAD</p>
                 <button onclick="addToCart('T-shirt Blanc', 80)">Ajouter au panier</button>
-            </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=250&h=200&fit=crop" alt="Panier de Fruits">
-                <h3>Panier de Fruits</h3>
-                <p>Fruits frais et bio.</p>
-                <p>Prix : 120 MAD</p>
-                <button onclick="addToCart('Panier de Fruits', 120)">Ajouter au panier</button>
-            </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250&h=200&fit=crop" alt="Montre Classique">
-                <h3>Montre Classique</h3>
-                <p>Montre élégante pour tous les jours.</p>
-                <p>Prix : 200 MAD</p>
-                <button onclick="addToCart('Montre Classique', 200)">Ajouter au panier</button>
             </div>
             <div class="product">
                 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="Chaussures de Sport">
@@ -84,20 +77,50 @@
                 <button onclick="addToCart('Chaussures de Sport', 250)">Ajouter au panier</button>
             </div>
             <div class="product">
-                <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=250&h=200&fit=crop" alt="Livre de Cuisine">
-                <h3>Livre de Cuisine</h3>
-                <p>Recettes marocaines traditionnelles.</p>
-                <p>Prix : 60 MAD</p>
-                <button onclick="addToCart('Livre de Cuisine', 60)">Ajouter au panier</button>
+                <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=250&h=200&fit=crop" alt="Jean Bleu">
+                <h3>Jean Bleu</h3>
+                <p>Jean classique et durable.</p>
+                <p>Prix : 150 MAD</p>
+                <button onclick="addToCart('Jean Bleu', 150)">Ajouter au panier</button>
+            </div>
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=250&h=200&fit=crop" alt="Baskets Noires">
+                <h3>Baskets Noires</h3>
+                <p>Baskets élégantes pour tous les jours.</p>
+                <p>Prix : 200 MAD</p>
+                <button onclick="addToCart('Baskets Noires', 200)">Ajouter au panier</button>
+            </div>
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=250&h=200&fit=crop" alt="Robe d'Été">
+                <h3>Robe d'Été</h3>
+                <p>Robe légère et colorée.</p>
+                <p>Prix : 120 MAD</p>
+                <button onclick="addToCart('Robe d'Été', 120)">Ajouter au panier</button>
+            </div>
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=250&h=200&fit=crop" alt="Sandales">
+                <h3>Sandales</h3>
+                <p>Sandales confortables pour l'été.</p>
+                <p>Prix : 90 MAD</p>
+                <button onclick="addToCart('Sandales', 90)">Ajouter au panier</button>
             </div>
             <!-- Ajoutez plus de produits ici -->
         </div>
 
         <div class="contact">
             <h2>Contactez-nous</h2>
+            <p><strong>Localisation :</strong> Saïdia, Hajji Sale, Maroc</p>
             <p>Téléphone : +212 6XX XXX XXX (remplace par ton numéro)</p>
             <p>Email : souhailshop@example.com (remplace par ton email)</p>
-            <p>Adresse : Rue Exemple, Ville, Maroc</p>
+            <p>Adresse : Rue Exemple, Saïdia, Maroc</p>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.123456789012!2d-2.3000!3d35.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b1b1b1b1b1b1b%3A0x123456789abcdef!2sSa%C3%ADdia%2C%20Maroc!5e0!3m2!1sfr!2sma!4v1690000000000!5m2!1sfr!2sma" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="social">
+                <a href="https://www.instagram.com/toncompte" target="_blank">📷 Instagram</a>
+                <a href="https://wa.me/2126XXXXXXX" target="_blank">💬 WhatsApp</a>
+                <a href="https://www.facebook.com/toncompte" target="_blank">📘 Facebook</a>
+            </div>
             <form>
                 <input type="text" placeholder="Votre nom" required>
                 <input type="email" placeholder="Votre email" required>

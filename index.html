@@ -86,7 +86,7 @@
     <p>© 2026 Nom de l’entreprise - Tous droits réservés</p>
 </footer>
 
-</body><div class="galerie">
+</body>    <div class="galerie">
 
   <div class="produit">
     <div class="image-container">
@@ -94,18 +94,18 @@
       <img src="images/robinet.jpg">
     </div>
 
-    <h2>Robinet Moderne</h2>
-    ⭐⭐⭐⭐☆
-    <p class="prix">350 DH</p>
+          <h2>Robinet Moderne</h2>
+         ⭐⭐⭐⭐☆
+          <p class="prix">350 DH</p>
 
-    <button onclick="addToCart('Robinet Moderne',350)">
-      Ajouter au panier
-    </button>
+          <button onclick="addToCart('Robinet Moderne',350)">
+           Ajouter au panier
+             </button>
 
-    <a class="buy"
-      href="https://wa.me/2126XXXXXXXX?text=Bonjour%20je%20veux%20commander%20le%20Robinet%20Moderne%20%C3%A0%20350%20DH"
-      target="_blank">
-      Commander WhatsApp
+      <a class="buy"
+         href="https://wa.me/2126XXXXXXXX?text=Bonjour%20je%20veux%20commander%20le%20Robinet%20Moderne%20%C3%A0%20350%20DH"
+          target="_blank">
+           Commander WhatsApp
     </a>
 
     <a class="buy"
@@ -118,37 +118,6 @@
 
 </div>
 
-</html>.galerie {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 20px;
-}
-
-.produit {
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  text-align: center;
-}
-
-.image-container {
-  position: relative;
-}
-
-.badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: red;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 20px;
-}
-let count = 0;
-
-function addToCart(name, price) {
-  count++;
-  document.getElementById("count").innerText = count;
-  alert(name + " ajouté au panier : " + price + " DH");
-}
+</html>
+  
 

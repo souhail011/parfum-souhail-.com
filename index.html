@@ -2,111 +2,134 @@
 
 </body 
 </body>
-</html<!DOCTYPE html>
+</html><!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>parfum souhail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Souhail Shop - Boutique Souhail</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: auto; }
-        .story { border: 1px solid #ddd; padding: 10px; margin: 10px 0; background: white; display: flex; }
-        .story img { width: 150px; height: 150px; margin-right: 10px; }
-        .story h3 { margin: 0; }
-        .cart { position: fixed; top: 10px; right: 10px; background: #fff; border: 1px solid #ddd; padding: 10px; width: 200px; }
-        .cart-item { margin: 5px 0; }
-        button { background: #28a745; color: white; border: none; padding: 5px 10px; cursor: pointer; }
-        button:hover { background: #218838; }
-        .search { margin-bottom: 20px; }
-        .search input { padding: 5px; width: 200px; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        .banner { background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=300&fit=crop'); background-size: cover; background-position: center; height: 300px; display: flex; align-items: center; justify-content: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .banner h1 { margin: 0; font-size: 2.5em; }
+        .banner p { margin: 5px 0; font-size: 1.2em; }
+        header { background-color: #007bff; color: white; text-align: center; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        header img { width: 80px; height: 80px; margin-right: 20px; border-radius: 50%; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .product { border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
+        .product:hover { transform: scale(1.05); }
+        .product img { max-width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+        .product button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
+        .product button:hover { background: #0056b3; }
+        .cart-icon { position: fixed; top: 20px; right: 20px; background: #007bff; color: white; border: none; padding: 15px; border-radius: 50%; cursor: pointer; font-size: 1.5em; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        .cart-icon:hover { background: #0056b3; }
+        .cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 5px 8px; font-size: 0.8em; }
+        .cart { display: none; position: fixed; top: 80px; right: 20px; background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px; width: 300px; box-shadow: 0 0 15px rgba(0,0,0,0.2); z-index: 1000; }
+        .cart h3 { margin: 0 0 10px 0; }
+        .cart ul { list-style: none; padding: 0; max-height: 200px; overflow-y: auto; }
+        .cart li { margin: 5px 0; padding: 5px; border-bottom: 1px solid #eee; }
+        .cart p { margin: 10px 0; font-weight: bold; }
+        .cart button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; width: 100%; margin-top: 10px; }
+        .cart button:hover { background: #0056b3; }
+        .contact { margin-top: 40px; text-align: center; }
+        .contact form { max-width: 400px; margin: 0 auto; }
+        .contact input, .contact textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        .contact button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+        .social { margin-top: 20px; }
+        .social a { margin: 0 10px; text-decoration: none; color: #007bff; font-size: 1.5em; }
+        .map { margin-top: 20px; }
+        .map iframe { width: 100%; height: 300px; border: none; border-radius: 8px; }
+        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
+        .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 8px; text-align: center; }
+        .modal-content img { max-width: 100%; height: 300px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close:hover { color: black; }
+        footer { text-align: center; padding: 10px; background: #007bff; color: white; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Contes Marocains du Marché</h1>
-        <div class="search">
-            <input type="text" id="search" placeholder="Rechercher un conte...">
+    <div class="banner">
+        <div>
+            <h1>Bienvenue dans notre Hanout !</h1>
+            <p>Vêtements et chaussures de qualité - All your fashion needs!</p>
         </div>
-        <div id="stories"></div>
     </div>
-    <div class="cart">
-        <h3>Panier</h3>
-        <div id="cart-items"></div>
-        <p>Total: <span id="total">0</span> DH</p>
+
+    <button class="cart-icon" onclick="toggleCart()">🛒 <span class="cart-count" id="cart-count">0</span></button>
+    <div class="cart" id="cart">
+        <h3>Votre Panier</h3>
+        <ul id="cart-items"></ul>
+        <p>Total: <span id="total">0 MAD</span></p>
+        <button onclick="clearCart()">Vider le panier</button>
         <button onclick="checkout()">Commander</button>
     </div>
 
-    <script>
-        const stories = [
-            // Les 30 précédents restent les mêmes
-            { title: "Le Conte d'Aïcha Kandicha", content: "Il était une fois une djinnia nommée Aïcha Kandicha qui faisait perdre la raison aux hommes. Ce conte parle de la peur, de la sagesse et du bien.", img: "https://via.placeholder.com/150?text=Aicha+Kandicha", price: 10 },
-            // ... (les 29 autres comme avant)
-            { title: "Le Conte du Vent et de la Mer", content: "Le vent et la mer se battaient. Ce conte parle de force.", img: "https://via.placeholder.com/150?text=Vent+et+Mer", price: 14 },
-            // Nouveaux 10 contes
-            { title: "Le Conte de l'Oiseau Bleu", content: "Un oiseau bleu apportait la chance. Ce conte parle de bonheur.", img: "https://via.placeholder.com/150?text=Oiseau+Bleu", price: 11 },
-            { title: "Le Conte du Magicien et du Roi", content: "Un magicien aida un roi. Ce conte parle de magie.", img: "https://via.placeholder.com/150?text=Magicien+et+Roi", price: 13 },
-            { title: "Le Conte de la Rose et de l'Épine", content: "Une rose et une épine se disputaient. Ce conte parle de beauté.", img: "https://via.placeholder.com/150?text=Rose+et+Epine", price: 9 },
-            { title: "Le Conte du Cheval Blanc", content: "Un cheval blanc sauva un village. Ce conte parle de loyauté.", img: "https://via.placeholder.com/150?text=Cheval+Blanc", price: 12 },
-            { title: "Le Conte de la Fille du Soleil", content: "La fille du soleil tomba amoureuse. Ce conte parle d'amour.", img: "https://via.placeholder.com/150?text=Fille+Soleil", price: 14 },
-            { title: "Le Conte du Trésor Caché", content: "Un trésor caché dans une montagne. Ce conte parle d'aventure.", img: "https://via.placeholder.com/150?text=Tresor+Cache", price: 15 },
-            { title: "Le Conte de la Pluie et du Soleil", content: "La pluie et le soleil se réconciliaient. Ce conte parle d'équilibre.", img: "https://via.placeholder.com/150?text=Pluie+et+Soleil", price: 10 },
-            { title: "Le Conte du Loup et de l'Agneau", content: "Un loup et un agneau se disputaient. Ce conte parle de justice.", img: "https://via.placeholder.com/150?text=Loup+et+Agneau", price: 8 },
-            { title: "Le Conte de la Clé Magique", content: "Une clé ouvrait toutes les portes. Ce conte parle de mystère.", img: "https://via.placeholder.com/150?text=Cle+Magique", price: 13 },
-            { title: "Le Conte du Jardin des Fées", content: "Un jardin habité par des fées. Ce conte parle de magie.", img: "https://via.placeholder.com/150?text=Jardin+Fées", price: 12 }
-        ];
+    <header>
+        <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Souhail Shop">
+        <div>
+            <h1>Boutique Souhail - Souhail Shop</h1>
+            <p>Vêtements et Chaussures - Clothes and Shoes!</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>Nos Produits - Our Products</h2>
+        <div class="products">
+            <div class="product" onclick="openModal('T-shirt Blanc', 'T-shirt en coton 100% bio, confortable et durable. Disponible en plusieurs tailles.', 80, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=250&h=200&fit=crop" alt="T-shirt Blanc">
+                <h3>T-shirt Blanc</h3>
+                <p>T-shirt en coton confortable.</p>
+                <p>Prix : 80 MAD</p>
+                <button onclick="addToCart('T-shirt Blanc', 80); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Chaussures de Sport', 'Chaussures légères et respirantes, idéales pour le running et les entraînements quotidiens.', 250, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="Chaussures de Sport">
+                <h3>Chaussures de Sport</h3>
+                <p>Chaussures confortables pour le sport.</p>
+                <p>Prix : 250 MAD</p>
+                <button onclick="addToCart('Chaussures de Sport', 250); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Jean Bleu', 'Jean slim fit en denim de qualité supérieure, résistant et stylé.', 150, 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=250&h=200&fit=crop" alt="Jean Bleu">
+                <h3>Jean Bleu</h3>
+                <p>Jean classique et durable.</p>
+                <p>Prix : 150 MAD</p>
+                <button onclick="addToCart('Jean Bleu', 150); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Baskets Noires', 'Baskets urbaines en cuir synthétique, confortables pour la ville.', 200, 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=250&h=200&fit=crop" alt="Baskets Noires">
+                <h3>Baskets Noires</h3>
+                <p>Baskets élégantes pour tous les jours.</p>
+                <p>Prix : 200 MAD</p>
+                <button onclick="addToCart('Baskets Noires', 200); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Robe d\'Été', 'Robe légère en tissu fluide, parfaite pour les journées chaudes.', 120, 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=250&h=200&fit=crop" alt="Robe d'Été">
+                <h3>Robe d'Été</h3>
+                <p>Robe légère et colorée.</p>
+                <p>Prix : 120 MAD</p>
+                <button onclick="addToCart('Robe d\'Été', 120); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <div class="product" onclick="openModal('Sandales', 'Sandales en cuir véritable, confortables et résistantes à l\'eau.', 90, 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=300&fit=crop')">
+                <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=250&h=200&fit=crop" alt="Sandales">
+                <h3>Sandales</h3>
+                <p>Sandales confortables pour l'été.</p>
+                <p>Prix : 90 MAD</p>
+                <button onclick="addToCart('Sandales', 90); event.stopPropagation();">Ajouter au panier</button>
+            </div>
+            <!-- Ajoutez plus de produits ici -->
+        </div>
 
-        let cart = [];
-        const storiesDiv = document.getElementById('stories');
-        const cartItemsDiv = document.getElementById('cart-items');
-        const totalSpan = document.getElementById('total');
-        const searchInput = document.getElementById('search');
-
-        function renderStories(filter = '') {
-            storiesDiv.innerHTML = '';
-            const filteredStories = stories.filter(story => story.title.toLowerCase().includes(filter.toLowerCase()));
-            filteredStories.forEach((story, index) => {
-                const storyDiv = document.createElement('div');
-                storyDiv.className = 'story';
-                storyDiv.innerHTML = `
-                    <img src="${story.img}" alt="${story.title}">
-                    <div>
-                        <h3>${story.title}</h3>
-                        <p>${story.content}</p>
-                        <p>Prix: ${story.price} DH</p>
-                        <button onclick="addToCart(${stories.indexOf(story)})">Ajouter au Panier</button>
-                    </div>
-                `;
-                storiesDiv.appendChild(storyDiv);
-            });
-        }
-
-        function addToCart(index) {
-            cart.push(stories[index]);
-            updateCart();
-        }
-
-        function updateCart() {
-            cartItemsDiv.innerHTML = '';
-            let total = 0;
-            cart.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'cart-item';
-                itemDiv.textContent = `${item.title} - ${item.price} DH`;
-                cartItemsDiv.appendChild(itemDiv);
-                total += item.price;
-            });
-            totalSpan.textContent = total;
-        }
-
-        function checkout() {
-            alert(`Commander: ${cart.length} contes, Total: ${totalSpan.textContent} DH. (Simulation – ajoutez un paiement réel comme PayPal)`);
-        }
-
-        searchInput.addEventListener('input', (e) => {
-            renderStories(e.target.value);
-        });
-
-        renderStories();
-    </script>
-</body>
-</html>
+        <div class="contact">
+            <h2>Contactez-nous</h2>
+            <p><strong>Localisation :</strong> Saïdia, Hajji Sale, Maroc</p>
+            <p>Téléphone : +212 6XX XXX XXX (remplace par ton numéro)</p>
+            <p>Email : souhailshop@example.com (remplace par ton email)</p>
+            <p>Adresse : Rue Exemple, Saïdia, Maroc</p>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.123456789012!2d-2.3000!3d35.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b1b1b1b1b1b1b%3A0x123456789abcdef!2sSa%C3%ADdia%2C%20Maroc!5e0!3m2!1sfr!2sma!4v1690000000000!5m2!1sfr!2sma" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="social">
+                <a href="https://www.instagram.com/toncompte" target="_blank">📷 Instagram</a>
+                <a href="https://wa.me/2126XXXX…

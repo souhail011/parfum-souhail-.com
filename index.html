@@ -6,217 +6,141 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Parfum Souhail</title>
+<title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#fff;color:#000}
-
-/* HEADER */
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:15px;border-bottom:1px solid #eee
-}
-header h1{font-size:22px}
-
-/* TITLE */
-.title{padding:20px;font-size:26px;font-weight:bold}
-
-/* PRODUCTS */
-.products{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  padding:15px
-}
-.product{
-  border:1px solid #eee;
-  padding:10px;
-  background:#fafafa;
-  position:relative;
-  text-align:center
-}
-.product img{
-  width:100%;
-  height:170px;
-  object-fit:contain
-}
-.dupe{
-  position:absolute;
-  top:10px;right:10px;
-  font-size:12px;color:#555
-}
-.product h3{
-  font-size:14px;margin:8px 0
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f3f3f3}
+header{background:#000;color:#fff;padding:18px;text-align:center;font-size:24px;font-weight:bold}
+nav{background:#111;text-align:center;padding:10px}
+nav a{color:#fff;margin:0 10px;text-decoration:none;font-size:14px}
+.container{max-width:1200px;margin:auto;padding:20px}
+.notice{background:#fff;padding:12px;border-radius:8px;text-align:center;margin-bottom:15px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.controls input,.controls select{padding:8px}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:15px}
+.product{background:#fff;border-radius:8px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.12);position:relative}
+.product img{width:100%;height:170px;object-fit:cover;border-radius:6px}
+.product h3{font-size:13px;margin:8px 0}
 .price{font-weight:bold}
-button{
-  margin-top:5px;
-  padding:6px 10px;
-  background:#000;color:#fff;
-  border:none;cursor:pointer
-}
-
-/* CART */
-#cart{
-  position:fixed;
-  top:0;right:-100%;
-  width:100%;height:100%;
-  background:#fff;
-  padding:15px;
-  transition:.3s;
-  overflow:auto
-}
-.cart-item{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  border-bottom:1px solid #eee;
-  padding-bottom:5px
-}
-.remove{color:red;cursor:pointer}
-.total{font-weight:bold;margin:10px 0}
-input,textarea{
-  width:100%;
-  padding:8px;
-  margin-bottom:8px;
-  border:1px solid #ccc
-}
-
-/* WhatsApp */
-.whatsapp{
-  position:fixed;
-  bottom:20px;right:20px;
-  background:#25D366;
-  color:#fff;
-  font-size:24px;
-  padding:12px;
-  border-radius:50%;
-  text-decoration:none
-}
+.dupe{font-size:11px;color:#666}
+.badge{position:absolute;top:8px;left:8px;background:#000;color:#fff;font-size:10px;padding:4px 6px;border-radius:4px}
+.btn{display:block;margin-top:6px;padding:8px;background:#25d366;color:#fff;text-decoration:none;border-radius:5px;font-size:13px}
+.page{display:none}
+.page.active{display:block}
+form{background:#fff;padding:20px;border-radius:8px;max-width:400px;margin:auto}
+form input,form textarea{width:100%;padding:10px;margin-bottom:10px}
+form button{background:#000;color:#fff;padding:10px;border:none;width:100%;border-radius:5px}
+footer{background:#000;color:#fff;text-align:center;padding:18px;margin-top:40px;font-size:13px}
 </style>
 </head>
 
 <body>
 
-<header>
-  <div>☰</div>
-  <h1>PARFUM SOUHAIL</h1>
-  <div onclick="openCart()">🛒 (<span id="count">0</span>)</div>
-</header>
+<header>Souhail Parfums</header>
+<nav>
+<a href="#" onclick="showPage('shop')">Boutique</a>
+<a href="#" onclick="showPage('commande')">Commande</a>
+</nav>
 
-<div class="title">Best Sellers</div>
+<div class="container">
 
-<section class="products">
-
-  <div class="product">
-    <span class="dupe">dupe de</span>
-    <img src="https://via.placeholder.com/300">
-    <h3>Yes I Am The King</h3>
-    <p class="price">250 dh</p>
-    <button onclick="add('Yes I Am The King',250)">Ajouter</button>
-  </div>
-
-  <div class="product">
-    <span class="dupe">dupe de</span>
-    <img src="https://via.placeholder.com/300">
-    <h3>L’Absolu Vanille</h3>
-    <p class="price">300 dh</p>
-    <button onclick="add('L’Absolu Vanille',300)">Ajouter</button>
-  </div>
-
-  <div class="product">
-    <span class="dupe">dupe de</span>
-    <img src="https://via.placeholder.com/300">
-    <h3>Writer Anonymous</h3>
-    <p class="price">199 dh</p>
-    <button onclick="add('Writer Anonymous',199)">Ajouter</button>
-  </div>
-
-  <div class="product">
-    <span class="dupe">-14%</span>
-    <img src="https://via.placeholder.com/300">
-    <h3>Tag Uomo Rosso</h3>
-    <p class="price">299 dh</p>
-    <button onclick="add('Tag Uomo Rosso',299)">Ajouter</button>
-  </div>
-
-</section>
-
-<!-- PANIER -->
-<div id="cart">
-  <button onclick="closeCart()">⬅ Retour</button>
-  <h2>Votre Panier</h2>
-
-  <div id="items"></div>
-
-  <p class="total">Total: <span id="total">0</span> dh</p>
-
-  <h3>Informations Client</h3>
-  <input id="name" placeholder="Nom complet">
-  <input id="phone" placeholder="Téléphone">
-  <textarea id="address" placeholder="Adresse"></textarea>
-
-  <button onclick="order()">Commander via WhatsApp</button>
+<div class="notice">
+🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b> — 📲 0695979661
 </div>
 
-<a class="whatsapp" href="https://wa.me/212695979661">💬</a>
+<!-- SHOP -->
+<div id="shop" class="page active">
+<div class="controls">
+<input type="text" id="search" placeholder="Rechercher un parfum...">
+<select id="category">
+<option value="all">Toutes catégories</option>
+<option>Homme</option>
+<option>Femme</option>
+<option>Oud</option>
+<option>Gourmand</option>
+</select>
+</div>
+<div class="products" id="products"></div>
+</div>
+
+<!-- COMMANDE -->
+<div id="commande" class="page">
+<form onsubmit="sendOrder(event)">
+<h3>🛒 Passer une commande</h3>
+<input id="name" placeholder="Nom complet" required>
+<input id="phone" placeholder="Téléphone" required>
+<input id="city" placeholder="Ville" required>
+<textarea id="order" placeholder="Parfums + Quantité" required></textarea>
+<button>Commander (Paiement à la livraison)</button>
+</form>
+</div>
+
+</div>
+
+<footer>© 2026 Souhail Parfums</footer>
 
 <script>
-let cart=[],total=0
+const whatsapp="https://wa.me/212695979661?text=";
 
-function add(n,p){
-  cart.push({n,p})
-  total+=p
-  document.getElementById("count").innerText=cart.length
-}
+const parfums=[
+["Yes I Am The King","199","Bleu de Chanel","Homme","Best"],
+["9PM","199","Ultra Male","Homme","Best"],
+["Asad","199","Dior Sauvage Elixir","Homme","Best"],
+["Fakhar Black","189","YSL Y","Homme",""],
+["Najdia","179","Invictus","Homme",""],
+["Blue Homme","189","Frais","Homme",""],
 
-function openCart(){
-  document.getElementById("cart").style.right="0"
-  render()
-}
-function closeCart(){
-  document.getElementById("cart").style.right="-100%"
-}
+["Idole","199","Floral","Femme","Best"],
+["Fakhar Rose","199","Rose","Femme",""],
+["Hayaati","189","Fruité","Femme",""],
+["Yara","199","Vanille","Femme","Best"],
+["Yara Tous","199","Tropical","Femme",""],
 
-function remove(i){
-  total-=cart[i].p
-  cart.splice(i,1)
-  document.getElementById("count").innerText=cart.length
-  render()
-}
+["Oud For Glory","239","Oud Royal","Oud","Best"],
+["Oud Mood","209","Sucré","Oud",""],
+["Sheikh Shuyukh","219","Oriental","Oud",""],
+["Amethyst","229","Oud Floral","Oud",""],
+
+["Khamrah","239","Gourmand","Gourmand","Best"],
+["Ana Abiyedh","199","Vanille","Gourmand",""],
+["Ana Abiyedh Rouge","219","Baccarat","Gourmand","Best"],
+["Qaed Al Fursan","199","Ananas","Gourmand",""],
+["Nebras","219","Chocolat","Gourmand",""],
+["Choco Musk","179","Chocolat","Gourmand",""]
+];
 
 function render(){
-  let html=""
-  cart.forEach((x,i)=>{
-    html+=`
-      <div class="cart-item">
-        <span>${x.n}</span>
-        <span>${x.p} dh <span class="remove" onclick="remove(${i})">✖</span></span>
-      </div>`
-  })
-  document.getElementById("items").innerHTML=html
-  document.getElementById("total").innerText=total
+const s=search.value.toLowerCase();
+const c=category.value;
+products.innerHTML=parfums.filter(p=>
+p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c)
+).map(p=>`
+<div class="product">
+${p[4]==="Best"?'<div class="badge">Best Seller</div>':''}
+<img src="https://via.placeholder.com/300x300?text=${p[0]}">
+<h3>${p[0]}</h3>
+<div class="price">${p[1]} MAD</div>
+<div class="dupe">Inspiré de ${p[2]}</div>
+<a class="btn" href="${whatsapp+'Je veux '+p[0]}">Commander</a>
+</div>
+`).join("");
 }
 
-function order(){
-  let name=nameInput=document.getElementById("name").value
-  let phone=document.getElementById("phone").value
-  let address=document.getElementById("address").value
-
-  if(!name||!phone||!address){
-    alert("عافاك عمر جميع المعلومات")
-    return
-  }
-
-  let msg="🧴 *Commande Parfum Souhail* %0A%0A"
-  cart.forEach(p=>{msg+=`- ${p.n} : ${p.p} dh%0A`})
-  msg+=`%0A💰 Total: ${total} dh%0A`
-  msg+=`%0A👤 Nom: ${name}%0A📞 Tel: ${phone}%0A📍 Adresse: ${address}`
-
-  window.open(`https://wa.me/212695979661?text=${msg}`)
+function showPage(p){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+document.getElementById(p).classList.add('active');
 }
+
+function sendOrder(e){
+e.preventDefault();
+const msg=`Commande:%0A${order.value}%0A%0ANom:${name.value}%0ATel:${phone.value}%0AVille:${city.value}`;
+window.open(whatsapp+msg);
+}
+
+search.onkeyup=render;
+category.onchange=render;
+render();
 </script>
 
 </body>

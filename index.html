@@ -9,7 +9,6 @@
 <title>Souhail Parfums | Luxury Perfumes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Souhail Parfums – Parfums luxury. Livraison partout au Maroc, paiement à la livraison.">
-
 <style>
 *{box-sizing:border-box}
 
@@ -22,6 +21,7 @@ url("https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fi
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
+color:#fff;
 }
 
 header,footer{
@@ -51,6 +51,7 @@ font-weight:500;
 
 .notice{
 background:rgba(255,255,255,.95);
+color:#000;
 padding:14px;
 border-radius:10px;
 text-align:center;
@@ -79,6 +80,7 @@ gap:18px;
 
 .product{
 background:rgba(255,255,255,.95);
+color:#000;
 border-radius:14px;
 padding:12px;
 text-align:center;
@@ -129,6 +131,7 @@ text-decoration:none;
 border-radius:6px;
 font-size:14px;
 font-weight:600;
+text-align:center;
 }
 
 .page{display:none}
@@ -140,6 +143,7 @@ padding:22px;
 border-radius:14px;
 max-width:420px;
 margin:auto;
+color:#000;
 }
 
 form input,form textarea{
@@ -159,6 +163,7 @@ width:100%;
 border-radius:6px;
 font-size:15px;
 font-weight:600;
+cursor:pointer;
 }
 
 /* VISIT STORE */
@@ -196,7 +201,6 @@ font-size:14px;
 }
 </style>
 </head>
-
 <body>
 
 <header>Souhail Parfums</header>
@@ -240,8 +244,6 @@ font-size:14px;
 </form>
 </div>
 
-</div>
-
 <!-- VISIT STORE -->
 <div class="visit">
 <h3>📍 Pour visiter notre magasin</h3>
@@ -256,24 +258,53 @@ Cliquez ici pour ouvrir Google Maps
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
+// [name, prix, inspiré, catégorie, best, stock, promo%]
 const parfums=[
-["Yes I Am The King",199,"Bleu de Chanel","Homme","Best"],
-["9PM",199,"Ultra Male","Homme","Best"],
-["Asad",199,"Sauvage Elixir","Homme","Best"],
-["Yara",199,"Vanille","Femme","Best"],
-["Oud For Glory",239,"Oud Royal","Oud","Best"],
-["Khamrah",239,"Gourmand","Gourmand","Best"],
-["Choco Musk",179,"Chocolat","Gourmand",""]
+["Yes I Am The King",199,"Bleu de Chanel","Homme","Best",1,10],
+["9PM",199,"Ultra Male","Homme","Best",1,0],
+["Asad",199,"Dior Sauvage Elixir","Homme","Best",0,0],
+["Fakhar Black",189,"YSL Y","Homme","",1,0],
+["Najdia",179,"Invictus","Homme","",1,5],
+["Blue Homme",189,"Frais","Homme","",0,0],
+["Idole",199,"Floral","Femme","Best",1,0],
+["Fakhar Rose",199,"Rose","Femme","",1,0],
+["Hayaati",189,"Fruité","Femme","",0,0],
+["Yara",199,"Vanille","Femme","Best",1,10],
+["Yara Tous",199,"Tropical","Femme","",1,0],
+["Oud For Glory",239,"Oud Royal","Oud","Best",1,10],
+["Oud Mood",209,"Sucré","Oud","",0,0],
+["Sheikh Shuyukh",219,"Oriental","Oud","",1,0],
+["Amethyst",229,"Oud Floral","Oud","",1,0],
+["Khamrah",239,"Gourmand","Gourmand","Best",1,0],
+["Ana Abiyedh",199,"Vanille","Gourmand","",1,0],
+["Ana Abiyedh Rouge",219,"Baccarat","Gourmand","Best",0,10],
+["Qaed Al Fursan",199,"Ananas","Gourmand","",1,0],
+["Nebras",219,"Chocolat","Gourmand","",1,0],
+["Choco Musk",179,"Chocolat","Gourmand","",1,0]
 ];
 
 function img(name){
 const images={
-"Asad":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a",
+"Yes I Am The King":"https://images.unsplash.com/photo-1615634260167-c8cdede054de",
 "9PM":"https://images.unsplash.com/photo-1541643600914-78b084683601",
-"Yes I Am The King":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
+"Asad":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519",
+"Fakhar Black":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
+"Najdia":"https://images.unsplash.com/photo-1594035910387-fea47794261f",
+"Blue Homme":"https://images.unsplash.com/photo-1523293182086-7651a899d37f",
+"Idole":"https://images.unsplash.com/photo-1547887537-6158d64c35b3",
+"Fakhar Rose":"https://images.unsplash.com/photo-1501004318641-b39e6451bec6",
+"Hayaati":"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
 "Yara":"https://images.unsplash.com/photo-1523293182086-7651a899d37f",
+"Yara Tous":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
 "Oud For Glory":"https://images.unsplash.com/photo-1619995745882-f4128ac82ad6",
+"Oud Mood":"https://images.unsplash.com/photo-1611241893603-3c359704e0ee",
+"Sheikh Shuyukh":"https://images.unsplash.com/photo-1587017539504-67cfbddac569",
+"Amethyst":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a",
 "Khamrah":"https://images.unsplash.com/photo-1615634260167-c8cdede054de",
+"Ana Abiyedh":"https://images.unsplash.com/photo-1594035910387-fea47794261f",
+"Ana Abiyedh Rouge":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
+"Qaed Al Fursan":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+"Nebras":"https://images.unsplash.com/photo-1547887537-6158d64c35b3",
 "Choco Musk":"https://images.unsplash.com/photo-1594035910387-fea47794261f"
 };
 return images[name] || images["Yes I Am The King"];
@@ -282,19 +313,30 @@ return images[name] || images["Yes I Am The King"];
 function render(){
 const s=search.value.toLowerCase();
 const c=category.value;
+
 products.innerHTML=parfums.filter(p=>
-p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c)
-).map(p=>`
+p[0].toLowerCase().includes(s) && (c==="all" || p[3]===c)
+).map(p=>{
+const price=p[1];
+const stock=p[5];
+const promo=p[6];
+const finalPrice = promo ? (price*(100-promo)/100).toFixed(0) : price;
+
+return `
 <div class="product">
 ${p[4]==="Best"?'<div class="badge">Best Seller</div>':''}
+${promo?`<div class="badge" style="top:40px;background:#ff3b3b;color:#fff">-${promo}%</div>`:''}
+${stock===0?'<div class="badge" style="top:70px;background:#999;color:#000">Épuisé</div>'
+        :'<div class="badge" style="top:70px;background:#25d366;color:#000">Disponible</div>'}
 <img src="${img(p[0])}">
 <h3>${p[0]}</h3>
-<div class="price">${p[1]} MAD</div>
+<div class="price">${promo?`<span style="text-decoration:line-through;color:#999">${price} MAD</span> ${finalPrice} MAD`:price+' MAD'}</div>
 <div class="dupe">Inspiré de ${p[2]}</div>
-<input class="qty" type="number" min="1" value="1" id="q_${p[0]}">
-<a class="btn" onclick="orderOne('${p[0]}',${p[1]})">Commander</a>
-</div>
-`).join("");
+${stock===1?`<input class="qty" type="number" min="1" value="1" id="q_${p[0]}">
+<a class="btn" onclick="orderOne('${p[0]}',${finalPrice})">Commander</a>`:
+`<div class="btn" style="background:#ccc;color:#666;cursor:not-allowed">Rupture de stock</div>`}
+</div>`;
+}).join("");
 }
 
 function orderOne(name,price){
@@ -318,7 +360,6 @@ search.onkeyup=render;
 category.onchange=render;
 render();
 </script>
-
 </body>
 </html>
 

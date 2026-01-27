@@ -53,24 +53,33 @@ header{
     padding:15px;
     text-align:center;
     box-shadow:0 10px 25px rgba(0,0,0,.2);
+    position:relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.product:hover{
+    transform: translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
 }
 .product img{
     width:100%;
     height:180px;
     object-fit:contain;
+    border-radius:8px;
+    transition: transform 0.3s;
+}
+.product:hover img{
+    transform: scale(1.05);
 }
 .product h4{
     margin:10px 0 5px;
 }
-select{
-    width:100%;
-    padding:8px;
-    border-radius:8px;
+.select-price{
     margin-bottom:6px;
 }
 .price{
     font-weight:bold;
     color:#e67e22;
+    margin-bottom:10px;
 }
 button{
     width:100%;
@@ -82,7 +91,17 @@ button{
     cursor:pointer;
 }
 button:hover{background:#333;}
-
+.badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:#e67e22;
+    color:#fff;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:0.8em;
+    font-weight:bold;
+}
 .section{
     background:#fff;
     margin:30px auto;
@@ -109,9 +128,10 @@ input,textarea{
 <div class="products">
 
 <div class="product" data-name="dior sauvage">
+<div class="badge">Original</div>
 <img src="https://m.media-amazon.com/images/I/71l6p1JX2UL._AC_SL1500_.jpg">
 <h4>Dior Sauvage</h4>
-<select onchange="updatePrice(this)">
+<select class="select-price" onchange="updatePrice(this)">
 <option value="900">50ml – 900 MAD</option>
 <option value="1200">100ml – 1200 MAD</option>
 </select>
@@ -120,9 +140,10 @@ input,textarea{
 </div>
 
 <div class="product" data-name="bleu de chanel">
+<div class="badge">Original</div>
 <img src="https://m.media-amazon.com/images/I/61V0XGmH2IL._AC_SL1000_.jpg">
 <h4>Bleu de Chanel</h4>
-<select onchange="updatePrice(this)">
+<select class="select-price" onchange="updatePrice(this)">
 <option value="950">50ml – 950 MAD</option>
 <option value="1300">100ml – 1300 MAD</option>
 </select>
@@ -131,9 +152,10 @@ input,textarea{
 </div>
 
 <div class="product" data-name="la nuit de l homme">
+<div class="badge">Original</div>
 <img src="https://m.media-amazon.com/images/I/61ZQ1o9xF6L._AC_SL1000_.jpg">
 <h4>La Nuit de l’Homme</h4>
-<select onchange="updatePrice(this)">
+<select class="select-price" onchange="updatePrice(this)">
 <option value="800">50ml – 800 MAD</option>
 <option value="1100">100ml – 1100 MAD</option>
 </select>
@@ -142,9 +164,10 @@ input,textarea{
 </div>
 
 <div class="product" data-name="dior homme intense">
+<div class="badge">Original</div>
 <img src="https://m.media-amazon.com/images/I/61i7mT9l+ML._AC_SL1000_.jpg">
 <h4>Dior Homme Intense</h4>
-<select onchange="updatePrice(this)">
+<select class="select-price" onchange="updatePrice(this)">
 <option value="1800">100ml – 1800 MAD</option>
 </select>
 <div class="price">1800 MAD</div>
@@ -152,9 +175,10 @@ input,textarea{
 </div>
 
 <div class="product" data-name="valentino uomo">
+<div class="badge">Original</div>
 <img src="https://m.media-amazon.com/images/I/61Z8x2h6vFL._AC_SL1000_.jpg">
 <h4>Valentino Uomo</h4>
-<select onchange="updatePrice(this)">
+<select class="select-price" onchange="updatePrice(this)">
 <option value="1250">100ml – 1250 MAD</option>
 </select>
 <div class="price">1250 MAD</div>
@@ -190,35 +214,12 @@ width="100%" height="300" style="border-radius:15px;"></iframe>
 
 <script>
 let cart=[];
-function updatePrice(s){
-s.parentElement.querySelector(".price").innerText=s.value+" MAD";
-}
-function addToCart(b,n){
-let p=b.parentElement,s=p.querySelector("select");
-cart.push({n,size:s.options[s.selectedIndex].text,price:+s.value});
-render();
-}
-function render(){
-let h="",t=0;
-cart.forEach(i=>{h+=`<li>${i.n} (${i.size}) - ${i.price} MAD</li>`;t+=i.price;});
-cartItems.innerHTML=h||"Panier vide";
-total.innerText=t?"Total : "+t+" MAD":"";
-}
-function showOrder(){
-if(!cart.length)return alert("Panier vide");
-order.style.display="block";
-parfums.value=cart.map(i=>i.n+" "+i.size).join(", ");
-}
-function sendWhatsApp(){
-let m=`Commande Parfum Souhail%0ANom:${name.value}%0AAdresse:${address.value}%0A${parfums.value}%0ATotal:${cart.reduce((s,i)=>s+i.price,0)} MAD`;
-window.open("https://wa.me/212695979661?text="+m);
-}
-function searchParfum(){
-let v=search.value.toLowerCase();
-document.querySelectorAll(".product").forEach(p=>{
-p.style.display=p.dataset.name.includes(v)?"block":"none";
-});
-}
+function updatePrice(s){s.parentElement.querySelector(".price").innerText=s.value+" MAD";}
+function addToCart(b,n){let p=b.parentElement,s=p.querySelector("select");cart.push({n,size:s.options[s.selectedIndex].text,price:+s.value});render();}
+function render(){let h="",t=0;cart.forEach(i=>{h+=`<li>${i.n} (${i.size}) - ${i.price} MAD</li>`;t+=i.price;});cartItems.innerHTML=h||"Panier vide";total.innerText=t?"Total : "+t+" MAD":"";}
+function showOrder(){if(!cart.length)return alert("Panier vide");order.style.display="block";parfums.value=cart.map(i=>i.n+" "+i.size).join(", ");}
+function sendWhatsApp(){let m=`Commande Parfum Souhail%0ANom:${name.value}%0AAdresse:${address.value}%0A${parfums.value}%0ATotal:${cart.reduce((s,i)=>s+i.price,0)} MAD`;window.open("https://wa.me/212695979661?text="+m);}
+function searchParfum(){let v=search.value.toLowerCase();document.querySelectorAll(".product").forEach(p=>{p.style.display=p.dataset.name.includes(v)?"block":"none";});}
 </script>
 
 </body>

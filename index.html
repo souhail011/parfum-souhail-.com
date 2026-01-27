@@ -11,161 +11,188 @@
 
 <style>
 body{
-    font-family: Arial, sans-serif;
     margin:0;
-    padding:15px;
-    background:url("https://images.unsplash.com/photo-1523294587484-bae6cc870010") no-repeat center center fixed;
-    background-size:cover;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 }
-.overlay{
-    background:rgba(0,0,0,0.7);
-    padding:15px;
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
 }
 header{
     text-align:center;
-    font-size:2.2em;
     color:#fff;
+    font-size:2.4em;
+    font-weight:600;
     margin-bottom:10px;
+}
+.subtitle{
+    text-align:center;
+    color:#ddd;
+    margin-bottom:20px;
 }
 #search{
     width:100%;
-    max-width:400px;
-    margin:15px auto;
+    max-width:420px;
+    margin:20px auto;
     display:block;
-    padding:10px;
-    border-radius:8px;
+    padding:12px;
+    border-radius:30px;
     border:none;
+    outline:none;
 }
 .products{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:15px;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
 }
 .product{
     background:#fff;
-    border-radius:10px;
-    padding:10px;
+    border-radius:16px;
+    padding:15px;
     text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 .product img{
     width:100%;
-    height:140px;
-    object-fit:cover;
-    border-radius:8px;
+    height:180px;
+    object-fit:contain;
 }
-select,button,input,textarea{
+.product h4{
+    margin:10px 0 5px;
+}
+select{
     width:100%;
     padding:8px;
-    margin-top:5px;
+    border-radius:8px;
+    margin-bottom:6px;
 }
 .price{
     font-weight:bold;
     color:#e67e22;
 }
-section{
+button{
+    width:100%;
+    padding:10px;
+    background:#111;
+    color:#fff;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+button:hover{background:#333;}
+
+.section{
     background:#fff;
-    margin:25px auto;
-    padding:15px;
+    margin:30px auto;
+    padding:20px;
+    border-radius:20px;
     max-width:800px;
-    border-radius:10px;
+}
+input,textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
-<div class="overlay">
+<div class="container">
 
-<header>🌿 Parfum Souhail 🌿</header>
+<header>Parfum Souhail</header>
+<div class="subtitle">Parfums originaux – Style moderne</div>
 
 <input id="search" placeholder="🔍 Rechercher un parfum..." onkeyup="searchParfum()">
 
 <div class="products">
 
 <div class="product" data-name="dior sauvage">
-<img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de">
+<img src="https://m.media-amazon.com/images/I/71l6p1JX2UL._AC_SL1500_.jpg">
 <h4>Dior Sauvage</h4>
 <select onchange="updatePrice(this)">
-<option value="900">50ml - 900 MAD</option>
-<option value="1200">100ml - 1200 MAD</option>
+<option value="900">50ml – 900 MAD</option>
+<option value="1200">100ml – 1200 MAD</option>
 </select>
 <div class="price">900 MAD</div>
 <button onclick="addToCart(this,'Dior Sauvage')">Ajouter</button>
 </div>
 
 <div class="product" data-name="bleu de chanel">
-<img src="https://images.unsplash.com/photo-1594035910387-fea47794261f">
+<img src="https://m.media-amazon.com/images/I/61V0XGmH2IL._AC_SL1000_.jpg">
 <h4>Bleu de Chanel</h4>
 <select onchange="updatePrice(this)">
-<option value="950">50ml - 950 MAD</option>
-<option value="1300">100ml - 1300 MAD</option>
+<option value="950">50ml – 950 MAD</option>
+<option value="1300">100ml – 1300 MAD</option>
 </select>
 <div class="price">950 MAD</div>
 <button onclick="addToCart(this,'Bleu de Chanel')">Ajouter</button>
 </div>
 
-<div class="product" data-name="la nuit">
-<img src="https://images.unsplash.com/photo-1585386959984-a41552231692">
+<div class="product" data-name="la nuit de l homme">
+<img src="https://m.media-amazon.com/images/I/61ZQ1o9xF6L._AC_SL1000_.jpg">
 <h4>La Nuit de l’Homme</h4>
 <select onchange="updatePrice(this)">
-<option value="800">50ml - 800 MAD</option>
-<option value="1100">100ml - 1100 MAD</option>
+<option value="800">50ml – 800 MAD</option>
+<option value="1100">100ml – 1100 MAD</option>
 </select>
 <div class="price">800 MAD</div>
 <button onclick="addToCart(this,'La Nuit de l’Homme')">Ajouter</button>
 </div>
 
-<div class="product" data-name="club de nuit">
-<img src="https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0">
-<h4>Club de Nuit</h4>
+<div class="product" data-name="dior homme intense">
+<img src="https://m.media-amazon.com/images/I/61i7mT9l+ML._AC_SL1000_.jpg">
+<h4>Dior Homme Intense</h4>
 <select onchange="updatePrice(this)">
-<option value="450">50ml - 450 MAD</option>
-<option value="650">100ml - 650 MAD</option>
+<option value="1800">100ml – 1800 MAD</option>
 </select>
-<div class="price">450 MAD</div>
-<button onclick="addToCart(this,'Club de Nuit')">Ajouter</button>
+<div class="price">1800 MAD</div>
+<button onclick="addToCart(this,'Dior Homme Intense')">Ajouter</button>
 </div>
 
-<div class="product" data-name="lattafa">
-<img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6">
-<h4>Lattafa Asad</h4>
+<div class="product" data-name="valentino uomo">
+<img src="https://m.media-amazon.com/images/I/61Z8x2h6vFL._AC_SL1000_.jpg">
+<h4>Valentino Uomo</h4>
 <select onchange="updatePrice(this)">
-<option value="350">50ml - 350 MAD</option>
-<option value="550">100ml - 550 MAD</option>
+<option value="1250">100ml – 1250 MAD</option>
 </select>
-<div class="price">350 MAD</div>
-<button onclick="addToCart(this,'Lattafa Asad')">Ajouter</button>
+<div class="price">1250 MAD</div>
+<button onclick="addToCart(this,'Valentino Uomo')">Ajouter</button>
 </div>
 
 </div>
 
-<section>
+<div class="section">
 <h3>🧺 Panier</h3>
 <div id="cartItems">Panier vide</div>
 <p id="total"></p>
 <button onclick="showOrder()">Commander</button>
-</section>
+</div>
 
-<section id="order" style="display:none;">
+<div class="section" id="order" style="display:none;">
 <h3>📦 Commande</h3>
 <input id="name" placeholder="Nom complet">
 <textarea id="address" placeholder="Adresse"></textarea>
 <textarea id="parfums" readonly></textarea>
 <button onclick="sendWhatsApp()">Envoyer WhatsApp</button>
-</section>
+</div>
 
-<section>
+<div class="section">
 <h3>📞 Contact</h3>
 <p>WhatsApp : 0695979661</p>
-<p>Hay Amal, Salé</p>
+<p>Hay Amal – Salé</p>
 <iframe src="https://www.google.com/maps?q=Hay+Amal+Salé&output=embed"
-width="100%" height="300"></iframe>
-</section>
+width="100%" height="300" style="border-radius:15px;"></iframe>
+</div>
 
 </div>
 
 <script>
 let cart=[];
-function updatePrice(s){s.parentElement.querySelector(".price").innerText=s.value+" MAD";}
+function updatePrice(s){
+s.parentElement.querySelector(".price").innerText=s.value+" MAD";
+}
 function addToCart(b,n){
 let p=b.parentElement,s=p.querySelector("select");
 cart.push({n,size:s.options[s.selectedIndex].text,price:+s.value});
@@ -174,7 +201,8 @@ render();
 function render(){
 let h="",t=0;
 cart.forEach(i=>{h+=`<li>${i.n} (${i.size}) - ${i.price} MAD</li>`;t+=i.price;});
-cartItems.innerHTML=h||"Panier vide";total.innerText=t?"Total: "+t+" MAD":"";
+cartItems.innerHTML=h||"Panier vide";
+total.innerText=t?"Total : "+t+" MAD":"";
 }
 function showOrder(){
 if(!cart.length)return alert("Panier vide");

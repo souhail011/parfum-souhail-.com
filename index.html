@@ -5,18 +5,17 @@
 </html><!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Souhail Shop CFE</title>
-
 <style>
 :root{
   --noir:#111;
   --blanc:#fff;
   --beige:#e6d8c3;
 }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-body{margin:0;background:#f7f7f7;color:#222;}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;}
+body{background:#f7f7f7;color:#222;}
 header{
   background:var(--noir);
   color:var(--blanc);
@@ -25,18 +24,11 @@ header{
   justify-content:space-between;
   align-items:center;
 }
-header h1{margin:0;font-size:22px;color:var(--beige);}
-header button{
-  background:var(--beige);
-  border:none;
-  padding:8px 12px;
-  cursor:pointer;
-  font-weight:bold;
-}
-.logo{width:120px;height:auto;}
+header h1{font-size:22px;color:var(--beige);}
+header button{background:var(--beige);border:none;padding:8px 12px;cursor:pointer;font-weight:bold;}
+.logo{width:120px;}
 .hero{
-  background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
-  url("https://images.unsplash.com/photo-1574559119347-152f88e9abdf?auto=format&fit=crop&w=1200&q=80");
+  background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('images/hero.jpg');
   background-size:cover;
   color:white;
   padding:60px 20px;
@@ -57,34 +49,34 @@ header button{
 }
 .product img{width:100%;height:220px;object-fit:cover;}
 .product .info{padding:12px;}
-.product h3{margin:0 0 5px 0;font-size:16px;}
-.price{color:#000;font-weight:bold;margin-bottom:8px;}
-select,button.add,input{
-  width:100%;
-  margin-bottom:6px;
-  padding:6px;
-}
-button.add{
-  background:var(--noir);
-  color:white;
-  border:none;
-  cursor:pointer;
-}
+.product h3{font-size:16px;margin-bottom:5px;}
+.price{font-weight:bold;margin-bottom:8px;}
+select,input,button.add{width:100%;margin-bottom:6px;padding:6px;}
+button.add{background:var(--noir);color:white;border:none;cursor:pointer;}
 button.add:hover{opacity:.9;}
 #cart{
   position:fixed;
   top:0;right:-100%;
-  width:320px;height:100%;
+  width:350px;height:100%;
   background:white;
   box-shadow:-2px 0 8px rgba(0,0,0,.2);
   padding:15px;
-  transition:.3s;
   overflow-y:auto;
+  transition:.3s;
   z-index:10;
 }
 #cart.open{right:0;}
 #cart h2{margin-top:0;}
-.cart-item{border-bottom:1px solid #ddd;padding:6px 0;font-size:14px;}
+.cart-item{
+  border-bottom:1px solid #ddd;
+  padding:6px 0;
+  font-size:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cart-item div{flex:1;}
+.cart-item button{background:red;color:white;border:none;padding:2px 6px;cursor:pointer;}
 .total{font-weight:bold;margin:10px 0;}
 .whatsapp{
   background:#25d366;
@@ -96,18 +88,15 @@ button.add:hover{opacity:.9;}
   font-weight:bold;
 }
 footer{
-  background:#222;color:white;
-  padding:20px;
-  margin-top:40px;
+  background:#222;color:white;padding:20px;margin-top:40px;
 }
 footer iframe{width:100%;height:250px;border:0;}
 </style>
 </head>
-
 <body>
 
 <header>
-  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Placeholder_logo.svg" alt="Logo Souhail Shop"/>
+  <img class="logo" src="images/logo.svg" alt="Logo">
   <h1>Souhail Shop CFE</h1>
   <button onclick="toggleCart()">🛒 Panier</button>
 </header>
@@ -122,57 +111,49 @@ footer iframe{width:100%;height:250px;border:0;}
   <div class="products" id="products"></div>
 </div>
 
-<!-- PANIER -->
 <div id="cart">
   <h2>Votre Panier</h2>
   <div id="cartItems"></div>
   <div class="total" id="total"></div>
 
-  <!-- Formulaire -->
   <div style="margin-bottom:10px;">
     <input type="text" id="customerName" placeholder="Votre Nom" />
     <input type="text" id="customerAddress" placeholder="Votre Adresse complète" />
   </div>
 
-  <a id="waLink" class="whatsapp" target="_blank">
-    Commander via WhatsApp
-  </a>
+  <a id="waLink" class="whatsapp" target="_blank">Commander via WhatsApp</a>
 </div>
 
 <footer>
   <h3>Contact</h3>
   <p>📞 WhatsApp : 0695979661</p>
   <p>📍 Hay Amal – Salé</p>
-  <iframe 
-    src="https://www.google.com/maps?q=Hay%20Amal%20Sale&output=embed">
-  </iframe>
+  <iframe src="https://www.google.com/maps?q=Hay%20Amal%20Sale&output=embed"></iframe>
 </footer>
 
 <script>
 const phone = "2126959661";
 
-// Produits avec images réalistes maghrébines (liens externes exemples)
 const products = [
-  {name:"T-shirt Classique Noir",price:109,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/t-shirt-1296607_960_720.jpg"},
-  {name:"T-shirt Blanc Premium",price:119,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/t-shirt-1866573_960_720.jpg"},
-  {name:"T-shirt Beige Street",price:129,img:"https://cdn.pixabay.com/photo/2016/12/06/18/27/t-shirt-1888296_960_720.jpg"},
-  {name:"T-shirt Sport",price:99,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/t-shirt-2597536_960_720.jpg"},
-  {name:"Jean Slim Noir",price:199,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/jeans-1296613_960_720.jpg"},
-  {name:"Jean Bleu",price:189,img:"https://cdn.pixabay.com/photo/2016/12/06/18/27/jeans-1888299_960_720.jpg"},
-  {name:"Pantalon Beige",price:179,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/pants-2597537_960_720.jpg"},
-  {name:"Pantalon Cargo",price:229,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/pants-2597538_960_720.jpg"},
-  {name:"Sweat Capuche Noir",price:229,img:"https://cdn.pixabay.com/photo/2017/03/21/20/55/hoodie-2161651_960_720.jpg"},
-  {name:"Sweat Gris",price:199,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/hoodie-1296621_960_720.jpg"},
-  {name:"Sweat Beige",price:219,img:"https://cdn.pixabay.com/photo/2017/03/21/20/55/hoodie-2161652_960_720.jpg"},
-  {name:"Sweat Street",price:249,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/hoodie-1866574_960_720.jpg"},
-  {name:"Basket Blanche",price:299,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/shoes-1296617_960_720.jpg"},
-  {name:"Basket Noire",price:279,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/shoes-1296616_960_720.jpg"},
-  {name:"Basket Sport",price:349,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/shoes-1866572_960_720.jpg"},
-  {name:"Basket Classique",price:249,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/shoes-1866575_960_720.jpg"},
-  {name:"Ensemble Sport",price:299,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/sport-2597540_960_720.jpg"},
-  {name:"Jogging Noir",price:199,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/joggers-2597539_960_720.jpg"},
-  {name:"Pull Hiver",price:229,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/sweater-1296624_960_720.jpg"},
-  {name:"Sweat Zip",price:239,img:"https://cdn.pixabay.com/photo/2017/03/21/20/55/hoodie-2161653_960_720.jpg"}
+{name:"T-shirt Classique Noir",price:109,img:"images/tshirt_noir.jpg"},
+{name:"T-shirt Blanc Premium",price:119,img:"images/tshirt_blanc.jpg"},
+{name:"T-shirt Beige Street",price:129,img:"images/tshirt_beige.jpg"},
+{name:"Jean Slim Noir",price:199,img:"images/jean_noir.jpg"},
+{name:"Jean Bleu",price:189,img:"images/jean_bleu.jpg"},
+{name:"Pantalon Beige",price:179,img:"images/pantalon_beige.jpg"},
+{name:"Pantalon Cargo",price:229,img:"images/pantalon_cargo.jpg"},
+{name:"Sweat Capuche Noir",price:229,img:"images/sweat_noir.jpg"},
+{name:"Sweat Gris",price:199,img:"images/sweat_gris.jpg"},
+{name:"Sweat Beige",price:219,img:"images/sweat_beige.jpg"},
+{name:"Sweat Street",price:249,img:"images/sweat_street.jpg"},
+{name:"Basket Blanche",price:299,img:"images/basket_blanche.jpg"},
+{name:"Basket Noire",price:279,img:"images/basket_noire.jpg"},
+{name:"Basket Sport",price:349,img:"images/basket_sport.jpg"},
+{name:"Basket Classique",price:249,img:"images/basket_classique.jpg"},
+{name:"Ensemble Sport",price:299,img:"images/ensemble_sport.jpg"},
+{name:"Jogging Noir",price:199,img:"images/jogging_noir.jpg"},
+{name:"Pull Hiver",price:229,img:"images/pull_hiver.jpg"},
+{name:"Sweat Zip",price:239,img:"images/sweat_zip.jpg"}
 ];
 
 let cart = [];
@@ -181,48 +162,52 @@ function renderProducts(){
   const box = document.getElementById("products");
   products.forEach((p,i)=>{
     box.innerHTML += `
-    <div class="product">
-      <img src="${p.img}" />
-      <div class="info">
-        <h3>${p.name}</h3>
-        <div class="price">${p.price} DH</div>
-        <select id="size${i}">
-          <option>S</option><option>M</option>
-          <option>L</option><option>XL</option>
-        </select>
-        <select id="color${i}">
-          <option>Noir</option>
-          <option>Blanc</option>
-          <option>Beige</option>
-        </select>
-        <button class="add" onclick="addToCart(${i})">
-          Ajouter au panier
-        </button>
+      <div class="product">
+        <img src="${p.img}" />
+        <div class="info">
+          <h3>${p.name}</h3>
+          <div class="price">${p.price} DH</div>
+          <select id="size${i}">
+            <option>S</option><option>M</option><option>L</option><option>XL</option>
+          </select>
+          <select id="color${i}">
+            <option>Noir</option><option>Blanc</option><option>Beige</option>
+          </select>
+          <input type="number" id="qty${i}" value="1" min="1"/>
+          <button class="add" onclick="addToCart(${i})">Ajouter au panier</button>
+        </div>
       </div>
-    </div>`;
+    `;
   });
 }
 
 function addToCart(i){
   const size = document.getElementById("size"+i).value;
   const color = document.getElementById("color"+i).value;
-  cart.push({...products[i],size,color});
+  const qty = parseInt(document.getElementById("qty"+i).value);
+  const existing = cart.find(item=>item.name===products[i].name && item.size===size && item.color===color);
+  if(existing) existing.qty+=qty;
+  else cart.push({...products[i],size,color,qty});
   updateCart();
   toggleCart(true);
 }
 
 function updateCart(){
   const items = document.getElementById("cartItems");
-  let total = 0;
   items.innerHTML="";
-  cart.forEach(c=>{
-    total+=c.price;
+  let total=0;
+  cart.forEach((c,index)=>{
+    total += c.price*c.qty;
     items.innerHTML+=`
       <div class="cart-item">
-        ${c.name}<br>
-        Taille: ${c.size} | Couleur: ${c.color}<br>
-        ${c.price} DH
-      </div>`;
+        <div>
+          ${c.name}<br>
+          Taille: ${c.size} | Couleur: ${c.color} | Qty: ${c.qty}<br>
+          ${c.price*c.qty} DH
+        </div>
+        <button onclick="removeFromCart(${index})">X</button>
+      </div>
+    `;
   });
   document.getElementById("total").innerText="Total: "+total+" DH";
 
@@ -230,23 +215,24 @@ function updateCart(){
   const address = document.getElementById("customerAddress").value || "Non renseignée";
 
   let msg=`Bonjour, je veux commander:%0ANom: ${name}%0AAdresse: ${address}%0A`;
-  cart.forEach(c=>{
-    msg+=`- ${c.name} (${c.size}, ${c.color}) : ${c.price} DH%0A`;
-  });
+  cart.forEach(c=> msg+=`- ${c.name} (${c.size}, ${c.color}) x${c.qty} : ${c.price*c.qty} DH%0A`);
   msg+=`Total: ${total} DH`;
-
   document.getElementById("waLink").href = `https://wa.me/${phone}?text=${msg}`;
 }
 
+function removeFromCart(i){
+  cart.splice(i,1);
+  updateCart();
+}
+
 function toggleCart(force){
-  const c = document.getElementById("cart");
+  const c=document.getElementById("cart");
   if(force===true) c.classList.add("open");
   else c.classList.toggle("open");
 }
 
 renderProducts();
 </script>
-
 </body>
 </html>
 

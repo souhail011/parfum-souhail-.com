@@ -36,7 +36,7 @@ header button{
 .logo{width:120px;height:auto;}
 .hero{
   background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
-  url("https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80");
+  url("https://images.unsplash.com/photo-1574559119347-152f88e9abdf?auto=format&fit=crop&w=1200&q=80");
   background-size:cover;
   color:white;
   padding:60px 20px;
@@ -151,28 +151,28 @@ footer iframe{width:100%;height:250px;border:0;}
 <script>
 const phone = "2126959661";
 
-// Images réalistes marocaines (exemple Unsplash + recherche locale)
+// Produits avec images réalistes maghrébines (liens externes exemples)
 const products = [
-  {name:"T-shirt Classique Noir",price:109,img:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519b"},
-  {name:"T-shirt Blanc Premium",price:119,img:"https://images.unsplash.com/photo-1585386959984-a41552231692"},
-  {name:"T-shirt Beige Street",price:129,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
-  {name:"T-shirt Sport",price:99,img:"https://images.unsplash.com/photo-1520974735194-6c54d6b1d92b"},
-  {name:"Jean Slim Noir",price:199,img:"https://images.unsplash.com/photo-1514996937319-344454492b37"},
-  {name:"Jean Bleu",price:189,img:"https://images.unsplash.com/photo-1542272604-787c3835535d"},
-  {name:"Pantalon Beige",price:179,img:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b"},
-  {name:"Pantalon Cargo",price:229,img:"https://images.unsplash.com/photo-1618354691373-ec6c5e4b2c3f"},
-  {name:"Sweat Capuche Noir",price:229,img:"https://images.unsplash.com/photo-1520975661595-6453be3f7070"},
-  {name:"Sweat Gris",price:199,img:"https://images.unsplash.com/photo-1505635552518-3448ff116af3"},
-  {name:"Sweat Beige",price:219,img:"https://images.unsplash.com/photo-1548883354-7622d03aca27"},
-  {name:"Sweat Street",price:249,img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c"},
-  {name:"Basket Blanche",price:299,img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"},
-  {name:"Basket Noire",price:279,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"},
-  {name:"Basket Sport",price:349,img:"https://images.unsplash.com/photo-1519861531473-9200262188bf"},
-  {name:"Basket Classique",price:249,img:"https://images.unsplash.com/photo-1528701800489-20be3c6b0c1d"},
-  {name:"Ensemble Sport",price:299,img:"https://images.unsplash.com/photo-1585386959984-a41552231692"},
-  {name:"Jogging Noir",price:199,img:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"},
-  {name:"Pull Hiver",price:229,img:"https://images.unsplash.com/photo-1516826957135-700dedea698c"},
-  {name:"Sweat Zip",price:239,img:"https://images.unsplash.com/photo-1548883354-7622d03aca27"}
+  {name:"T-shirt Classique Noir",price:109,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/t-shirt-1296607_960_720.jpg"},
+  {name:"T-shirt Blanc Premium",price:119,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/t-shirt-1866573_960_720.jpg"},
+  {name:"T-shirt Beige Street",price:129,img:"https://cdn.pixabay.com/photo/2016/12/06/18/27/t-shirt-1888296_960_720.jpg"},
+  {name:"T-shirt Sport",price:99,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/t-shirt-2597536_960_720.jpg"},
+  {name:"Jean Slim Noir",price:199,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/jeans-1296613_960_720.jpg"},
+  {name:"Jean Bleu",price:189,img:"https://cdn.pixabay.com/photo/2016/12/06/18/27/jeans-1888299_960_720.jpg"},
+  {name:"Pantalon Beige",price:179,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/pants-2597537_960_720.jpg"},
+  {name:"Pantalon Cargo",price:229,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/pants-2597538_960_720.jpg"},
+  {name:"Sweat Capuche Noir",price:229,img:"https://cdn.pixabay.com/photo/2017/03/21/20/55/hoodie-2161651_960_720.jpg"},
+  {name:"Sweat Gris",price:199,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/hoodie-1296621_960_720.jpg"},
+  {name:"Sweat Beige",price:219,img:"https://cdn.pixabay.com/photo/2017/03/21/20/55/hoodie-2161652_960_720.jpg"},
+  {name:"Sweat Street",price:249,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/hoodie-1866574_960_720.jpg"},
+  {name:"Basket Blanche",price:299,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/shoes-1296617_960_720.jpg"},
+  {name:"Basket Noire",price:279,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/shoes-1296616_960_720.jpg"},
+  {name:"Basket Sport",price:349,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/shoes-1866572_960_720.jpg"},
+  {name:"Basket Classique",price:249,img:"https://cdn.pixabay.com/photo/2016/11/29/10/07/shoes-1866575_960_720.jpg"},
+  {name:"Ensemble Sport",price:299,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/sport-2597540_960_720.jpg"},
+  {name:"Jogging Noir",price:199,img:"https://cdn.pixabay.com/photo/2017/08/06/00/50/joggers-2597539_960_720.jpg"},
+  {name:"Pull Hiver",price:229,img:"https://cdn.pixabay.com/photo/2016/03/31/19/00/sweater-1296624_960_720.jpg"},
+  {name:"Sweat Zip",price:239,img:"https://cdn.pixabay.com/photo/2017/03/21/20/55/hoodie-2161653_960_720.jpg"}
 ];
 
 let cart = [];
@@ -182,7 +182,7 @@ function renderProducts(){
   products.forEach((p,i)=>{
     box.innerHTML += `
     <div class="product">
-      <img src="${p.img}?w=600&q=80" />
+      <img src="${p.img}" />
       <div class="info">
         <h3>${p.name}</h3>
         <div class="price">${p.price} DH</div>

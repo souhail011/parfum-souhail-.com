@@ -6,38 +6,201 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Souhail Parfums</title>
+<title>Souhail Parfums | Luxury Perfumes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Souhail Parfums – Parfums luxury. Livraison partout au Maroc, paiement à la livraison.">
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f3f3f3}
-header{background:#000;color:#fff;padding:18px;text-align:center;font-size:24px;font-weight:bold}
-nav{background:#111;text-align:center;padding:10px}
-nav a{color:#fff;margin:0 10px;text-decoration:none;font-size:14px}
+
+body{
+margin:0;
+font-family:'Segoe UI',Arial;
+background:
+linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+url("https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1600&q=80");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+header,footer{
+background:#000;
+color:#d4af37;
+text-align:center;
+padding:20px;
+font-size:26px;
+font-weight:700;
+}
+
+nav{
+background:#050505;
+text-align:center;
+padding:10px;
+}
+
+nav a{
+color:#d4af37;
+margin:0 12px;
+text-decoration:none;
+font-size:14px;
+font-weight:500;
+}
+
 .container{max-width:1200px;margin:auto;padding:20px}
-.notice{background:#fff;padding:12px;border-radius:8px;text-align:center;margin-bottom:15px}
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
-.controls input,.controls select{padding:8px}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:15px}
-.product{background:#fff;border-radius:8px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.12);position:relative}
-.product img{width:100%;height:170px;object-fit:cover;border-radius:6px}
-.product h3{font-size:13px;margin:8px 0}
-.price{font-weight:bold}
-.dupe{font-size:11px;color:#666}
-.badge{position:absolute;top:8px;left:8px;background:#000;color:#fff;font-size:10px;padding:4px 6px;border-radius:4px}
-.btn{display:block;margin-top:6px;padding:8px;background:#25d366;color:#fff;text-decoration:none;border-radius:5px;font-size:13px}
+
+.notice{
+background:rgba(255,255,255,.95);
+padding:14px;
+border-radius:10px;
+text-align:center;
+margin-bottom:20px;
+font-size:14px;
+}
+
+.controls{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+
+.controls input,.controls select{
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:18px;
+}
+
+.product{
+background:rgba(255,255,255,.95);
+border-radius:14px;
+padding:12px;
+text-align:center;
+box-shadow:0 6px 16px rgba(0,0,0,.25);
+position:relative;
+}
+
+.product img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.product h3{font-size:14px;margin:10px 0}
+
+.price{font-weight:700;font-size:16px;color:#000}
+
+.dupe{font-size:12px;color:#555}
+
+.badge{
+position:absolute;
+top:10px;
+left:10px;
+background:#d4af37;
+color:#000;
+font-size:10px;
+padding:5px 7px;
+border-radius:5px;
+font-weight:bold;
+}
+
+.qty{
+width:60px;
+padding:6px;
+margin-top:6px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.btn{
+display:block;
+margin-top:8px;
+padding:10px;
+background:linear-gradient(135deg,#d4af37,#b8962e);
+color:#000;
+text-decoration:none;
+border-radius:6px;
+font-size:14px;
+font-weight:600;
+}
+
 .page{display:none}
 .page.active{display:block}
-form{background:#fff;padding:20px;border-radius:8px;max-width:400px;margin:auto}
-form input,form textarea{width:100%;padding:10px;margin-bottom:10px}
-form button{background:#000;color:#fff;padding:10px;border:none;width:100%;border-radius:5px}
-footer{background:#000;color:#fff;text-align:center;padding:18px;margin-top:40px;font-size:13px}
+
+form{
+background:rgba(255,255,255,.95);
+padding:22px;
+border-radius:14px;
+max-width:420px;
+margin:auto;
+}
+
+form input,form textarea{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+form button{
+background:#000;
+color:#d4af37;
+padding:12px;
+border:none;
+width:100%;
+border-radius:6px;
+font-size:15px;
+font-weight:600;
+}
+
+/* VISIT STORE */
+.visit{
+max-width:800px;
+margin:50px auto;
+background:rgba(0,0,0,.85);
+color:#fff;
+text-align:center;
+padding:30px 20px;
+border-radius:18px;
+box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+
+.visit h3{
+color:#d4af37;
+margin-bottom:10px;
+font-size:20px;
+}
+
+.visit p{
+font-size:14px;
+margin-bottom:18px;
+}
+
+.visit a{
+display:inline-block;
+padding:12px 22px;
+background:linear-gradient(135deg,#d4af37,#b8962e);
+color:#000;
+text-decoration:none;
+border-radius:8px;
+font-weight:600;
+font-size:14px;
+}
 </style>
 </head>
 
 <body>
 
 <header>Souhail Parfums</header>
+
 <nav>
 <a href="#" onclick="showPage('shop')">Boutique</a>
 <a href="#" onclick="showPage('commande')">Commande</a>
@@ -46,7 +209,8 @@ footer{background:#000;color:#fff;text-align:center;padding:18px;margin-top:40px
 <div class="container">
 
 <div class="notice">
-🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b> — 📲 0695979661
+🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b><br>
+📲 WhatsApp : <b>0695979661</b>
 </div>
 
 <!-- SHOP -->
@@ -71,11 +235,20 @@ footer{background:#000;color:#fff;text-align:center;padding:18px;margin-top:40px
 <input id="name" placeholder="Nom complet" required>
 <input id="phone" placeholder="Téléphone" required>
 <input id="city" placeholder="Ville" required>
-<textarea id="order" placeholder="Parfums + Quantité" required></textarea>
+<textarea id="order" placeholder="Parfum + Quantité" required></textarea>
 <button>Commander (Paiement à la livraison)</button>
 </form>
 </div>
 
+</div>
+
+<!-- VISIT STORE -->
+<div class="visit">
+<h3>📍 Pour visiter notre magasin</h3>
+<p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
+<a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
+Cliquez ici pour ouvrir Google Maps
+</a>
 </div>
 
 <footer>© 2026 Souhail Parfums</footer>
@@ -84,31 +257,27 @@ footer{background:#000;color:#fff;text-align:center;padding:18px;margin-top:40px
 const whatsapp="https://wa.me/212695979661?text=";
 
 const parfums=[
-["Yes I Am The King","199","Bleu de Chanel","Homme","Best"],
-["9PM","199","Ultra Male","Homme","Best"],
-["Asad","199","Dior Sauvage Elixir","Homme","Best"],
-["Fakhar Black","189","YSL Y","Homme",""],
-["Najdia","179","Invictus","Homme",""],
-["Blue Homme","189","Frais","Homme",""],
-
-["Idole","199","Floral","Femme","Best"],
-["Fakhar Rose","199","Rose","Femme",""],
-["Hayaati","189","Fruité","Femme",""],
-["Yara","199","Vanille","Femme","Best"],
-["Yara Tous","199","Tropical","Femme",""],
-
-["Oud For Glory","239","Oud Royal","Oud","Best"],
-["Oud Mood","209","Sucré","Oud",""],
-["Sheikh Shuyukh","219","Oriental","Oud",""],
-["Amethyst","229","Oud Floral","Oud",""],
-
-["Khamrah","239","Gourmand","Gourmand","Best"],
-["Ana Abiyedh","199","Vanille","Gourmand",""],
-["Ana Abiyedh Rouge","219","Baccarat","Gourmand","Best"],
-["Qaed Al Fursan","199","Ananas","Gourmand",""],
-["Nebras","219","Chocolat","Gourmand",""],
-["Choco Musk","179","Chocolat","Gourmand",""]
+["Yes I Am The King",199,"Bleu de Chanel","Homme","Best"],
+["9PM",199,"Ultra Male","Homme","Best"],
+["Asad",199,"Sauvage Elixir","Homme","Best"],
+["Yara",199,"Vanille","Femme","Best"],
+["Oud For Glory",239,"Oud Royal","Oud","Best"],
+["Khamrah",239,"Gourmand","Gourmand","Best"],
+["Choco Musk",179,"Chocolat","Gourmand",""]
 ];
+
+function img(name){
+const images={
+"Asad":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a",
+"9PM":"https://images.unsplash.com/photo-1541643600914-78b084683601",
+"Yes I Am The King":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
+"Yara":"https://images.unsplash.com/photo-1523293182086-7651a899d37f",
+"Oud For Glory":"https://images.unsplash.com/photo-1619995745882-f4128ac82ad6",
+"Khamrah":"https://images.unsplash.com/photo-1615634260167-c8cdede054de",
+"Choco Musk":"https://images.unsplash.com/photo-1594035910387-fea47794261f"
+};
+return images[name] || images["Yes I Am The King"];
+}
 
 function render(){
 const s=search.value.toLowerCase();
@@ -118,13 +287,20 @@ p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c)
 ).map(p=>`
 <div class="product">
 ${p[4]==="Best"?'<div class="badge">Best Seller</div>':''}
-<img src="https://via.placeholder.com/300x300?text=${p[0]}">
+<img src="${img(p[0])}">
 <h3>${p[0]}</h3>
 <div class="price">${p[1]} MAD</div>
 <div class="dupe">Inspiré de ${p[2]}</div>
-<a class="btn" href="${whatsapp+'Je veux '+p[0]}">Commander</a>
+<input class="qty" type="number" min="1" value="1" id="q_${p[0]}">
+<a class="btn" onclick="orderOne('${p[0]}',${p[1]})">Commander</a>
 </div>
 `).join("");
+}
+
+function orderOne(name,price){
+const q=document.getElementById("q_"+name).value;
+const msg=`Commande:%0A${name} x${q}%0ATotal: ${price*q} MAD`;
+window.open(whatsapp+msg);
 }
 
 function showPage(p){
@@ -145,3 +321,4 @@ render();
 
 </body>
 </html>
+

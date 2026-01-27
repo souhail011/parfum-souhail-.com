@@ -5,176 +5,250 @@
 </html><!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Souhail Shop - Boutique Souhail</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        .banner { background-image: url('https://via.placeholder.com/1200x300?text=Bienvenue+dans+notre+Hanout'); background-size: cover; background-position: center; height: 300px; display: flex; align-items: center; justify-content: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .banner h1 { margin: 0; font-size: 2.5em; }
-        .banner p { margin: 5px 0; font-size: 1.2em; }
-        header { background-color: #007bff; color: white; text-align: center; padding: 20px; display: flex; align-items: center; justify-content: center; }
-        header img { width: 80px; height: 80px; margin-right: 20px; border-radius: 50%; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .product { border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }
-        .product:hover { transform: scale(1.05); }
-        .product img { max-width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
-        .product button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
-        .product button:hover { background: #0056b3; }
-        .cart-icon { position: fixed; top: 20px; right: 20px; background: #007bff; color: white; border: none; padding: 15px; border-radius: 50%; cursor: pointer; font-size: 1.5em; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
-        .cart-icon:hover { background: #0056b3; }
-        .cart-count { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 5px 8px; font-size: 0.8em; }
-        .cart { display: none; position: fixed; top: 80px; right: 20px; background: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px; width: 300px; box-shadow: 0 0 15px rgba(0,0,0,0.2); z-index: 1000; }
-        .cart h3 { margin: 0 0 10px 0; }
-        .cart ul { list-style: none; padding: 0; max-height: 200px; overflow-y: auto; }
-        .cart li { margin: 5px 0; padding: 5px; border-bottom: 1px solid #eee; }
-        .cart p { margin: 10px 0; font-weight: bold; }
-        .cart button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; width: 100%; margin-top: 10px; }
-        .cart button:hover { background: #0056b3; }
-        .contact { margin-top: 40px; text-align: center; }
-        .contact form { max-width: 400px; margin: 0 auto; }
-        .contact input, .contact textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-        .contact button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
-        .social { margin-top: 20px; }
-        .social a { margin: 0 10px; text-decoration: none; color: #007bff; font-size: 1.5em; }
-        .map { margin-top: 20px; }
-        .map iframe { width: 100%; height: 300px; border: none; border-radius: 8px; }
-        .modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
-        .modal-content { background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; border-radius: 8px; text-align: center; }
-        .modal-content img { max-width: 100%; height: 300px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; }
-        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-        .close:hover { color: black; }
-        footer { text-align: center; padding: 10px; background: #007bff; color: white; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Souhail Shop CFE</title>
+
+<style>
+:root{
+  --noir:#111;
+  --blanc:#fff;
+  --beige:#e6d8c3;
+}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:#f7f7f7;color:#222}
+header{
+  background:var(--noir);
+  color:var(--blanc);
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:22px;color:var(--beige)}
+header button{
+  background:var(--beige);
+  border:none;
+  padding:8px 12px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.hero{
+  background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+  url("https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80");
+  background-size:cover;
+  color:white;
+  padding:60px 20px;
+  text-align:center;
+}
+.hero h2{font-size:32px;margin-bottom:10px}
+.container{padding:20px;max-width:1200px;margin:auto}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+.product{
+  background:white;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+.product img{width:100%;height:220px;object-fit:cover}
+.product .info{padding:12px}
+.product h3{margin:0 0 5px 0;font-size:16px}
+.price{color:#000;font-weight:bold;margin-bottom:8px}
+select,button.add{
+  width:100%;
+  margin-bottom:6px;
+  padding:6px;
+}
+button.add{
+  background:var(--noir);
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+button.add:hover{opacity:.9}
+
+#cart{
+  position:fixed;
+  top:0;right:-100%;
+  width:320px;height:100%;
+  background:white;
+  box-shadow:-2px 0 8px rgba(0,0,0,.2);
+  padding:15px;
+  transition:.3s;
+  overflow-y:auto;
+  z-index:10;
+}
+#cart.open{right:0}
+#cart h2{margin-top:0}
+.cart-item{border-bottom:1px solid #ddd;padding:6px 0;font-size:14px}
+.total{font-weight:bold;margin:10px 0}
+.whatsapp{
+  background:#25d366;
+  color:white;
+  text-align:center;
+  padding:10px;
+  text-decoration:none;
+  display:block;
+  font-weight:bold;
+}
+
+footer{
+  background:#222;color:white;
+  padding:20px;
+  margin-top:40px;
+}
+footer iframe{width:100%;height:250px;border:0}
+</style>
 </head>
+
 <body>
-    <div class="banner">
-        <div>
-            <h1>Bienvenue  !</h1>
-            <p>Vêtements et chaussures de qualité </p>
-        </div>
-    </div>
 
-    <button class="cart-icon" onclick="toggleCart()">🛒 <span class="cart-count" id="cart-count">0</span></button>
-    <div class="cart" id="cart">
-        <h3>Votre Panier</h3>
-        <ul id="cart-items"></ul>
-        <p>Total: <span id="total">0 MAD</span></p>
-        <button onclick="clearCart()">Vider le panier</button>
-        <button onclick="checkout()">Commander</button>
-    </div>
+<header>
+  <h1>Souhail Shop CFE</h1>
+  <button onclick="toggleCart()">🛒 Panier</button>
+</header>
 
-    <header>
-        <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Souhail Shop">
-        <div>
-            <h1>Boutique Souhail - Souhail Shop</h1>
-            <p>Vêtements et Chaussures!</p>
-        </div>
-    </header>
-    
-    <div class="container">
-        <h2>Nos Produits </h2>
-        <div class="products">
-            <div class="product" onclick="openModal('T-shirt Blanc', 'T-shirt en coton 100% bio, confortable et durable. Disponible en plusieurs tailles.', 80, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=250&h=200&fit=crop" alt="T-shirt Blanc">
-                <h3>T-shirt Blanc</h3>
-                <p>T-shirt en coton confortable.</p>
-                <p>Prix : 80 MAD</p>
-                <button onclick="addToCart('T-shirt Blanc', 80); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Chaussures de Sport', 'Chaussures légères et respirantes, idéales pour le running et les entraînements quotidiens.', 250, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="Chaussures de Sport">
-                <h3>Chaussures de Sport</h3>
-                <p>Chaussures confortables pour le sport.</p>
-                <p>Prix : 250 MAD</p>
-                <button onclick="addToCart('Chaussures de Sport', 250); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Jean Bleu', 'Jean slim fit en denim de qualité supérieure, résistant et stylé.', 150, 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=250&h=200&fit=crop" alt="Jean Bleu">
-                <h3>Jean Bleu</h3>
-                <p>Jean classique et durable.</p>
-                <p>Prix : 150 MAD</p>
-                <button onclick="addToCart('Jean Bleu', 150); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Baskets Noires', 'Baskets urbaines en cuir synthétique, confortables pour la ville.', 200, 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=250&h=200&fit=crop" alt="Baskets Noires">
-                <h3>Baskets Noires</h3>
-                <p>Baskets élégantes pour tous les jours.</p>
-                <p>Prix : 200 MAD</p>
-                <button onclick="addToCart('Baskets Noires', 200); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Robe d\'Été', 'Robe légère en tissu fluide, parfaite pour les journées chaudes.', 120, 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=250&h=200&fit=crop" alt="Robe d'Été">
-                <h3>Robe d'Été</h3>
-                <p>Robe légère et colorée.</p>
-                <p>Prix : 120 MAD</p>
-                <button onclick="addToCart('Robe d\'Été', 120); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Sandales', 'Sandales en cuir véritable, confortables et résistantes à l\'eau.', 90, 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=250&h=200&fit=crop" alt="Sandales">
-                <h3>chaussures</h3></h3>
-                <p>chassures blanc.</p>
-                <p>Prix : 90 MAD</p>
-                <button onclick="addToCart('chaussures', 90); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Chemise Blanche', 'Chemise classique en coton, parfaite pour le bureau ou les occasions.', 100, 'https://images.unsplash.com/photo-1602810316693-3667c3532396?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1602810316693-3667c3532396?w=250&h=200&fit=crop" alt="Chemise Blanche">
-                <h3>Chemise Blanche</h3>
-                <p>Chemise élégante et polyvalente.</p>
-                <p>Prix : 100 MAD</p>
-                <button onclick="addToCart('Chemise Blanche', 100); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Pull Gris', 'Pull chaud en laine mérinos, idéal pour l'automne et l'hiver.', 180, 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=250&h=200&fit=crop" alt="Pull Gris">
-                <h3>Pull Gris</h3>
-                <p>Pull chaud et confortable.</p>
-                <p>Prix : 180 MAD</p>
-                <button onclick="addToCart('Pull Gris', 180); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Jupe Plissée', 'Jupe plissée en tissu léger, féminine et tendance.', 130, 'https://images.unsplash.com/photo-1583496661160-fb5886a6aaaa?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1583496661160-fb5886a6aaaa?w=250&h=200&fit=crop" alt="Jupe Plissée">
-                <h3>Jupe Plissée</h3>
-                <p>Jupe élégante pour toutes occasions.</p>
-                <p>Prix : 130 MAD</p>
-                <button onclick="addToCart('Jupe Plissée', 130); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <div class="product" onclick="openModal('Bottes Marron', 'Bottes en cuir véritable, résistantes et stylées pour l'hiver.', 300, 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=300&fit=crop')">
-                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=250&h=200&fit=crop" alt="Bottes Marron">
-                <h3>chaussures </h3>
-                <p>chaussures confortable.</p>
-                <p>Prix : 300 MAD</p>
-                <button onclick="addToCart('chaussures confortable', 300); event.stopPropagation();">Ajouter au panier</button>
-            </div>
-            <!-- Ajoutez plus de produits ici -->
-        </div>
+<section class="hero">
+  <h2>Mode Homme – Style Marocain</h2>
+  <p>Livraison rapide dans toutes les villes du Maroc 🇲🇦</p>
+</section>
 
-        <div class="contact">
-            <h2>Contactez-nous</h2>
-            <p><strong>Localisation :</strong> av hay amal </p>
-            <p>Téléphone : 0695979661</p>
-            <p>Email : souhaailshop11@gmail.com</p>
-            <p>Adresse : av hay amal mag 6</p>
-            <div class="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.123456789012!2d-2.3000!3d35.0833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd0b1b1b1b1b1b1b%3A0x123456789abcdef!2sSa%C3%ADdia%2C%20Maroc!5e0!3m2!1sfr!2sma!4v1690000000000!5m2!1sfr!2sma" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="social">
-                <a href="https://www.instagram.com/toncompte" target="_blank">📷 Instagram</a>
-                <a href="https://wa.me/212695979661 target="_blank">💬 WhatsApp</a>
-                <a href="https://www.facebook.com/toncompte" target="_blank">📘 Facebook</a>
-            </div>
-            <form>
-                <input type="text" placeholder="Votre nom" required>
-                <input type="adresse" placeholder="Votre adresse" required>
-                <textarea placeholder="Votre commande rows="4" required></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
-        </div>
-    </div>
-    
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modal-img" src="" alt="Produit">
-            <h2 id="modal-title"></h2>
-            <p id="modal-desc"></p
+<div class="container">
+  <h2>Nos Produits</h2>
+
+  <div class="products" id="products"></div>
+</div>
+
+<!-- PANIER -->
+<div id="cart">
+  <h2>Votre Panier</h2>
+  <div id="cartItems"></div>
+  <div class="total" id="total"></div>
+  <a id="waLink" class="whatsapp" target="_blank">
+    Commander via WhatsApp
+  </a>
+</div>
+
+<footer>
+  <h3>Contact</h3>
+  <p>📞 WhatsApp : 0695979661</p>
+  <p>📍 Hay Amal – Salé</p>
+  <iframe 
+    src="https://www.google.com/maps?q=Hay%20Amal%20Sale&output=embed">
+  </iframe>
+</footer>
+
+<script>
+const phone = "212695979661"; // WhatsApp
+
+const products = [
+  // T-SHIRTS
+  {name:"T-shirt Classique Noir",price:109,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"},
+  {name:"T-shirt Blanc Premium",price:119,img:"https://images.unsplash.com/photo-1520975922284-9f5c2d0a5c0a"},
+  {name:"T-shirt Beige Street",price:129,img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"},
+  {name:"T-shirt Sport",price:99,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
+
+  // PANTALONS
+  {name:"Jean Slim Noir",price:199,img:"https://images.unsplash.com/photo-1514996937319-344454492b37"},
+  {name:"Jean Bleu",price:189,img:"https://images.unsplash.com/photo-1542272604-787c3835535d"},
+  {name:"Pantalon Beige",price:179,img:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b"},
+  {name:"Pantalon Cargo",price:229,img:"https://images.unsplash.com/photo-1618354691373-ec6c5e4b2c3f"},
+
+  // SWEATS
+  {name:"Sweat Capuche Noir",price:229,img:"https://images.unsplash.com/photo-1520975661595-6453be3f7070"},
+  {name:"Sweat Gris",price:199,img:"https://images.unsplash.com/photo-1505635552518-3448ff116af3"},
+  {name:"Sweat Beige",price:219,img:"https://images.unsplash.com/photo-1548883354-7622d03aca27"},
+  {name:"Sweat Street",price:249,img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c"},
+
+  // BASKETS
+  {name:"Basket Blanche",price:299,img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"},
+  {name:"Basket Noire",price:279,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"},
+  {name:"Basket Sport",price:349,img:"https://images.unsplash.com/photo-1519861531473-9200262188bf"},
+  {name:"Basket Classique",price:249,img:"https://images.unsplash.com/photo-1528701800489-20be3c6b0c1d"},
+
+  // BONUS
+  {name:"Ensemble Sport",price:299,img:"https://images.unsplash.com/photo-1520974735194-6c54d6b1d92b"},
+  {name:"Jogging Noir",price:199,img:"https://images.unsplash.com/photo-1585386959984-a41552231692"},
+  {name:"Pull Hiver",price:229,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
+  {name:"Sweat Zip",price:239,img:"https://images.unsplash.com/photo-1548883354-7622d03aca27"}
+];
+
+let cart = [];
+
+function renderProducts(){
+  const box = document.getElementById("products");
+  products.forEach((p,i)=>{
+    box.innerHTML += `
+    <div class="product">
+      <img src="${p.img}?w=600&q=80" />
+      <div class="info">
+        <h3>${p.name}</h3>
+        <div class="price">${p.price} DH</div>
+
+        <select id="size${i}">
+          <option>S</option><option>M</option>
+          <option>L</option><option>XL</option>
+        </select>
+
+        <select id="color${i}">
+          <option>Noir</option>
+          <option>Blanc</option>
+          <option>Beige</option>
+        </select>
+
+        <button class="add" onclick="addToCart(${i})">
+          Ajouter au panier
+        </button>
+      </div>
+    </div>`;
+  });
+}
+
+function addToCart(i){
+  const size = document.getElementById("size"+i).value;
+  const color = document.getElementById("color"+i).value;
+  cart.push({...products[i],size,color});
+  updateCart();
+  toggleCart(true);
+}
+
+function updateCart(){
+  const items = document.getElementById("cartItems");
+  let total = 0;
+  items.innerHTML="";
+  cart.forEach(c=>{
+    total+=c.price;
+    items.innerHTML+=`
+      <div class="cart-item">
+        ${c.name}<br>
+        Taille: ${c.size} | Couleur: ${c.color}<br>
+        ${c.price} DH
+      </div>`;
+  });
+  document.getElementById("total").innerText="Total: "+total+" DH";
+
+  let msg="Bonjour, je veux commander:%0A";
+  cart.forEach(c=>{
+    msg+=`- ${c.name} (${c.size}, ${c.color}) : ${c.price} DH%0A`;
+  });
+  msg+=`Total: ${total} DH`;
+  document.getElementById("waLink").href =
+    `https://wa.me/${phone}?text=${msg}`;
+}
+
+function toggleCart(force){
+  const c = document.getElementById("cart");
+  if(force===true) c.classList.add("open");
+  else c.classList.toggle("open");
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>

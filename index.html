@@ -7,232 +7,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Souhail Shop CFE</title>
+<title>Parfum Souhail</title>
+
 <style>
-:root{
-  --noir:#111;
-  --blanc:#fff;
-  --beige:#e6d8c3;
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:20px;
 }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;}
-body{background:#f7f7f7;color:#222;}
 header{
-  background:var(--noir);
-  color:var(--blanc);
-  padding:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+    text-align:center;
+    font-size:2.2em;
+    margin-bottom:20px;
+    color:#2c3e50;
 }
-header h1{font-size:22px;color:var(--beige);}
-header button{background:var(--beige);border:none;padding:8px 12px;cursor:pointer;font-weight:bold;}
-.logo{width:120px;}
-.hero{
-  background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),url('images/hero.jpg');
-  background-size:cover;
-  color:white;
-  padding:60px 20px;
-  text-align:center;
-}
-.hero h2{font-size:32px;margin-bottom:10px;}
-.container{padding:20px;max-width:1200px;margin:auto;}
 .products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
 }
 .product{
-  background:white;
-  border-radius:6px;
-  overflow:hidden;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
+    background:#fff;
+    width:280px;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+    text-align:center;
 }
-.product img{width:100%;height:220px;object-fit:cover;}
-.product .info{padding:12px;}
-.product h3{font-size:16px;margin-bottom:5px;}
-.price{font-weight:bold;margin-bottom:8px;}
-select,input,button.add{width:100%;margin-bottom:6px;padding:6px;}
-button.add{background:var(--noir);color:white;border:none;cursor:pointer;}
-button.add:hover{opacity:.9;}
-#cart{
-  position:fixed;
-  top:0;right:-100%;
-  width:350px;height:100%;
-  background:white;
-  box-shadow:-2px 0 8px rgba(0,0,0,.2);
-  padding:15px;
-  overflow-y:auto;
-  transition:.3s;
-  z-index:10;
+.product iframe{
+    width:100%;
+    height:200px;
+    border-radius:10px;
 }
-#cart.open{right:0;}
-#cart h2{margin-top:0;}
-.cart-item{
-  border-bottom:1px solid #ddd;
-  padding:6px 0;
-  font-size:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.price{
+    color:#e67e22;
+    font-weight:bold;
 }
-.cart-item div{flex:1;}
-.cart-item button{background:red;color:white;border:none;padding:2px 6px;cursor:pointer;}
-.total{font-weight:bold;margin:10px 0;}
-.whatsapp{
-  background:#25d366;
-  color:white;
-  text-align:center;
-  padding:10px;
-  text-decoration:none;
-  display:block;
-  font-weight:bold;
+button{
+    background:#27ae60;
+    color:#fff;
+    border:none;
+    padding:10px;
+    width:100%;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:8px;
 }
-footer{
-  background:#222;color:white;padding:20px;margin-top:40px;
+button:hover{background:#1e8449;}
+
+#cart,#order,#contact{
+    background:#fff;
+    max-width:750px;
+    margin:30px auto;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
 }
-footer iframe{width:100%;height:250px;border:0;}
+input,textarea{
+    width:100%;
+    padding:10px;
+    margin:5px 0 15px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+#map iframe{
+    width:100%;
+    height:350px;
+    border-radius:10px;
+}
 </style>
 </head>
+
 <body>
 
-<header>
-  <img class="logo" src="images/logo.svg" alt="Logo">
-  <h1>Souhail Shop CFE</h1>
-  <button onclick="toggleCart()">🛒 Panier</button>
-</header>
+<header>🌟 Parfum Souhail 🌟</header>
 
-<section class="hero">
-  <h2>Mode Homme – Style Marocain</h2>
-  <p>Livraison rapide dans toutes les villes du Maroc 🇲🇦</p>
-</section>
+<div class="products">
 
-<div class="container">
-  <h2>Nos Produits</h2>
-  <div class="products" id="products"></div>
+<div class="product">
+<iframe src="https://sketchfab.com/models/79e5234e79d7487eae90deddb0977891/embed"></iframe>
+<h3>Valentino Uomo Intense</h3>
+<p class="price">1250 MAD</p>
+<button onclick="addToCart('Valentino Uomo Intense',1250)">Ajouter au panier</button>
+</div>
+
+<div class="product">
+<iframe src="https://sketchfab.com/models/79e5234e79d7487eae90deddb0977891/embed"></iframe>
+<h3>Dior Sauvage</h3>
+<p class="price">900 MAD</p>
+<button onclick="addToCart('Dior Sauvage',900)">Ajouter au panier</button>
+</div>
+
+<div class="product">
+<iframe src="https://sketchfab.com/models/79e5234e79d7487eae90deddb0977891/embed"></iframe>
+<h3>Bleu de Chanel</h3>
+<p class="price">950 MAD</p>
+<button onclick="addToCart('Bleu de Chanel',950)">Ajouter au panier</button>
+</div>
+
+<div class="product">
+<iframe src="https://sketchfab.com/models/79e5234e79d7487eae90deddb0977891/embed"></iframe>
+<h3>Dior Homme Intense</h3>
+<p class="price">1800 MAD</p>
+<button onclick="addToCart('Dior Homme Intense',1800)">Ajouter au panier</button>
+</div>
+
+<div class="product">
+<iframe src="https://sketchfab.com/models/79e5234e79d7487eae90deddb0977891/embed"></iframe>
+<h3>La Nuit de l’Homme</h3>
+<p class="price">800 MAD</p>
+<button onclick="addToCart('La Nuit de l’Homme',800)">Ajouter au panier</button>
+</div>
+
 </div>
 
 <div id="cart">
-  <h2>Votre Panier</h2>
-  <div id="cartItems"></div>
-  <div class="total" id="total"></div>
-
-  <div style="margin-bottom:10px;">
-    <input type="text" id="customerName" placeholder="Votre Nom" />
-    <input type="text" id="customerAddress" placeholder="Votre Adresse complète" />
-  </div>
-
-  <a id="waLink" class="whatsapp" target="_blank">Commander via WhatsApp</a>
+<h2>🧺 Panier</h2>
+<div id="cartItems">Panier vide</div>
+<p id="total"></p>
+<button onclick="showOrder()">Passer la commande</button>
 </div>
 
-<footer>
-  <h3>Contact</h3>
-  <p>📞 WhatsApp : 0695979661</p>
-  <p>📍 Hay Amal – Salé</p>
-  <iframe src="https://www.google.com/maps?q=Hay%20Amal%20Sale&output=embed"></iframe>
-</footer>
+<div id="order" style="display:none;">
+<h2>📦 Informations de commande</h2>
+
+<label>Nom complet</label>
+<input id="name">
+
+<label>Adresse</label>
+<textarea id="address"></textarea>
+
+<label>Parfum(s)</label>
+<textarea id="parfums" readonly></textarea>
+
+<button onclick="sendWhatsApp()">Confirmer via WhatsApp</button>
+</div>
+
+<div id="contact">
+<h2>📞 Contact</h2>
+<p><strong>WhatsApp :</strong> 0695979661</p>
+<p><strong>Adresse :</strong> Hay Amal, Salé</p>
+
+<div id="map">
+<iframe src="https://www.google.com/maps?q=Hay+Amal+Salé&output=embed"></iframe>
+</div>
+</div>
 
 <script>
-const phone = "2126959661";
+let cart=[];
 
-const products = [
-{name:"T-shirt Classique Noir",price:109,img:"images/tshirt_noir.jpg"},
-{name:"T-shirt Blanc Premium",price:119,img:"images/tshirt_blanc.jpg"},
-{name:"T-shirt Beige Street",price:129,img:"images/tshirt_beige.jpg"},
-{name:"Jean Slim Noir",price:199,img:"images/jean_noir.jpg"},
-{name:"Jean Bleu",price:189,img:"images/jean_bleu.jpg"},
-{name:"Pantalon Beige",price:179,img:"images/pantalon_beige.jpg"},
-{name:"Pantalon Cargo",price:229,img:"images/pantalon_cargo.jpg"},
-{name:"Sweat Capuche Noir",price:229,img:"images/sweat_noir.jpg"},
-{name:"Sweat Gris",price:199,img:"images/sweat_gris.jpg"},
-{name:"Sweat Beige",price:219,img:"images/sweat_beige.jpg"},
-{name:"Sweat Street",price:249,img:"images/sweat_street.jpg"},
-{name:"Basket Blanche",price:299,img:"images/basket_blanche.jpg"},
-{name:"Basket Noire",price:279,img:"images/basket_noire.jpg"},
-{name:"Basket Sport",price:349,img:"images/basket_sport.jpg"},
-{name:"Basket Classique",price:249,img:"images/basket_classique.jpg"},
-{name:"Ensemble Sport",price:299,img:"images/ensemble_sport.jpg"},
-{name:"Jogging Noir",price:199,img:"images/jogging_noir.jpg"},
-{name:"Pull Hiver",price:229,img:"images/pull_hiver.jpg"},
-{name:"Sweat Zip",price:239,img:"images/sweat_zip.jpg"}
-];
-
-let cart = [];
-
-function renderProducts(){
-  const box = document.getElementById("products");
-  products.forEach((p,i)=>{
-    box.innerHTML += `
-      <div class="product">
-        <img src="${p.img}" />
-        <div class="info">
-          <h3>${p.name}</h3>
-          <div class="price">${p.price} DH</div>
-          <select id="size${i}">
-            <option>S</option><option>M</option><option>L</option><option>XL</option>
-          </select>
-          <select id="color${i}">
-            <option>Noir</option><option>Blanc</option><option>Beige</option>
-          </select>
-          <input type="number" id="qty${i}" value="1" min="1"/>
-          <button class="add" onclick="addToCart(${i})">Ajouter au panier</button>
-        </div>
-      </div>
-    `;
-  });
+function addToCart(name,price){
+    cart.push({name,price});
+    renderCart();
 }
 
-function addToCart(i){
-  const size = document.getElementById("size"+i).value;
-  const color = document.getElementById("color"+i).value;
-  const qty = parseInt(document.getElementById("qty"+i).value);
-  const existing = cart.find(item=>item.name===products[i].name && item.size===size && item.color===color);
-  if(existing) existing.qty+=qty;
-  else cart.push({...products[i],size,color,qty});
-  updateCart();
-  toggleCart(true);
+function renderCart(){
+    let html="<ul>";
+    let total=0;
+    cart.forEach(p=>{
+        html+=`<li>${p.name} - ${p.price} MAD</li>`;
+        total+=p.price;
+    });
+    html+="</ul>";
+    document.getElementById("cartItems").innerHTML=cart.length?html:"Panier vide";
+    document.getElementById("total").innerHTML=cart.length?"Total : "+total+" MAD":"";
 }
 
-function updateCart(){
-  const items = document.getElementById("cartItems");
-  items.innerHTML="";
-  let total=0;
-  cart.forEach((c,index)=>{
-    total += c.price*c.qty;
-    items.innerHTML+=`
-      <div class="cart-item">
-        <div>
-          ${c.name}<br>
-          Taille: ${c.size} | Couleur: ${c.color} | Qty: ${c.qty}<br>
-          ${c.price*c.qty} DH
-        </div>
-        <button onclick="removeFromCart(${index})">X</button>
-      </div>
-    `;
-  });
-  document.getElementById("total").innerText="Total: "+total+" DH";
-
-  const name = document.getElementById("customerName").value || "Non renseigné";
-  const address = document.getElementById("customerAddress").value || "Non renseignée";
-
-  let msg=`Bonjour, je veux commander:%0ANom: ${name}%0AAdresse: ${address}%0A`;
-  cart.forEach(c=> msg+=`- ${c.name} (${c.size}, ${c.color}) x${c.qty} : ${c.price*c.qty} DH%0A`);
-  msg+=`Total: ${total} DH`;
-  document.getElementById("waLink").href = `https://wa.me/${phone}?text=${msg}`;
+function showOrder(){
+    if(cart.length===0){alert("Panier vide");return;}
+    document.getElementById("order").style.display="block";
+    document.getElementById("parfums").value=cart.map(p=>p.name).join(", ");
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
-function removeFromCart(i){
-  cart.splice(i,1);
-  updateCart();
-}
+function sendWhatsApp(){
+    let name=document.getElementById("name").value;
+    let address=document.getElementById("address").value;
+    let parfums=document.getElementById("parfums").value;
+    let total=cart.reduce((s,p)=>s+p.price,0);
 
-function toggleCart(force){
-  const c=document.getElementById("cart");
-  if(force===true) c.classList.add("open");
-  else c.classList.toggle("open");
-}
+    let msg=`Commande Parfum Souhail%0A
+Nom: ${name}%0A
+Adresse: ${address}%0A
+Parfum(s): ${parfums}%0A
+Total: ${total} MAD`;
 
-renderProducts();
+    window.open(`https://wa.me/212695979661?text=${msg}`,"_blank");
+}
 </script>
+
 </body>
 </html>
 

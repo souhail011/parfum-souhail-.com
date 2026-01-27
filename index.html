@@ -15,8 +15,8 @@
   --blanc:#fff;
   --beige:#e6d8c3;
 }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{margin:0;background:#f7f7f7;color:#222}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+body{margin:0;background:#f7f7f7;color:#222;}
 header{
   background:var(--noir);
   color:var(--blanc);
@@ -25,7 +25,7 @@ header{
   justify-content:space-between;
   align-items:center;
 }
-header h1{margin:0;font-size:22px;color:var(--beige)}
+header h1{margin:0;font-size:22px;color:var(--beige);}
 header button{
   background:var(--beige);
   border:none;
@@ -33,6 +33,7 @@ header button{
   cursor:pointer;
   font-weight:bold;
 }
+.logo{width:120px;height:auto;}
 .hero{
   background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
   url("https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80");
@@ -41,9 +42,8 @@ header button{
   padding:60px 20px;
   text-align:center;
 }
-.hero h2{font-size:32px;margin-bottom:10px}
-.container{padding:20px;max-width:1200px;margin:auto}
-
+.hero h2{font-size:32px;margin-bottom:10px;}
+.container{padding:20px;max-width:1200px;margin:auto;}
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -55,11 +55,11 @@ header button{
   overflow:hidden;
   box-shadow:0 2px 6px rgba(0,0,0,.1);
 }
-.product img{width:100%;height:220px;object-fit:cover}
-.product .info{padding:12px}
-.product h3{margin:0 0 5px 0;font-size:16px}
-.price{color:#000;font-weight:bold;margin-bottom:8px}
-select,button.add{
+.product img{width:100%;height:220px;object-fit:cover;}
+.product .info{padding:12px;}
+.product h3{margin:0 0 5px 0;font-size:16px;}
+.price{color:#000;font-weight:bold;margin-bottom:8px;}
+select,button.add,input{
   width:100%;
   margin-bottom:6px;
   padding:6px;
@@ -70,8 +70,7 @@ button.add{
   border:none;
   cursor:pointer;
 }
-button.add:hover{opacity:.9}
-
+button.add:hover{opacity:.9;}
 #cart{
   position:fixed;
   top:0;right:-100%;
@@ -83,10 +82,10 @@ button.add:hover{opacity:.9}
   overflow-y:auto;
   z-index:10;
 }
-#cart.open{right:0}
-#cart h2{margin-top:0}
-.cart-item{border-bottom:1px solid #ddd;padding:6px 0;font-size:14px}
-.total{font-weight:bold;margin:10px 0}
+#cart.open{right:0;}
+#cart h2{margin-top:0;}
+.cart-item{border-bottom:1px solid #ddd;padding:6px 0;font-size:14px;}
+.total{font-weight:bold;margin:10px 0;}
 .whatsapp{
   background:#25d366;
   color:white;
@@ -96,19 +95,19 @@ button.add:hover{opacity:.9}
   display:block;
   font-weight:bold;
 }
-
 footer{
   background:#222;color:white;
   padding:20px;
   margin-top:40px;
 }
-footer iframe{width:100%;height:250px;border:0}
+footer iframe{width:100%;height:250px;border:0;}
 </style>
 </head>
 
 <body>
 
 <header>
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Placeholder_logo.svg" alt="Logo Souhail Shop"/>
   <h1>Souhail Shop CFE</h1>
   <button onclick="toggleCart()">🛒 Panier</button>
 </header>
@@ -120,7 +119,6 @@ footer iframe{width:100%;height:250px;border:0}
 
 <div class="container">
   <h2>Nos Produits</h2>
-
   <div class="products" id="products"></div>
 </div>
 
@@ -129,6 +127,13 @@ footer iframe{width:100%;height:250px;border:0}
   <h2>Votre Panier</h2>
   <div id="cartItems"></div>
   <div class="total" id="total"></div>
+
+  <!-- Formulaire -->
+  <div style="margin-bottom:10px;">
+    <input type="text" id="customerName" placeholder="Votre Nom" />
+    <input type="text" id="customerAddress" placeholder="Votre Adresse complète" />
+  </div>
+
   <a id="waLink" class="whatsapp" target="_blank">
     Commander via WhatsApp
   </a>
@@ -144,37 +149,29 @@ footer iframe{width:100%;height:250px;border:0}
 </footer>
 
 <script>
-const phone = "212695979661"; // WhatsApp
+const phone = "2126959661";
 
+// Images réalistes marocaines (exemple Unsplash + recherche locale)
 const products = [
-  // T-SHIRTS
-  {name:"T-shirt Classique Noir",price:109,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"},
-  {name:"T-shirt Blanc Premium",price:119,img:"https://images.unsplash.com/photo-1520975922284-9f5c2d0a5c0a"},
-  {name:"T-shirt Beige Street",price:129,img:"https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"},
-  {name:"T-shirt Sport",price:99,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
-
-  // PANTALONS
+  {name:"T-shirt Classique Noir",price:109,img:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519b"},
+  {name:"T-shirt Blanc Premium",price:119,img:"https://images.unsplash.com/photo-1585386959984-a41552231692"},
+  {name:"T-shirt Beige Street",price:129,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
+  {name:"T-shirt Sport",price:99,img:"https://images.unsplash.com/photo-1520974735194-6c54d6b1d92b"},
   {name:"Jean Slim Noir",price:199,img:"https://images.unsplash.com/photo-1514996937319-344454492b37"},
   {name:"Jean Bleu",price:189,img:"https://images.unsplash.com/photo-1542272604-787c3835535d"},
   {name:"Pantalon Beige",price:179,img:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b"},
   {name:"Pantalon Cargo",price:229,img:"https://images.unsplash.com/photo-1618354691373-ec6c5e4b2c3f"},
-
-  // SWEATS
   {name:"Sweat Capuche Noir",price:229,img:"https://images.unsplash.com/photo-1520975661595-6453be3f7070"},
   {name:"Sweat Gris",price:199,img:"https://images.unsplash.com/photo-1505635552518-3448ff116af3"},
   {name:"Sweat Beige",price:219,img:"https://images.unsplash.com/photo-1548883354-7622d03aca27"},
   {name:"Sweat Street",price:249,img:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c"},
-
-  // BASKETS
   {name:"Basket Blanche",price:299,img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"},
   {name:"Basket Noire",price:279,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"},
   {name:"Basket Sport",price:349,img:"https://images.unsplash.com/photo-1519861531473-9200262188bf"},
   {name:"Basket Classique",price:249,img:"https://images.unsplash.com/photo-1528701800489-20be3c6b0c1d"},
-
-  // BONUS
-  {name:"Ensemble Sport",price:299,img:"https://images.unsplash.com/photo-1520974735194-6c54d6b1d92b"},
-  {name:"Jogging Noir",price:199,img:"https://images.unsplash.com/photo-1585386959984-a41552231692"},
-  {name:"Pull Hiver",price:229,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
+  {name:"Ensemble Sport",price:299,img:"https://images.unsplash.com/photo-1585386959984-a41552231692"},
+  {name:"Jogging Noir",price:199,img:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"},
+  {name:"Pull Hiver",price:229,img:"https://images.unsplash.com/photo-1516826957135-700dedea698c"},
   {name:"Sweat Zip",price:239,img:"https://images.unsplash.com/photo-1548883354-7622d03aca27"}
 ];
 
@@ -189,18 +186,15 @@ function renderProducts(){
       <div class="info">
         <h3>${p.name}</h3>
         <div class="price">${p.price} DH</div>
-
         <select id="size${i}">
           <option>S</option><option>M</option>
           <option>L</option><option>XL</option>
         </select>
-
         <select id="color${i}">
           <option>Noir</option>
           <option>Blanc</option>
           <option>Beige</option>
         </select>
-
         <button class="add" onclick="addToCart(${i})">
           Ajouter au panier
         </button>
@@ -232,13 +226,16 @@ function updateCart(){
   });
   document.getElementById("total").innerText="Total: "+total+" DH";
 
-  let msg="Bonjour, je veux commander:%0A";
+  const name = document.getElementById("customerName").value || "Non renseigné";
+  const address = document.getElementById("customerAddress").value || "Non renseignée";
+
+  let msg=`Bonjour, je veux commander:%0ANom: ${name}%0AAdresse: ${address}%0A`;
   cart.forEach(c=>{
     msg+=`- ${c.name} (${c.size}, ${c.color}) : ${c.price} DH%0A`;
   });
   msg+=`Total: ${total} DH`;
-  document.getElementById("waLink").href =
-    `https://wa.me/${phone}?text=${msg}`;
+
+  document.getElementById("waLink").href = `https://wa.me/${phone}?text=${msg}`;
 }
 
 function toggleCart(force){
@@ -252,3 +249,4 @@ renderProducts();
 
 </body>
 </html>
+

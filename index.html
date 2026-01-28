@@ -2,7 +2,7 @@
 
 </body 
 </body>
-</html><!DOCTYPE html>
+</html<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -31,13 +31,19 @@ nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;font-weight
 .dupe{font-size:10px;color:#555;}
 .badge{position:absolute;top:6px;left:6px;background:#d4af37;color:#000;font-size:9px;padding:3px 5px;border-radius:5px;font-weight:bold;}
 .qty{width:40px;padding:4px;margin-top:4px;font-size:12px;border-radius:5px;border:1px solid #ccc;}
-.btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:5px;font-size:12px;font-weight:600;text-align:center;}
+.btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:5px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;}
 .page{display:none;}.page.active{display:block;}
 form{background:#fff;padding:16px;border-radius:12px;max-width:400px;margin:auto;}
 form input,form textarea{width:100%;padding:10px;margin-bottom:8px;border-radius:6px;border:1px solid #ccc;font-size:13px;}
 form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
 .visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px;}
 .visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px;}
+#panier{background:#fff;border-radius:10px;padding:10px;margin-top:15px;max-width:500px;}
+#panier h3{margin-bottom:8px;text-align:center;}
+.panier-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.panier-item input{width:40px;border:1px solid #ccc;border-radius:5px;text-align:center;padding:2px;}
+.panier-total{text-align:right;font-weight:bold;margin-top:8px;}
+.panier-btn{margin-top:8px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;padding:6px;width:100%;border:none;border-radius:5px;font-weight:600;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -49,7 +55,6 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 </nav>
 
 <div class="container">
-
 <div class="notice">🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b> — 📲 WhatsApp : 0695979661</div>
 
 <div class="promoslider" id="promoslider"></div>
@@ -75,6 +80,15 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 
 <div class="products" id="products"></div>
 
+<!-- PANIER -->
+<div id="panier">
+<h3>🛒 Panier</h3>
+<div id="panier-items"></div>
+<div class="panier-total" id="panier-total">Total: 0 MAD</div>
+<button class="panier-btn" onclick="sendPanier()">Commander via WhatsApp</button>
+</div>
+
+<!-- COMMANDE -->
 <div id="commande" class="page">
 <form onsubmit="sendOrder(event)">
 <h3>🛒 Passer une commande</h3>
@@ -118,40 +132,34 @@ const parfums=[
 ["Roya Blend",350,"Mixte","Luxury","",1,0],
 ["Dior Homme Intense",1300,"Homme","Original","Best",1,0],
 ["Stronger With You Intensely",1200,"Homme","Original","Best",1,15],
-["Power Musk",100,"Mixte","Luxury","",1,0],
-["9PM Afnan",65,"Homme","Clone","",1,0],
-["9PM Rebel Afnan",65,"Homme","Clone","",1,0],
-["L Absolu Vanille",300,"Gourmand","Luxury","",1,10],
-["Liquid Brun",249,"Mixte","Luxury","",1,0],
-["I Am The Queen",120,"Femme","Luxury","",1,0],
-["Delilah",120,"Femme","Luxury","",1,0],
-["Yara Candy",199,"Femme","Luxury","",1,0],
-["Nebras",219,"Gourmand","Luxury","",1,0],
-["Choco Musk",179,"Gourmand","Luxury","",1,0],
-["Ana Abiyedh",199,"Gourmand","Luxury","",1,0],
-["Ana Abiyedh Rouge",219,"Gourmand","Luxury","Best",1,10],
-["Qaed Al Fursan",199,"Gourmand","Luxury","",1,0],
-["Yes I Am The King",199,"Bleu de Chanel","Homme","Best",1,10],
-["9PM",199,"Ultra Male","Homme","Best",1,0],
-["Asad",199,"Dior Sauvage Elixir","Homme","Best",0,0],
-["Fakhar Black",189,"YSL Y","Homme","",1,0],
-["Najdia",179,"Invictus","Homme","",1,5],
-["Blue Homme",189,"Frais","Homme","",0,0],
-["Idole",199,"Floral","Femme","Best",1,0],
-["Fakhar Rose",199,"Rose","Femme","",1,0],
-["Hayaati",189,"Fruité","Femme","",0,0],
-["Yara",199,"Vanille","Femme","Best",1,10],
-["Yara Tous",199,"Tropical","Femme","",1,0],
-["Oud For Glory",239,"Oud Royal","Oud","Best",1,10],
-["Oud Mood",209,"Sucré","Oud","",0,0],
-["Sheikh Shuyukh",219,"Oriental","Oud","",1,0],
-["Amethyst",229,"Oud Floral","Oud","",1,0],
-["Khamrah",239,"Gourmand","Gourmand","Best",1,0]
+["Power Musk",100,"Mixte","Luxury","",1,0]
 ];
 
+// panier
+let panier=[];
+
 function img(name){
-const images={};
-return images[name]||"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
+const images={
+"Writer Anonymous":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
+"Idole La Nuit":"https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=300",
+"Tag Uomo Rose EDP":"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=300",
+"Bois D Iris":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300",
+"Let S Be Strong":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
+"Mindset Eau de Parfum":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a?w=300",
+"Asade Eau de Parfum":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300",
+"Your Touch Extrait":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
+"Asad Bourbon":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300",
+"Champion Money Fragrance World":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
+"L Absolu":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300",
+"Hunter Killer":"https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=300",
+"Khamrah Qahwa":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
+"Voux Elegante":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
+"Roya Blend":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300",
+"Dior Homme Intense":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=300",
+"Stronger With You Intensely":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=300",
+"Power Musk":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300"
+};
+return images[name]||images["Writer Anonymous"];
 }
 
 function render(){
@@ -181,7 +189,7 @@ ${stock===0?'<div class="badge" style="top:45px;background:#999;color:#000">Épu
 <div class="price">${promo?`<span style="text-decoration:line-through;color:#999">${price} MAD</span> ${finalPrice} MAD`:price+' MAD'}</div>
 <div class="dupe">Inspiré de ${p[2]}</div>
 ${stock===1?`<input class="qty" type="number" min="1" value="1" id="q_${p[0]}">
-<a class="btn" onclick="orderOne('${p[0]}',${finalPrice})">Commander</a>`:
+<a class="btn" onclick="addToPanier('${p[0]}',${finalPrice})">Ajouter au Panier</a>`:
 `<div class="btn" style="background:#ccc;color:#666;cursor:not-allowed">Rupture</div>`}
 </div>`;
 }).join("");
@@ -194,9 +202,48 @@ let promos=list.filter(p=>p[6]>0);
 promoslider.innerHTML=promos.map(p=>`${p[0]} -${p[6]}%`).join('').split(',').map(t=>`<div class="promo">${t}</div>`).join('');
 }
 
-function orderOne(name,price){
-let q=document.getElementById("q_"+name).value;
-let msg=`Commande:%0A${name} x${q}%0ATotal: ${price*q} MAD`;
+// panier functions
+function addToPanier(name,price){
+let item=panier.find(x=>x.name===name);
+if(item) item.qty++;
+else panier.push({name,price,qty:1});
+updatePanier();
+}
+
+function updatePanier(){
+let html='';
+let total=0;
+panier.forEach(item=>{
+total+=item.price*item.qty;
+html+=`<div class="panier-item">
+<span>${item.name} (${item.price} MAD)</span>
+<input type="number" min="1" value="${item.qty}" onchange="changeQty('${item.name}',this.value)">
+<button onclick="removeItem('${item.name}')">X</button>
+</div>`;
+});
+document.getElementById('panier-items').innerHTML=html;
+document.getElementById('panier-total').innerText='Total: '+total+' MAD';
+}
+
+function changeQty(name,val){
+let item=panier.find(x=>x.name===name);
+item.qty=parseInt(val);
+updatePanier();
+}
+
+function removeItem(name){
+panier=panier.filter(x=>x.name!==name);
+updatePanier();
+}
+
+function sendPanier(){
+if(panier.length===0) return alert('Le panier est vide!');
+let msg='Commande:%0A';
+panier.forEach(item=>{
+msg+=`${item.name} x${item.qty} = ${item.price*item.qty} MAD%0A`;
+});
+let total=panier.reduce((a,b)=>a+b.price*b.qty,0);
+msg+=`%0ATotal: ${total} MAD`;
 window.open(whatsapp+msg);
 }
 
@@ -220,4 +267,3 @@ render();
 
 </body>
 </html>
-

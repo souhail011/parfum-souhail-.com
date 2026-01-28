@@ -16,9 +16,48 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 .container{max-width:1200px;margin:auto;padding:12px}
 .notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px}
 
-/* CONTROLS */
-.controls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.controls input,.controls select{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
+/* CONTROLS PROFESSIONNELLES */
+.controls-pro{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:15px;
+  background:#fff;
+  padding:12px;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+
+.controls-pro .search-box input{
+  padding:8px 12px;
+  width:200px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:13px;
+}
+
+.controls-pro .filter-box label{
+  font-size:13px;
+  margin-right:5px;
+}
+
+.checkbox-group label{
+  display:block;
+  font-size:12px;
+  margin:3px 0;
+  cursor:pointer;
+}
+
+.checkbox-group input{
+  margin-right:4px;
+}
+
+.controls-pro .sort-box select{
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:13px;
+}
 
 /* PRODUCTS */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
@@ -70,21 +109,29 @@ Souhail Parfums
 
 <div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
 
-<!-- CONTROLS -->
-<div class="controls">
-<input type="text" id="search" placeholder="🔍 Rechercher parfum">
-<select id="category" multiple size="4">
-<option value="Homme">Homme</option>
-<option value="Femme">Femme</option>
-<option value="Oriental">Oriental</option>
-<option value="Fruité">Fruité</option>
-</select>
-<select id="sort">
-<option value="">Trier</option>
-<option value="price-asc">Prix ↑</option>
-<option value="price-desc">Prix ↓</option>
-<option value="name">Nom A-Z</option>
-</select>
+<!-- CONTROLS PROFESSIONNELLES -->
+<div class="controls-pro">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="🔍 Rechercher un parfum...">
+  </div>
+  <div class="filter-box">
+    <label>Catégorie:</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" value="Homme"> Homme</label>
+      <label><input type="checkbox" value="Femme"> Femme</label>
+      <label><input type="checkbox" value="Oriental"> Oriental</label>
+      <label><input type="checkbox" value="Fruité"> Fruité</label>
+    </div>
+  </div>
+  <div class="sort-box">
+    <label>Trier par:</label>
+    <select id="sort">
+      <option value="">-- Sélectionner --</option>
+      <option value="price-asc">Prix ↑</option>
+      <option value="price-desc">Prix ↓</option>
+      <option value="name">Nom A-Z</option>
+    </select>
+  </div>
 </div>
 
 <div class="products" id="products"></div>
@@ -143,97 +190,99 @@ const parfums=[
 
 let cart=[];
 
-function render(){
-let list=[...parfums];
-let s=search.value.toLowerCase();
-let catSelected=[...category.selectedOptions].map(o=>o.value);
-let t=sort.value;
-
-if(s) list=list.filter(p=>p.name.toLowerCase().includes(s));
-if(catSelected.length>0) list=list.filter(p=>catSelected.includes(p.cat));
-
-if(t==="price-asc") list.sort((a,b)=>a.price-b.price);
-if(t==="price-desc") list.sort((a,b)=>b.price-a.price);
-if(t==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
-
-products.innerHTML=list.map(p=>{
-let final=p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
-let stockBadge = p.stock 
-    ? `<div class="badge stock available">Disponible</div>` 
-    : `<div class="badge stock out">Épuisé</div>`;
-return `
-<div class="product">
-${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
-${stockBadge}
-<img src="${imgUrl}">
-<h3>${p.name}</h3>
-${p.promo?`<div class="old">${p.price} MAD</div>`:""}
-<div class="price">${final} MAD</div>
-<div class="btn ${!p.stock?"disabled":""}" onclick="addToCart('${p.name}',${final},this)">${p.stock?"Ajouter":"Indisponible"}</div>
-</div>`;
-}).join('');
-}
-
-search.oninput=render;
-category.onchange=render;
-sort.onchange=render;
-
 const products=document.getElementById("products");
 const cartItems=document.getElementById("cart-items");
 const cartTotal=document.getElementById("cart-total");
+const search=document.getElementById("search");
+const sort=document.getElementById("sort");
+const checkboxes=document.querySelectorAll(".checkbox-group input");
+
+function render(){
+  let list=[...parfums];
+  let s=search.value.toLowerCase();
+  let catSelected=Array.from(checkboxes).filter(cb=>cb.checked).map(cb=>cb.value);
+
+  if(s) list=list.filter(p=>p.name.toLowerCase().includes(s));
+  if(catSelected.length>0) list=list.filter(p=>catSelected.includes(p.cat));
+
+  if(sort.value==="price-asc") list.sort((a,b)=>a.price-b.price);
+  if(sort.value==="price-desc") list.sort((a,b)=>b.price-a.price);
+  if(sort.value==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
+
+  products.innerHTML=list.map(p=>{
+    let final = p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
+    let stockBadge = p.stock 
+        ? `<div class="badge stock available">Disponible</div>` 
+        : `<div class="badge stock out">Épuisé</div>`;
+    return `
+    <div class="product">
+      ${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
+      ${stockBadge}
+      <img src="${imgUrl}">
+      <h3>${p.name}</h3>
+      ${p.promo?`<div class="old">${p.price} MAD</div>`:""}
+      <div class="price">${final} MAD</div>
+      <div class="btn ${!p.stock?"disabled":""}" onclick="addToCart('${p.name}',${final},this)">${p.stock?"Ajouter":"Indisponible"}</div>
+    </div>`;
+  }).join('');
+}
+
+search.addEventListener("input",render);
+sort.addEventListener("change",render);
+checkboxes.forEach(cb=>cb.addEventListener("change",render));
 
 function toggleCart(){document.getElementById("cart").classList.toggle("active");}
 
 function addToCart(name,price,btn){
-if(btn.classList.contains("disabled")) return;
-flyEffect(btn);
-if(navigator.vibrate) navigator.vibrate(80);
-let item=cart.find(i=>i.name===name);
-item?item.qty++:cart.push({name,price,qty:1});
-updateCart();
-showToast();
+  if(btn.classList.contains("disabled")) return;
+  flyEffect(btn);
+  if(navigator.vibrate) navigator.vibrate(80);
+  let item=cart.find(i=>i.name===name);
+  item?item.qty++:cart.push({name,price,qty:1});
+  updateCart();
+  showToast();
 }
 
 function updateCart(){
-let total=0;
-cartItems.innerHTML=cart.map(i=>{
-total+=i.price*i.qty;
-return `<div class="cart-item"><span>${i.name}</span><div><button onclick="qty('${i.name}',-1)">-</button>${i.qty}<button onclick="qty('${i.name}',1)">+</button></div></div>`;
-}).join('');
-cartTotal.innerText="Total: "+total+" MAD";
+  let total=0;
+  cartItems.innerHTML=cart.map(i=>{
+    total+=i.price*i.qty;
+    return `<div class="cart-item"><span>${i.name}</span><div><button onclick="qty('${i.name}',-1)">-</button>${i.qty}<button onclick="qty('${i.name}',1)">+</button></div></div>`;
+  }).join('');
+  cartTotal.innerText="Total: "+total+" MAD";
 }
 
 function qty(n,d){
-let i=cart.find(x=>x.name===n);
-i.qty+=d;
-if(i.qty<=0) cart=cart.filter(x=>x!==i);
-updateCart();
+  let i=cart.find(x=>x.name===n);
+  i.qty+=d;
+  if(i.qty<=0) cart=cart.filter(x=>x!==i);
+  updateCart();
 }
 
 function sendCart(){
-if(cart.length===0) return alert("Le panier est vide");
-let msg="Commande:%0A";
-cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
-window.open(whatsapp+msg);
+  if(cart.length===0) return alert("Le panier est vide");
+  let msg="Commande:%0A";
+  cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
+  window.open(whatsapp+msg);
 }
 
 function showToast(){
-let t=document.getElementById("toast");
-t.classList.add("show");
-setTimeout(()=>t.classList.remove("show"),1500);
+  let t=document.getElementById("toast");
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),1500);
 }
 
 function flyEffect(btn){
-let img=btn.parentElement.querySelector("img");
-let r=img.getBoundingClientRect();
-let f=img.cloneNode();
-f.className="fly";
-f.style.left=r.left+"px";
-f.style.top=r.top+"px";
-f.style.width="50px";
-document.body.appendChild(f);
-setTimeout(()=>{f.style.left="90%";f.style.top="20px";f.style.opacity=0;},10);
-setTimeout(()=>f.remove(),800);
+  let img=btn.parentElement.querySelector("img");
+  let r=img.getBoundingClientRect();
+  let f=img.cloneNode();
+  f.className="fly";
+  f.style.left=r.left+"px";
+  f.style.top=r.top+"px";
+  f.style.width="50px";
+  document.body.appendChild(f);
+  setTimeout(()=>{f.style.left="90%";f.style.top="20px";f.style.opacity=0;},10);
+  setTimeout(()=>f.remove(),800);
 }
 
 render();

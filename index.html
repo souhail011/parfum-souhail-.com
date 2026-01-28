@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial}
 body{background:#f3f3f3;color:#000}
@@ -17,49 +16,12 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 .notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px}
 
 /* CONTROLS PROFESSIONNELLES */
-.controls-pro{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:15px;
-  background:#fff;
-  padding:12px;
-  border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.15);
-}
-.controls-pro .search-box input{
-  padding:8px 12px;
-  width:200px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:13px;
-}
-.controls-pro .sort-box select{
-  padding:6px 10px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:13px;
-}
-
-/* TOGGLE FILTER */
-.filter-toggle{
-  display:flex;
-  gap:10px;
-}
-.filter-btn{
-  padding:8px 16px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  background:#eee;
-  color:#000;
-  font-weight:600;
-  transition:0.3s;
-}
-.filter-btn.active{
-  background:linear-gradient(135deg,#d4af37,#b8962e);
-  color:#000;
-}
+.controls-pro{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:15px;background:#fff;padding:12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,0.15);}
+.controls-pro .search-box input{padding:8px 12px;width:200px;border-radius:6px;border:1px solid #ccc;font-size:13px;}
+.controls-pro .sort-box select{padding:6px 10px;border-radius:6px;border:1px solid #ccc;font-size:13px;}
+.filter-toggle{display:flex;gap:10px;}
+.filter-btn{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;background:#eee;color:#000;font-weight:600;transition:0.3s;}
+.filter-btn.active{background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;}
 .filter-btn:hover:not(.active){background:#ddd}
 
 /* PRODUCTS */
@@ -76,6 +38,8 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 .badge.stock{top:6px;right:6px}
 .badge.stock.available{background:green}
 .badge.stock.out{background:red}
+.badge.new{top:30px;left:6px;background:orange;animation: blink 1.5s infinite;}
+@keyframes blink{0%,50%,100%{opacity:1}25%,75%{opacity:0.6}}
 
 /* BUTTONS */
 .btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer}
@@ -102,21 +66,16 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 </head>
 
 <body>
-
 <header>
 Souhail Parfums
 <button onclick="toggleCart()" style="float:right;background:#d4af37;border:none;padding:5px 10px;cursor:pointer">🛒</button>
 </header>
 
 <div class="container">
-
 <div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
 
-<!-- CONTROLS PROFESSIONNELLES -->
 <div class="controls-pro">
-  <div class="search-box">
-    <input type="text" id="search" placeholder="🔍 Rechercher un parfum...">
-  </div>
+  <div class="search-box"><input type="text" id="search" placeholder="🔍 Rechercher un parfum..."></div>
   <div class="filter-toggle">
     <button class="filter-btn active" data-cat="Tous">Tous</button>
     <button class="filter-btn" data-cat="Homme">Homme</button>
@@ -136,7 +95,6 @@ Souhail Parfums
 <div class="products" id="products"></div>
 </div>
 
-<!-- PANIER -->
 <div id="cart">
 <h3>🛒 Panier</h3>
 <div id="cart-items"></div>
@@ -144,7 +102,6 @@ Souhail Parfums
 <button class="btn" onclick="sendCart()">Commander WhatsApp</button>
 </div>
 
-<!-- MAPS -->
 <div class="visit">
 <h3>📍 Pour visiter notre magasin</h3>
 <p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
@@ -152,40 +109,62 @@ Souhail Parfums
 </div>
 
 <footer>© 2026 Souhail Parfums</footer>
-
 <div id="toast" class="toast">✔️ Ajouté au panier</div>
 
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 const imgUrl="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
 
-// NOM, PRIX, CAT, PROMO%, STOCK
-const parfums=[
-{name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true},
-{name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true},
-{name:"Tag Uomo Rose",price:299,cat:"Homme",promo:0,stock:true},
-{name:"Bois D Iris",price:199,cat:"Oriental",promo:15,stock:true},
-{name:"Let’s Be Strong",price:199,cat:"Homme",promo:0,stock:true},
-{name:"Mindset",price:199,cat:"Homme",promo:20,stock:true},
+let parfums=[
+{name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true,new:true},
+{name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true,new:true},
+{name:"Tag Uomo Rose",price:299,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Bois D Iris",price:199,cat:"Oriental",promo:15,stock:true,new:true},
+{name:"Let’s Be Strong",price:199,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Mindset",price:199,cat:"Homme",promo:20,stock:true,new:true},
 {name:"Asade",price:180,cat:"Oriental",promo:0,stock:true},
-{name:"Your Touch Extrait",price:160,cat:"Femme",promo:5,stock:false},
-{name:"Asad Bourbon",price:199,cat:"Oriental",promo:0,stock:true},
+{name:"Your Touch Extrait",price:160,cat:"Femme",promo:5,stock:false,new:true},
+{name:"Asad Bourbon",price:199,cat:"Oriental",promo:0,stock:true,new:true},
 {name:"Champion Money",price:250,cat:"Homme",promo:0,stock:true},
-{name:"L Absolu",price:349,cat:"Femme",promo:25,stock:true},
-{name:"Hunter Killer",price:299,cat:"Homme",promo:0,stock:true},
+{name:"L Absolu",price:349,cat:"Femme",promo:25,stock:true,new:true},
+{name:"Hunter Killer",price:299,cat:"Homme",promo:0,stock:true,new:true},
 {name:"Khamrah Qahwa",price:250,cat:"Oriental",promo:0,stock:true},
-{name:"Voux Elegante",price:199,cat:"Femme",promo:15,stock:true},
-{name:"Roya Blend",price:350,cat:"Oriental",promo:10,stock:true},
+{name:"Voux Elegante",price:199,cat:"Femme",promo:15,stock:true,new:true},
+{name:"Roya Blend",price:350,cat:"Oriental",promo:10,stock:true,new:true},
 {name:"Dior Homme Intense",price:1300,cat:"Homme",promo:20,stock:true},
-{name:"Stronger With You Intensely",price:1200,cat:"Homme",promo:0,stock:true},
-{name:"Power Musk",price:100,cat:"Homme",promo:0,stock:true},
+{name:"Stronger With You Intensely",price:1200,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Power Musk",price:100,cat:"Homme",promo:0,stock:true,new:true},
 {name:"9PM Afnan",price:65,cat:"Homme",promo:0,stock:false},
-{name:"9PM Rebel",price:65,cat:"Homme",promo:0,stock:true},
-{name:"Liquid Brun",price:249,cat:"Femme",promo:5,stock:true},
-{name:"I Am The Queen",price:120,cat:"Femme",promo:0,stock:true},
-{name:"Delilah",price:120,cat:"Femme",promo:10,stock:true},
-{name:"Yara Candy",price:199,cat:"Femme",promo:0,stock:true}
+{name:"9PM Rebel",price:65,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Liquid Brun",price:249,cat:"Femme",promo:5,stock:true,new:true},
+{name:"I Am The Queen",price:120,cat:"Femme",promo:0,stock:true,new:true},
+{name:"Delilah",price:120,cat:"Femme",promo:10,stock:true,new:true},
+{name:"Yara Candy",price:199,cat:"Femme",promo:0,stock:true,new:true}
 ];
+
+// AJOUT DE 20 NOUVEAUX RWAYH
+parfums.push(
+{name:"Aurora Bliss", price:220, cat:"Femme", promo:10, stock:true, new:true},
+{name:"Midnight Whisper", price:280, cat:"Homme", promo:15, stock:true, new:true},
+{name:"Golden Essence", price:350, cat:"Femme", promo:20, stock:true, new:true},
+{name:"Sahara Mystique", price:300, cat:"Oriental", promo:0, stock:true, new:true},
+{name:"Velvet Touch", price:180, cat:"Femme", promo:5, stock:true, new:true},
+{name:"Noir Elite", price:450, cat:"Homme", promo:25, stock:true, new:true},
+{name:"Luminous Soul", price:200, cat:"Femme", promo:0, stock:true, new:true},
+{name:"Ocean Drift", price:230, cat:"Homme", promo:10, stock:true, new:true},
+{name:"Amber Night", price:270, cat:"Oriental", promo:0, stock:true, new:true},
+{name:"Rose Eternelle", price:320, cat:"Femme", promo:15, stock:true, new:true},
+{name:"Cedar Spirit", price:210, cat:"Homme", promo:0, stock:true, new:true},
+{name:"Mystic Oud", price:400, cat:"Oriental", promo:20, stock:true, new:true},
+{name:"Velvet Dawn", price:190, cat:"Femme", promo:0, stock:true, new:true},
+{name:"Silver Moon", price:250, cat:"Homme", promo:10, stock:true, new:true},
+{name:"Jasmine Aura", price:180, cat:"Femme", promo:5, stock:true, new:true},
+{name:"Dark Legend", price:500, cat:"Homme", promo:30, stock:true, new:true},
+{name:"Crystal Bloom", price:210, cat:"Femme", promo:0, stock:true, new:true},
+{name:"Saffron Sky", price:350, cat:"Oriental", promo:15, stock:true, new:true},
+{name:"Midnight Rose", price:260, cat:"Femme", promo:0, stock:true, new:true},
+{name:"Iron Musk", price:290, cat:"Homme", promo:10, stock:true, new:true}
+);
 
 let cart=[];
 const products=document.getElementById("products");
@@ -195,7 +174,6 @@ const search=document.getElementById("search");
 const sort=document.getElementById("sort");
 const filterBtns=document.querySelectorAll(".filter-btn");
 
-// FILTRE TOGGLE
 let currentCat="Tous";
 filterBtns.forEach(btn=>{
   btn.addEventListener("click",()=>{
@@ -206,13 +184,14 @@ filterBtns.forEach(btn=>{
   });
 });
 
-// RENDER
+search.addEventListener("input",render);
+sort.addEventListener("change",render);
+
 function render(){
   let list=[...parfums];
   let s=search.value.toLowerCase();
   if(s) list=list.filter(p=>p.name.toLowerCase().includes(s));
   if(currentCat!=="Tous") list=list.filter(p=>p.cat===currentCat);
-
   if(sort.value==="price-asc") list.sort((a,b)=>a.price-b.price);
   if(sort.value==="price-desc") list.sort((a,b)=>b.price-a.price);
   if(sort.value==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
@@ -223,6 +202,7 @@ function render(){
     return `<div class="product">
       ${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
       ${stockBadge}
+      ${p.new?`<div class="badge new">Nouveau</div>`:""}
       <img src="${imgUrl}">
       <h3>${p.name}</h3>
       ${p.promo?`<div class="old">${p.price} MAD</div>`:""}
@@ -232,10 +212,6 @@ function render(){
   }).join('');
 }
 
-search.addEventListener("input",render);
-sort.addEventListener("change",render);
-
-// PANIER
 function toggleCart(){document.getElementById("cart").classList.toggle("active");}
 function addToCart(name,price,btn){
   if(btn.classList.contains("disabled")) return;
@@ -261,7 +237,5 @@ function flyEffect(btn){let img=btn.parentElement.querySelector("img");let r=img
 
 render();
 </script>
-
 </body>
 </html>
-

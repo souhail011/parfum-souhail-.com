@@ -11,12 +11,8 @@
 <meta name="description" content="Souhail Parfums – Parfums luxury. Livraison partout au Maroc, paiement à la livraison.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;}
-body{
-background:#f3f3f3;color:#000;
-}
-header,footer{
-background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;
-}
+body{background:#f3f3f3;color:#000;}
+header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;}
 nav{background:#111;text-align:center;padding:8px;}
 nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;font-weight:500;}
 .container{max-width:1200px;margin:auto;padding:12px;}
@@ -57,17 +53,15 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 
 <div class="notice">🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b> — 📲 WhatsApp : 0695979661</div>
 
-<!-- PROMO SLIDER -->
 <div class="promoslider" id="promoslider"></div>
 
-<!-- CONTROLS -->
 <div class="controls">
 <input type="text" id="search" placeholder="Rechercher un parfum...">
 <select id="category">
 <option value="all">Toutes catégories</option>
 <option>Homme</option>
 <option>Femme</option>
-<option>Oud</option>
+<option>Mixte</option>
 <option>Gourmand</option>
 </select>
 <select id="sort" class="sort">
@@ -82,7 +76,6 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 
 <div class="products" id="products"></div>
 
-<!-- COMMANDE -->
 <div id="commande" class="page">
 <form onsubmit="sendOrder(event)">
 <h3>🛒 Passer une commande</h3>
@@ -94,13 +87,14 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 </form>
 </div>
 
-<!-- VISIT STORE -->
 <div class="visit">
 <h3>📍 Pour visiter notre magasin</h3>
 <p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
 <a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
 Cliquez ici pour ouvrir Google Maps
 </a>
+</div>
+
 </div>
 
 <footer>© 2026 Souhail Parfums</footer>
@@ -110,54 +104,62 @@ const whatsapp="https://wa.me/212695979661?text=";
 
 // [name, prix, inspiré, catégorie, best, stock, promo%]
 const parfums=[
-["Yes I Am The King",199,"Bleu de Chanel","Homme","Best",1,10],
-["9PM",199,"Ultra Male","Homme","Best",1,0],
-["Asad",199,"Dior Sauvage Elixir","Homme","Best",0,0],
-["Fakhar Black",189,"YSL Y","Homme","",1,0],
-["Najdia",179,"Invictus","Homme","",1,5],
-["Blue Homme",189,"Frais","Homme","",0,0],
-["Idole",199,"Floral","Femme","Best",1,0],
-["Fakhar Rose",199,"Rose","Femme","",1,0],
-["Hayaati",189,"Fruité","Femme","",0,0],
-["Yara",199,"Vanille","Femme","Best",1,10],
-["Yara Tous",199,"Tropical","Femme","",1,0],
-["Oud For Glory",239,"Oud Royal","Oud","Best",1,10],
-["Oud Mood",209,"Sucré","Oud","",0,0],
-["Sheikh Shuyukh",219,"Oriental","Oud","",1,0],
-["Amethyst",229,"Oud Floral","Oud","",1,0],
-["Khamrah",239,"Gourmand","Gourmand","Best",1,0],
-["Ana Abiyedh",199,"Vanille","Gourmand","",1,0],
-["Ana Abiyedh Rouge",219,"Baccarat","Gourmand","Best",0,10],
-["Qaed Al Fursan",199,"Ananas","Gourmand","",1,0],
-["Nebras",219,"Chocolat","Gourmand","",1,0],
-["Choco Musk",179,"Chocolat","Gourmand","",1,0]
+["Writer Anonymous",199,"—","Mixte","Best",1,0],
+["Idole La Nuit",249,"—","Femme","",1,0],
+["Tag Uomo Rose EDP",299,"—","Homme","",1,0],
+["Bois d’Iris",199,"—","Mixte","",1,0],
+["Let’s Be Strong",199,"—","Homme","",1,0],
+["Mindset Eau de Parfum",199,"—","Homme","",1,0],
+["Asade Eau de Parfum",180,"—","Homme","",1,0],
+["Your Touch Extrait",160,"—","Homme","",1,0],
+["Asad Bourbon",199,"—","Homme","Best",1,0],
+["Champion Money Fragrance World",250,"—","Homme","",1,0],
+["L’Absolu",349,"—","Mixte","",1,0],
+["Hunter Killer",299,"—","Homme","",1,0],
+["Khamrah Qahwa",250,"—","Gourmand","Best",1,0],
+["Voux Élégante",199,"—","Femme","",1,0],
+["Roya Blend",350,"—","Mixte","",1,0],
+["Dior Homme Intense",1300,"Original","Homme","Best",1,0],
+["Stronger With You Intensely",1200,"Original","Homme","Best",1,0],
+["Power Musk",100,"—","Homme","",1,0],
+["9PM Afnan",65,"—","Homme","Best",1,0],
+["9PM Rebel Afnan",65,"—","Homme","",1,0],
+["L’Absolu Vanille",300,"—","Gourmand","",1,0],
+["Liquid Brun",249,"—","Mixte","",1,0],
+["I Am The Queen",120,"—","Femme","Best",1,0],
+["Delilah",120,"—","Femme","",1,0],
+["Yara Candy",199,"—","Femme","Best",1,0]
 ];
 
 function img(name){
 const images={
-"Yes I Am The King":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
-"9PM":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=300",
-"Asad":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300",
-"Fakhar Black":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300",
-"Najdia":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
-"Blue Homme":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300",
-"Idole":"https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=300",
-"Fakhar Rose":"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=300",
-"Hayaati":"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=300",
-"Yara":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300",
-"Yara Tous":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300",
-"Oud For Glory":"https://images.unsplash.com/photo-1619995745882-f4128ac82ad6?w=300",
-"Oud Mood":"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=300",
-"Sheikh Shuyukh":"https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=300",
-"Amethyst":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a?w=300",
-"Khamrah":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
-"Ana Abiyedh":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
-"Ana Abiyedh Rouge":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300",
-"Qaed Al Fursan":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300",
-"Nebras":"https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=300",
-"Choco Musk":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300"
+"Writer Anonymous":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400",
+"Idole La Nuit":"https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=400",
+"Tag Uomo Rose EDP":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400",
+"Bois d’Iris":"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400",
+"Let’s Be Strong":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400",
+"Mindset Eau de Parfum":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=400",
+"Asade Eau de Parfum":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400",
+"Your Touch Extrait":"https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400",
+"Asad Bourbon":"https://images.unsplash.com/photo-1619995745882-f4128ac82ad6?w=400",
+"Champion Money Fragrance World":"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=400",
+"L’Absolu":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400",
+"Hunter Killer":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a?w=400",
+"Khamrah Qahwa":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400",
+"Voux Élégante":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=400",
+"Roya Blend":"https://images.unsplash.com/photo-1611241893603-3c359704e0ee?w=400",
+"Dior Homme Intense":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=400",
+"Stronger With You Intensely":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400",
+"Power Musk":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=400",
+"9PM Afnan":"https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=400",
+"9PM Rebel Afnan":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400",
+"L’Absolu Vanille":"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=400",
+"Liquid Brun":"https://images.unsplash.com/photo-1619995745882-f4128ac82ad6?w=400",
+"I Am The Queen":"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400",
+"Delilah":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=400",
+"Yara Candy":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400"
 };
-return images[name]||images["Yes I Am The King"];
+return images[name]||images["Writer Anonymous"];
 }
 
 function render(){
@@ -165,30 +167,27 @@ let s=search.value.toLowerCase();
 let c=category.value;
 let sortV=document.getElementById("sort").value;
 
-let filtered=parfums.filter(p=>
-p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c)
-);
+let filtered=parfums.filter(p=>p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c));
 
 if(sortV==="best") filtered=filtered.filter(p=>p[4]==="Best");
-if(sortV==="promo") filtered=filtered=filtered.filter(p=>p[6]>0);
+if(sortV==="promo") filtered=filtered.filter(p=>p[6]>0);
 if(sortV==="dispo") filtered=filtered.filter(p=>p[5]===1);
 if(sortV==="priceAsc") filtered.sort((a,b)=>a[1]-b[1]);
 if(sortV==="priceDesc") filtered.sort((a,b)=>b[1]-a[1]);
 
 products.innerHTML=filtered.map(p=>{
-let price=p[1], stock=p[5], promo=p[6], finalPrice=promo? (price*(100-promo)/100).toFixed(0):price;
+let price=p[1], stock=p[5], promo=p[6];
 return `
 <div class="product">
 ${p[4]==="Best"?'<div class="badge">Best</div>':''}
-${promo?`<div class="badge" style="top:25px;background:#ff3b3b;color:#fff">-${promo}%</div>`:''}
-${stock===0?'<div class="badge" style="top:45px;background:#999;color:#000">Épuisé</div>':'<div class="badge" style="top:45px;background:#25d366;color:#000">Disponible</div>'}
+${stock===0?'<div class="badge" style="top:25px;background:#999">Épuisé</div>':'<div class="badge" style="top:25px;background:#25d366">Disponible</div>'}
 <img loading="lazy" src="${img(p[0])}">
 <h3>${p[0]}</h3>
-<div class="price">${promo?`<span style="text-decoration:line-through;color:#999">${price} MAD</span> ${finalPrice} MAD`:price+' MAD'}</div>
-<div class="dupe">Inspiré de ${p[2]}</div>
+<div class="price">${price} MAD</div>
+<div class="dupe">${p[2]!=="—"?"Inspiré de "+p[2]:""}</div>
 ${stock===1?`<input class="qty" type="number" min="1" value="1" id="q_${p[0]}">
-<a class="btn" onclick="orderOne('${p[0]}',${finalPrice})">Commander</a>`:
-`<div class="btn" style="background:#ccc;color:#666;cursor:not-allowed">Rupture</div>`}
+<a class="btn" onclick="orderOne('${p[0]}',${price})">Commander</a>`:
+`<div class="btn" style="background:#ccc;color:#666">Rupture</div>`}
 </div>`;
 }).join("");
 
@@ -197,7 +196,7 @@ renderPromos(filtered);
 
 function renderPromos(list){
 let promos=list.filter(p=>p[6]>0);
-promoslider.innerHTML=promos.map(p=>`${p[0]} -${p[6]}%`).join('').split(',').map(t=>`<div class="promo">${t}</div>`).join('');
+promoslider.innerHTML=promos.map(p=>`<div class="promo">${p[0]} -${p[6]}%</div>`).join('');
 }
 
 function orderOne(name,price){
@@ -208,7 +207,7 @@ window.open(whatsapp+msg);
 
 function showPage(p){
 document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-document.getElementById(p).classList.add('active');
+if(document.getElementById(p)) document.getElementById(p).classList.add('active');
 }
 
 function sendOrder(e){
@@ -226,4 +225,3 @@ render();
 
 </body>
 </html>
-

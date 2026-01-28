@@ -31,22 +31,35 @@ nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;font-weight
 .dupe{font-size:10px;color:#555;}
 .badge{position:absolute;top:6px;left:6px;background:#d4af37;color:#000;font-size:9px;padding:3px 5px;border-radius:5px;font-weight:bold;}
 .btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:5px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;}
+
+/* sliding cart style */
+#cart{
+position:fixed;
+top:0; right:-350px;
+width:350px; height:100%;
+background:#fff; box-shadow:-3px 0 8px rgba(0,0,0,.2);
+padding:15px; z-index:999; transition:0.3s;
+overflow-y:auto;
+}
+#cart.active{right:0;}
+#cart h3{text-align:center;margin-bottom:10px;}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:5px;border-bottom:1px solid #eee;}
+.cart-item span{flex:1;margin-left:5px;font-size:13px;}
+.cart-item button{padding:2px 6px;margin:0 2px;cursor:pointer;}
+#cart-total{text-align:right;font-weight:bold;margin-top:10px;font-size:14px;}
+#cart button.checkout{margin-top:8px;width:100%;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border:none;font-weight:600;cursor:pointer;}
+
 .page{display:none;}.page.active{display:block;}
 form{background:#fff;padding:16px;border-radius:12px;max-width:400px;margin:auto;}
 form input,form textarea{width:100%;padding:10px;margin-bottom:8px;border-radius:6px;border:1px solid #ccc;font-size:13px;}
 form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
 .visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px;}
 .visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px;}
-#panier{background:#fff;border-radius:10px;padding:10px;margin-top:15px;max-width:500px;}
-#panier h3{margin-bottom:8px;text-align:center;}
-.panier-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.panier-total{text-align:right;font-weight:bold;margin-top:8px;}
-.panier-btn{margin-top:8px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;padding:6px;width:100%;border:none;border-radius:5px;font-weight:600;cursor:pointer;}
 </style>
 </head>
 <body>
 
-<header>Souhail Parfums</header>
+<header>Souhail Parfums <button style="float:right;padding:4px 8px;margin-right:10px;background:#d4af37;border:none;cursor:pointer;" onclick="toggleCart()">🛒 Panier</button></header>
 <nav>
 <a href="#" onclick="showPage('shop')">Boutique</a>
 <a href="#" onclick="showPage('commande')">Commande</a>
@@ -78,12 +91,12 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 
 <div class="products" id="products"></div>
 
-<!-- PANIER -->
-<div id="panier">
+<!-- Sliding Cart -->
+<div id="cart">
 <h3>🛒 Panier</h3>
-<div id="panier-items"></div>
-<div class="panier-total" id="panier-total">Total: 0 MAD</div>
-<button class="panier-btn" onclick="sendPanier()">Commander via WhatsApp</button>
+<div id="cart-items"></div>
+<div id="cart-total">Total: 0 MAD</div>
+<button class="checkout" onclick="sendCart()">Commander via WhatsApp</button>
 </div>
 
 <!-- COMMANDE -->
@@ -111,6 +124,7 @@ Cliquez ici pour ouvrir Google Maps
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
+// Products list
 const parfums=[
 ["Writer Anonymous",199,"Mixte","Luxury","Best",1,0],
 ["Idole La Nuit",249,"Femme","Luxury","",1,10],
@@ -132,7 +146,7 @@ const parfums=[
 ["Power Musk",100,"Mixte","Luxury","",1,0]
 ];
 
-let panier=[];
+let cart=[];
 
 function img(name){
 return "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
@@ -161,7 +175,7 @@ ${stock===0?'<div class="badge" style="top:45px;background:#999;color:#000">Épu
 <h3>${p[0]}</h3>
 <div class="price">${promo?`<span style="text-decoration:line-through;color:#999">${price} MAD</span> ${finalPrice} MAD`:price+' MAD'}</div>
 <div class="dupe">Inspiré de ${p[2]}</div>
-${stock===1?`<a class="btn" onclick="addToPanier('${p[0]}',${finalPrice})">Ajouter au Panier</a>`:
+${stock===1?`<a class="btn" onclick="addToCart('${p[0]}',${finalPrice})">Ajouter au Panier</a>`:
 `<div class="btn" style="background:#ccc;color:#666;cursor:not-allowed">Rupture</div>`}
 </div>`;
 }).join("");
@@ -174,44 +188,57 @@ let promos=list.filter(p=>p[6]>0);
 promoslider.innerHTML=promos.map(p=>`${p[0]} -${p[6]}%`).join('').split(',').map(t=>`<div class="promo">${t}</div>`).join('');
 }
 
-// panier functions
-function addToPanier(name,price){
-let item=panier.find(x=>x.name===name);
-if(item) item.qty++;
-else panier.push({name,price,qty:1});
-updatePanier();
+// Cart functions
+function toggleCart(){
+document.getElementById('cart').classList.toggle('active');
 }
 
-function updatePanier(){
+function addToCart(name,price){
+let item=cart.find(x=>x.name===name);
+if(item) item.qty++;
+else cart.push({name,price,qty:1});
+updateCart();
+toggleCart(); // open cart automatically
+}
+
+function updateCart(){
 let html='';
 let total=0;
-panier.forEach(item=>{
+cart.forEach(item=>{
 total+=item.price*item.qty;
-html+=`<div class="panier-item">
-<span>${item.name} (${item.price} MAD) x${item.qty}</span>
-<button onclick="removeItem('${item.name}')">X</button>
+html+=`<div class="cart-item">
+<span>${item.name} (${item.price} MAD)</span>
+<div>
+<button onclick="changeQty('${item.name}',-1)">-</button>
+<span>${item.qty}</span>
+<button onclick="changeQty('${item.name}',1)">+</button>
+</div>
 </div>`;
 });
-document.getElementById('panier-items').innerHTML=html;
-document.getElementById('panier-total').innerText='Total: '+total+' MAD';
+document.getElementById('cart-items').innerHTML=html;
+document.getElementById('cart-total').innerText='Total: '+total+' MAD';
 }
 
-function removeItem(name){
-panier=panier.filter(x=>x.name!==name);
-updatePanier();
+function changeQty(name,delta){
+let item=cart.find(x=>x.name===name);
+if(!item) return;
+item.qty+=delta;
+if(item.qty<=0) cart=cart.filter(x=>x.name!==name);
+updateCart();
 }
 
-function sendPanier(){
-if(panier.length===0) return alert('Le panier est vide!');
+function sendCart(){
+if(cart.length===0) return alert('Le panier est vide!');
 let msg='Commande:%0A';
-panier.forEach(item=>{
+cart.forEach(item=>{
 msg+=`${item.name} x${item.qty} = ${item.price*item.qty} MAD%0A`;
 });
-let total=panier.reduce((a,b)=>a+b.price*b.qty,0);
+let total=cart.reduce((a,b)=>a+b.price*b.qty,0);
 msg+=`%0ATotal: ${total} MAD`;
 window.open(whatsapp+msg);
 }
 
+// Pages
 function showPage(p){
 document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
 document.getElementById(p).classList.add('active');
@@ -229,6 +256,5 @@ document.getElementById("sort").onchange=render;
 
 render();
 </script>
-
 </body>
 </html>

@@ -31,7 +31,6 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 /* BADGES */
 .badge{position:absolute;font-size:11px;padding:2px 6px;border-radius:4px;color:#fff}
 .badge.promo{top:6px;left:6px;background:red}
-.badge.new{top:6px;left:6px;background:green}
 .badge.stock{top:6px;right:6px}
 .badge.stock.available{background:green}
 .badge.stock.out{background:red}
@@ -114,32 +113,32 @@ Souhail Parfums
 const whatsapp="https://wa.me/212695979661?text=";
 const imgUrl="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
 
-// NOM, PRIX, CAT, PROMO%, STOCK, NOUVEAU
+// NOM, PRIX, CAT, PROMO%, STOCK
 const parfums=[
-{name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true,new:true},
-{name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true,new:false},
-{name:"Tag Uomo Rose",price:299,cat:"Homme",promo:0,stock:true,new:true},
-{name:"Bois D Iris",price:199,cat:"Oriental",promo:15,stock:true,new:false},
-{name:"Let’s Be Strong",price:199,cat:"Homme",promo:0,stock:true,new:true},
-{name:"Mindset",price:199,cat:"Homme",promo:20,stock:true,new:false},
-{name:"Asade",price:180,cat:"Oriental",promo:0,stock:true,new:false},
-{name:"Your Touch Extrait",price:160,cat:"Femme",promo:5,stock:false,new:true},
-{name:"Asad Bourbon",price:199,cat:"Oriental",promo:0,stock:true,new:false},
-{name:"Champion Money",price:250,cat:"Homme",promo:0,stock:true,new:true},
-{name:"L Absolu",price:349,cat:"Femme",promo:25,stock:true,new:false},
-{name:"Hunter Killer",price:299,cat:"Homme",promo:0,stock:true,new:true},
-{name:"Khamrah Qahwa",price:250,cat:"Oriental",promo:0,stock:true,new:false},
-{name:"Voux Elegante",price:199,cat:"Femme",promo:15,stock:true,new:true},
-{name:"Roya Blend",price:350,cat:"Oriental",promo:10,stock:true,new:false},
-{name:"Dior Homme Intense",price:1300,cat:"Homme",promo:20,stock:true,new:true},
-{name:"Stronger With You Intensely",price:1200,cat:"Homme",promo:0,stock:true,new:false},
-{name:"Power Musk",price:100,cat:"Homme",promo:0,stock:true,new:true},
-{name:"9PM Afnan",price:65,cat:"Homme",promo:0,stock:false,new:false},
-{name:"9PM Rebel",price:65,cat:"Homme",promo:0,stock:true,new:true},
-{name:"Liquid Brun",price:249,cat:"Femme",promo:5,stock:true,new:false},
-{name:"I Am The Queen",price:120,cat:"Femme",promo:0,stock:true,new:true},
-{name:"Delilah",price:120,cat:"Femme",promo:10,stock:true,new:false},
-{name:"Yara Candy",price:199,cat:"Femme",promo:0,stock:true,new:true}
+{name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true},
+{name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true},
+{name:"Tag Uomo Rose",price:299,cat:"Homme",promo:0,stock:true},
+{name:"Bois D Iris",price:199,cat:"Oriental",promo:15,stock:true},
+{name:"Let’s Be Strong",price:199,cat:"Homme",promo:0,stock:true},
+{name:"Mindset",price:199,cat:"Homme",promo:20,stock:true},
+{name:"Asade",price:180,cat:"Oriental",promo:0,stock:true},
+{name:"Your Touch Extrait",price:160,cat:"Femme",promo:5,stock:false},
+{name:"Asad Bourbon",price:199,cat:"Oriental",promo:0,stock:true},
+{name:"Champion Money",price:250,cat:"Homme",promo:0,stock:true},
+{name:"L Absolu",price:349,cat:"Femme",promo:25,stock:true},
+{name:"Hunter Killer",price:299,cat:"Homme",promo:0,stock:true},
+{name:"Khamrah Qahwa",price:250,cat:"Oriental",promo:0,stock:true},
+{name:"Voux Elegante",price:199,cat:"Femme",promo:15,stock:true},
+{name:"Roya Blend",price:350,cat:"Oriental",promo:10,stock:true},
+{name:"Dior Homme Intense",price:1300,cat:"Homme",promo:20,stock:true},
+{name:"Stronger With You Intensely",price:1200,cat:"Homme",promo:0,stock:true},
+{name:"Power Musk",price:100,cat:"Homme",promo:0,stock:true},
+{name:"9PM Afnan",price:65,cat:"Homme",promo:0,stock:false},
+{name:"9PM Rebel",price:65,cat:"Homme",promo:0,stock:true},
+{name:"Liquid Brun",price:249,cat:"Femme",promo:5,stock:true},
+{name:"I Am The Queen",price:120,cat:"Femme",promo:0,stock:true},
+{name:"Delilah",price:120,cat:"Femme",promo:10,stock:true},
+{name:"Yara Candy",price:199,cat:"Femme",promo:0,stock:true}
 ];
 
 let cart=[];
@@ -165,7 +164,6 @@ let stockBadge = p.stock
 return `
 <div class="product">
 ${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
-${p.new?`<div class="badge new">Nouveau</div>`:""}
 ${stockBadge}
 <img src="${imgUrl}">
 <h3>${p.name}</h3>

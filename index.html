@@ -27,7 +27,6 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
   border-radius:10px;
   box-shadow:0 2px 6px rgba(0,0,0,0.15);
 }
-
 .controls-pro .search-box input{
   padding:8px 12px;
   width:200px;
@@ -35,29 +34,33 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
   border:1px solid #ccc;
   font-size:13px;
 }
-
-.controls-pro .filter-box label{
-  font-size:13px;
-  margin-right:5px;
-}
-
-.checkbox-group label{
-  display:block;
-  font-size:12px;
-  margin:3px 0;
-  cursor:pointer;
-}
-
-.checkbox-group input{
-  margin-right:4px;
-}
-
 .controls-pro .sort-box select{
   padding:6px 10px;
   border-radius:6px;
   border:1px solid #ccc;
   font-size:13px;
 }
+
+/* TOGGLE FILTER */
+.filter-toggle{
+  display:flex;
+  gap:10px;
+}
+.filter-btn{
+  padding:8px 16px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:#eee;
+  color:#000;
+  font-weight:600;
+  transition:0.3s;
+}
+.filter-btn.active{
+  background:linear-gradient(135deg,#d4af37,#b8962e);
+  color:#000;
+}
+.filter-btn:hover:not(.active){background:#ddd}
 
 /* PRODUCTS */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
@@ -114,14 +117,10 @@ Souhail Parfums
   <div class="search-box">
     <input type="text" id="search" placeholder="🔍 Rechercher un parfum...">
   </div>
-  <div class="filter-box">
-    <label>Catégorie:</label>
-    <div class="checkbox-group">
-      <label><input type="checkbox" value="Homme"> Homme</label>
-      <label><input type="checkbox" value="Femme"> Femme</label>
-      <label><input type="checkbox" value="Oriental"> Oriental</label>
-      <label><input type="checkbox" value="Fruité"> Fruité</label>
-    </div>
+  <div class="filter-toggle">
+    <button class="filter-btn active" data-cat="Tous">Tous</button>
+    <button class="filter-btn" data-cat="Homme">Homme</button>
+    <button class="filter-btn" data-cat="Femme">Femme</button>
   </div>
   <div class="sort-box">
     <label>Trier par:</label>
@@ -189,33 +188,39 @@ const parfums=[
 ];
 
 let cart=[];
-
 const products=document.getElementById("products");
 const cartItems=document.getElementById("cart-items");
 const cartTotal=document.getElementById("cart-total");
 const search=document.getElementById("search");
 const sort=document.getElementById("sort");
-const checkboxes=document.querySelectorAll(".checkbox-group input");
+const filterBtns=document.querySelectorAll(".filter-btn");
 
+// FILTRE TOGGLE
+let currentCat="Tous";
+filterBtns.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    filterBtns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    currentCat=btn.getAttribute("data-cat");
+    render();
+  });
+});
+
+// RENDER
 function render(){
   let list=[...parfums];
   let s=search.value.toLowerCase();
-  let catSelected=Array.from(checkboxes).filter(cb=>cb.checked).map(cb=>cb.value);
-
   if(s) list=list.filter(p=>p.name.toLowerCase().includes(s));
-  if(catSelected.length>0) list=list.filter(p=>catSelected.includes(p.cat));
+  if(currentCat!=="Tous") list=list.filter(p=>p.cat===currentCat);
 
   if(sort.value==="price-asc") list.sort((a,b)=>a.price-b.price);
   if(sort.value==="price-desc") list.sort((a,b)=>b.price-a.price);
   if(sort.value==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
 
   products.innerHTML=list.map(p=>{
-    let final = p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
-    let stockBadge = p.stock 
-        ? `<div class="badge stock available">Disponible</div>` 
-        : `<div class="badge stock out">Épuisé</div>`;
-    return `
-    <div class="product">
+    let final=p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
+    let stockBadge=p.stock?`<div class="badge stock available">Disponible</div>`:`<div class="badge stock out">Épuisé</div>`;
+    return `<div class="product">
       ${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
       ${stockBadge}
       <img src="${imgUrl}">
@@ -229,10 +234,9 @@ function render(){
 
 search.addEventListener("input",render);
 sort.addEventListener("change",render);
-checkboxes.forEach(cb=>cb.addEventListener("change",render));
 
+// PANIER
 function toggleCart(){document.getElementById("cart").classList.toggle("active");}
-
 function addToCart(name,price,btn){
   if(btn.classList.contains("disabled")) return;
   flyEffect(btn);
@@ -242,7 +246,6 @@ function addToCart(name,price,btn){
   updateCart();
   showToast();
 }
-
 function updateCart(){
   let total=0;
   cartItems.innerHTML=cart.map(i=>{
@@ -251,39 +254,10 @@ function updateCart(){
   }).join('');
   cartTotal.innerText="Total: "+total+" MAD";
 }
-
-function qty(n,d){
-  let i=cart.find(x=>x.name===n);
-  i.qty+=d;
-  if(i.qty<=0) cart=cart.filter(x=>x!==i);
-  updateCart();
-}
-
-function sendCart(){
-  if(cart.length===0) return alert("Le panier est vide");
-  let msg="Commande:%0A";
-  cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
-  window.open(whatsapp+msg);
-}
-
-function showToast(){
-  let t=document.getElementById("toast");
-  t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),1500);
-}
-
-function flyEffect(btn){
-  let img=btn.parentElement.querySelector("img");
-  let r=img.getBoundingClientRect();
-  let f=img.cloneNode();
-  f.className="fly";
-  f.style.left=r.left+"px";
-  f.style.top=r.top+"px";
-  f.style.width="50px";
-  document.body.appendChild(f);
-  setTimeout(()=>{f.style.left="90%";f.style.top="20px";f.style.opacity=0;},10);
-  setTimeout(()=>f.remove(),800);
-}
+function qty(n,d){let i=cart.find(x=>x.name===n);i.qty+=d;if(i.qty<=0) cart=cart.filter(x=>x!==i);updateCart();}
+function sendCart(){if(cart.length===0) return alert("Le panier est vide");let msg="Commande:%0A";cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);window.open(whatsapp+msg);}
+function showToast(){let t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1500);}
+function flyEffect(btn){let img=btn.parentElement.querySelector("img");let r=img.getBoundingClientRect();let f=img.cloneNode();f.className="fly";f.style.left=r.left+"px";f.style.top=r.top+"px";f.style.width="50px";document.body.appendChild(f);setTimeout(()=>{f.style.left="90%";f.style.top="20px";f.style.opacity=0;},10);setTimeout(()=>f.remove(),800);}
 
 render();
 </script>

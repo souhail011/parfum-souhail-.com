@@ -2,203 +2,156 @@
 
 </body 
 </body>
-</html<!DOCTYPE html>
+</html><!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <title>Souhail Parfums | Luxury Compact</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Souhail Parfums – Parfums luxury. Livraison partout au Maroc, paiement à la livraison.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;}
 body{background:#f3f3f3;color:#000;}
 header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;}
 nav{background:#111;text-align:center;padding:8px;}
-nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;font-weight:500;}
+nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;}
 .container{max-width:1200px;margin:auto;padding:12px;}
 .notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px;}
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
-.controls input,.controls select{padding:6px;border-radius:5px;border:1px solid #ccc;font-size:12px;}
-.sort{padding:6px;border-radius:5px;border:1px solid #ccc;font-size:12px;margin-left:auto;}
-.promoslider{display:flex;overflow-x:auto;gap:8px;margin-bottom:15px;padding-bottom:5px;}
-.promoslider::-webkit-scrollbar{display:none;}
-.promoslider .promo{flex:0 0 auto;background:#ffeeba;padding:6px 10px;border-radius:8px;font-size:12px;font-weight:bold;color:#000;white-space:nowrap;}
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
 .product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative;}
 .product img{width:100%;height:130px;object-fit:cover;border-radius:6px;}
 .product h3{font-size:12px;margin:6px 0;}
-.price{font-weight:700;font-size:14px;color:#000;}
-.dupe{font-size:10px;color:#555;}
-.badge{position:absolute;top:6px;left:6px;background:#d4af37;color:#000;font-size:9px;padding:3px 5px;border-radius:5px;font-weight:bold;}
-.btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:5px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;}
+.price{font-weight:700;font-size:14px;}
+.btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;}
 
-/* sliding cart style */
-#cart{position:fixed;top:0;right:-350px;width:350px;height:100%;background:#fff;box-shadow:-3px 0 8px rgba(0,0,0,.2);padding:15px;z-index:999;transition:0.3s;overflow-y:auto;}
-#cart.active{right:0;}
-#cart h3{text-align:center;margin-bottom:10px;}
-.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:5px;border-bottom:1px solid #eee;}
-.cart-item span{flex:1;margin-left:5px;font-size:13px;}
-.cart-item button{padding:2px 6px;margin:0 2px;cursor:pointer;}
-#cart-total{text-align:right;font-weight:bold;margin-top:10px;font-size:14px;}
-#cart button.checkout{margin-top:8px;width:100%;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border:none;font-weight:600;cursor:pointer;}
+#cart{
+position:fixed;top:0;right:-360px;width:360px;height:100%;
+background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);
+padding:15px;transition:.4s;z-index:999;overflow:auto
+}
+#cart.active{right:0}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cart-item button{padding:2px 7px}
+#cart-total{font-weight:bold;text-align:right;margin-top:10px}
 
-.page{display:none;}.page.active{display:block;}
-form{background:#fff;padding:16px;border-radius:12px;max-width:400px;margin:auto;}
-form input,form textarea{width:100%;padding:10px;margin-bottom:8px;border-radius:6px;border:1px solid #ccc;font-size:13px;}
-form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;}
-.visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px;}
-.visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px;}
+/* animation */
+.fly{
+position:fixed;z-index:2000;transition:all .7s ease-in-out;
+border-radius:50%;
+}
 </style>
 </head>
 <body>
 
-<header>Souhail Parfums <button style="float:right;padding:4px 8px;margin-right:10px;background:#d4af37;border:none;cursor:pointer;" onclick="toggleCart()">🛒 Panier</button></header>
-<nav>
-<a href="#" onclick="showPage('shop')">Boutique</a>
-<a href="#" onclick="showPage('commande')">Commande</a>
-</nav>
+<header>
+Souhail Parfums
+<button onclick="toggleCart()" style="float:right;background:#d4af37;border:none;padding:5px 10px">🛒</button>
+</header>
 
 <div class="container">
-<div class="notice">🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b> — 📲 WhatsApp : 0695979661</div>
-<div class="promoslider" id="promoslider"></div>
-<div class="controls">
-<input type="text" id="search" placeholder="Rechercher un parfum...">
-<select id="category">
-<option value="all">Toutes catégories</option>
-<option>Homme</option>
-<option>Femme</option>
-<option>Mixte</option>
-<option>Gourmand</option>
-</select>
-<select id="sort" class="sort">
-<option value="none">Trier</option>
-<option value="best">Best</option>
-<option value="promo">Promo</option>
-<option value="priceAsc">Prix ↑</option>
-<option value="priceDesc">Prix ↓</option>
-<option value="dispo">Disponible</option>
-</select>
+<div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
+<div class="products" id="products"></div>
 </div>
 
-<div class="products" id="products"></div>
-
-<!-- Sliding Cart -->
 <div id="cart">
 <h3>🛒 Panier</h3>
 <div id="cart-items"></div>
 <div id="cart-total">Total: 0 MAD</div>
-<button class="checkout" onclick="sendCart()">Commander via WhatsApp</button>
-</div>
-
-<!-- COMMANDE -->
-<div id="commande" class="page">
-<form onsubmit="sendOrder(event)">
-<h3>🛒 Passer une commande</h3>
-<input id="name" placeholder="Nom complet" required>
-<input id="phone" placeholder="Téléphone" required>
-<input id="city" placeholder="Ville" required>
-<textarea id="order" placeholder="Parfum + Quantité" required></textarea>
-<button>Commander (Paiement à la livraison)</button>
-</form>
-</div>
-
-<div class="visit">
-<h3>📍 Pour visiter notre magasin</h3>
-<p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
-<a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
-Cliquez ici pour ouvrir Google Maps
-</a>
+<button class="btn" onclick="sendCart()">Commander WhatsApp</button>
 </div>
 
 <footer>© 2026 Souhail Parfums</footer>
 
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
+const imgUrl="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
 
-// Add all old + new 50 perfumes here
 const parfums=[
-["Writer Anonymous",199,"Mixte","Luxury","Best",1,0],
-["Idole La Nuit",249,"Femme","Luxury","",1,10],
-["Tag Uomo Rose EDP",299,"Mixte","Luxury","",1,0],
-["Bois D Iris",199,"Mixte","Luxury","",1,0],
-["Let S Be Strong",199,"Mixte","Luxury","",1,0],
-["Mindset Eau de Parfum",199,"Mixte","Luxury","",1,0],
-["Asade Eau de Parfum",180,"Homme","Luxury","",1,0],
-["Your Touch Extrait",160,"Femme","Luxury","",1,0],
-["Asad Bourbon",199,"Homme","Luxury","",1,0],
-["Champion Money Fragrance World",250,"Homme","Luxury","",1,0],
-["L Absolu",349,"Mixte","Luxury","",1,0],
-["Hunter Killer",299,"Mixte","Luxury","",1,0],
-["Khamrah Qahwa",250,"Gourmand","Luxury","",1,0],
-["Voux Elegante",199,"Femme","Luxury","",1,0],
-["Roya Blend",350,"Mixte","Luxury","",1,0],
-["Dior Homme Intense",1300,"Homme","Original","Best",1,0],
-["Stronger With You Intensely",1200,"Homme","Original","Best",1,15],
-["Power Musk",100,"Mixte","Luxury","",1,0],
-["9PM Afnan",65,"Mixte","Luxury","",1,0],
-["9PM Rebel Afnan",65,"Mixte","Luxury","",1,0],
-["L Absolu Vanille",300,"Mixte","Luxury","",1,0],
-["Liquid Brun",249,"Mixte","Luxury","",1,0],
-["I Am The Queen",120,"Femme","Luxury","",1,0],
-["Delilah",120,"Femme","Luxury","",1,0],
-["Yara Candy",199,"Femme","Luxury","",1,0]
-// Add more products here to reach 50
+["Writer Anonymous",199],["Idole La Nuit",249],["Tag Uomo Rose",299],
+["Bois D Iris",199],["Let’s Be Strong",199],["Mindset",199],
+["Asade",180],["Your Touch Extrait",160],["Asad Bourbon",199],
+["Champion Money",250],["L Absolu",349],["Hunter Killer",299],
+["Khamrah Qahwa",250],["Voux Elegante",199],["Roya Blend",350],
+["Dior Homme Intense",1300],["Stronger With You Intensely",1200],
+["Power Musk",100],["9PM Afnan",65],["9PM Rebel",65],
+["Liquid Brun",249],["I Am The Queen",120],["Delilah",120],
+["Yara Candy",199],["Amber Oud Gold",299],["Oud Satin",280],
+["Oud Rose",220],["Musk Tahara",150],["Oud Vanilla",230],
+["Ameer Al Oud",210],["Black Orchid",260],["Club De Nuit",240],
+["Badee Al Oud",220],["Eternal Oud",300],["Oud Is Great",270],
+["Blue Oud",200],["Rose Musk",190],["Amber Night",280],
+["Velvet Oud",260],["Sweet Vanilla",180]
 ];
 
 let cart=[];
 
-function img(name){
-return "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
-}
-
 function render(){
-let s=search.value.toLowerCase();
-let c=category.value;
-let sortV=document.getElementById("sort").value;
-
-let filtered=parfums.filter(p=>p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c));
-if(sortV==="best") filtered=filtered.filter(p=>p[4]==="Best");
-if(sortV==="promo") filtered=filtered.filter(p=>p[6]>0);
-if(sortV==="dispo") filtered=filtered.filter(p=>p[5]===1);
-if(sortV==="priceAsc") filtered.sort((a,b)=>a[1]-b[1]);
-if(sortV==="priceDesc") filtered.sort((a,b)=>b[1]-a[1]);
-
-products.innerHTML=filtered.map(p=>{
-let price=p[1], stock=p[5], promo=p[6], finalPrice=promo? (price*(100-promo)/100).toFixed(0):price;
-return `
+products.innerHTML=parfums.map(p=>`
 <div class="product">
-${p[4]==="Best"?'<div class="badge">Best</div>':''}
-${promo?`<div class="badge" style="top:25px;background:#ff3b3b;color:#fff">-${promo}%</div>`:''}
-${stock===0?'<div class="badge" style="top:45px;background:#999;color:#000">Épuisé</div>':'<div class="badge" style="top:45px;background:#25d366;color:#000">Disponible</div>'}
-<img loading="lazy" src="${img(p[0])}">
+<img src="${imgUrl}">
 <h3>${p[0]}</h3>
-<div class="price">${promo?`<span style="text-decoration:line-through;color:#999">${price} MAD</span> ${finalPrice} MAD`:price+' MAD'}</div>
-<div class="dupe">Inspiré de ${p[2]}</div>
-${stock===1?`<a class="btn" onclick="addToCart('${p[0]}',${finalPrice})">Ajouter au Panier</a>`:
-`<div class="btn" style="background:#ccc;color:#666;cursor:not-allowed">Rupture</div>`}
+<div class="price">${p[1]} MAD</div>
+<div class="btn" onclick="addToCart('${p[0]}',${p[1]},this)">Ajouter</div>
+</div>
+`).join('');
+}
+
+function toggleCart(){cartDiv.classList.toggle("active")}
+const cartDiv=document.getElementById("cart");
+
+function addToCart(name,price,btn){
+flyEffect(btn);
+let item=cart.find(i=>i.name===name);
+item?item.qty++:cart.push({name,price,qty:1});
+updateCart();toggleCart();
+}
+
+function updateCart(){
+let total=0;
+cartItems.innerHTML=cart.map(i=>{
+total+=i.price*i.qty;
+return `<div class="cart-item">
+<span>${i.name}</span>
+<div>
+<button onclick="qty('${i.name}',-1)">-</button>
+${i.qty}
+<button onclick="qty('${i.name}',1)">+</button>
+</div>
 </div>`;
-}).join("");
-
-renderPromos(filtered);
+}).join('');
+cartTotal.innerText="Total: "+total+" MAD";
 }
 
-function renderPromos(list){
-let promos=list.filter(p=>p[6]>0);
-promoslider.innerHTML=promos.map(p=>`${p[0]} -${p[6]}%`).join('').split(',').map(t=>`<div class="promo">${t}</div>`).join('');
+function qty(n,d){
+let i=cart.find(x=>x.name===n);
+i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x!==i);
+updateCart();
 }
 
-// Cart functions
-function toggleCart(){document.getElementById('cart').classList.toggle('active');}
-function addToCart(name,price){let item=cart.find(x=>x.name===name);if(item)item.qty++;else cart.push({name,price,qty:1});updateCart();toggleCart();}
-function updateCart(){let html='';let total=0;cart.forEach(item=>{total+=item.price*item.qty;html+=`<div class="cart-item"><span>${item.name} (${item.price} MAD)</span><div><button onclick="changeQty('${item.name}',-1)">-</button><span>${item.qty}</span><button onclick="changeQty('${item.name}',1)">+</button></div></div>`});document.getElementById('cart-items').innerHTML=html;document.getElementById('cart-total').innerText='Total: '+total+' MAD';}
-function changeQty(name,delta){let item=cart.find(x=>x.name===name);if(!item)return;item.qty+=delta;if(item.qty<=0)cart=cart.filter(x=>x.name!==name);updateCart();}
-function sendCart(){if(cart.length===0)return alert('Le panier est vide!');let msg='Commande:%0A';cart.forEach(item=>{msg+=`${item.name} x${item.qty} = ${item.price*item.qty} MAD%0A`;});let total=cart.reduce((a,b)=>a+b.price*b.qty,0);msg+=`%0ATotal: ${total} MAD`;window.open(whatsapp+msg);}
+function sendCart(){
+let msg="Commande:%0A";
+cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
+window.open(whatsapp+msg);
+}
 
-// Pages
-function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');}
-function sendOrder(e){e.preventDefault();const msg=`Commande:%0A${order.value}%0A%0ANom:${name.value}%0ATel:${phone.value}%0AVille:${city.value}`;window.open(whatsapp+msg);}
+const cartItems=document.getElementById("cart-items");
+const cartTotal=document.getElementById("cart-total");
 
-search.onkeyup=render;category.onchange=render;document.getElementById("sort").onchange=render;
+/* animation function */
+function flyEffect(btn){
+let img=btn.parentElement.querySelector("img");
+let r=img.getBoundingClientRect();
+let f=img.cloneNode();
+f.className="fly";
+f.style.left=r.left+"px";
+f.style.top=r.top+"px";
+f.style.width="50px";
+document.body.appendChild(f);
+setTimeout(()=>{
+f.style.left="90%";f.style.top="20px";f.style.opacity=0;
+},10);
+setTimeout(()=>f.remove(),800);
+}
+
 render();
 </script>
 </body>

@@ -16,36 +16,45 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 .container{max-width:1200px;margin:auto;padding:12px}
 .notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px}
 
-.controls{
-display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px
-}
-.controls input,.controls select{
-padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px
-}
+/* CONTROLS */
+.controls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.controls input,.controls select{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
 
+/* PRODUCTS */
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative}
 .product img{width:100%;height:130px;object-fit:cover;border-radius:6px}
 .product h3{font-size:12px;margin:6px 0}
 .price{font-weight:700;font-size:14px}
 .old{font-size:11px;text-decoration:line-through;color:#777}
-.badge{position:absolute;top:6px;left:6px;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px}
-.badge.promo{background:red}
-.badge.new{background:green}
-.out{position:absolute;top:6px;right:6px;background:#000;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px}
+
+/* BADGES */
+.badge{position:absolute;font-size:11px;padding:2px 6px;border-radius:4px;color:#fff}
+.badge.promo{top:6px;left:6px;background:red}
+.badge.new{top:6px;left:6px;background:green}
+.badge.stock{top:6px;right:6px}
+.badge.stock.available{background:green}
+.badge.stock.out{background:red}
+
+/* BUTTONS */
 .btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer}
 .btn.disabled{background:#aaa;pointer-events:none}
 
+/* CART */
 #cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .cart-item button{padding:2px 7px}
 #cart-total{font-weight:bold;text-align:right;margin-top:10px}
 
+/* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#d4af37;padding:10px 18px;border-radius:25px;font-size:13px;opacity:0;transition:.4s;z-index:3000}
 .toast.show{opacity:1}
+
+/* FLY EFFECT */
 .fly{position:fixed;z-index:2000;transition:.7s ease;border-radius:50%}
 
+/* VISIT */
 .visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px}
 .visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
 </style>
@@ -105,7 +114,7 @@ Souhail Parfums
 const whatsapp="https://wa.me/212695979661?text=";
 const imgUrl="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
 
-// Nom, prix, catégorie, promo%, stock, nouveau
+// NOM, PRIX, CAT, PROMO%, STOCK, NOUVEAU
 const parfums=[
 {name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true,new:true},
 {name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true,new:false},
@@ -150,11 +159,14 @@ if(t==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
 
 products.innerHTML=list.map(p=>{
 let final=p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
+let stockBadge = p.stock 
+    ? `<div class="badge stock available">Disponible</div>` 
+    : `<div class="badge stock out">Épuisé</div>`;
 return `
 <div class="product">
 ${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
 ${p.new?`<div class="badge new">Nouveau</div>`:""}
-${!p.stock?`<div class="out">Épuisé</div>`:""}
+${stockBadge}
 <img src="${imgUrl}">
 <h3>${p.name}</h3>
 ${p.promo?`<div class="old">${p.price} MAD</div>`:""}

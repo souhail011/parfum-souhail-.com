@@ -29,7 +29,9 @@ padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px
 .product h3{font-size:12px;margin:6px 0}
 .price{font-weight:700;font-size:14px}
 .old{font-size:11px;text-decoration:line-through;color:#777}
-.badge{position:absolute;top:6px;left:6px;background:red;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px}
+.badge{position:absolute;top:6px;left:6px;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px}
+.badge.promo{background:red}
+.badge.new{background:green}
 .out{position:absolute;top:6px;right:6px;background:#000;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px}
 .btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer}
 .btn.disabled{background:#aaa;pointer-events:none}
@@ -63,12 +65,11 @@ Souhail Parfums
 <!-- CONTROLS -->
 <div class="controls">
 <input type="text" id="search" placeholder="🔍 Rechercher parfum">
-<select id="category">
-<option value="">Toutes catégories</option>
-<option>Homme</option>
-<option>Femme</option>
-<option>Oriental</option>
-<option>Fruité</option>
+<select id="category" multiple size="4">
+<option value="Homme">Homme</option>
+<option value="Femme">Femme</option>
+<option value="Oriental">Oriental</option>
+<option value="Fruité">Fruité</option>
 </select>
 <select id="sort">
 <option value="">Trier</option>
@@ -104,32 +105,32 @@ Souhail Parfums
 const whatsapp="https://wa.me/212695979661?text=";
 const imgUrl="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
 
-// Nom, prix, catégorie, promo%, stock
+// Nom, prix, catégorie, promo%, stock, nouveau
 const parfums=[
-{name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true},
-{name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true},
-{name:"Tag Uomo Rose",price:299,cat:"Homme",promo:0,stock:true},
-{name:"Bois D Iris",price:199,cat:"Oriental",promo:15,stock:true},
-{name:"Let’s Be Strong",price:199,cat:"Homme",promo:0,stock:true},
-{name:"Mindset",price:199,cat:"Homme",promo:20,stock:true},
-{name:"Asade",price:180,cat:"Oriental",promo:0,stock:true},
-{name:"Your Touch Extrait",price:160,cat:"Femme",promo:5,stock:false},
-{name:"Asad Bourbon",price:199,cat:"Oriental",promo:0,stock:true},
-{name:"Champion Money",price:250,cat:"Homme",promo:0,stock:true},
-{name:"L Absolu",price:349,cat:"Femme",promo:25,stock:true},
-{name:"Hunter Killer",price:299,cat:"Homme",promo:0,stock:true},
-{name:"Khamrah Qahwa",price:250,cat:"Oriental",promo:0,stock:true},
-{name:"Voux Elegante",price:199,cat:"Femme",promo:15,stock:true},
-{name:"Roya Blend",price:350,cat:"Oriental",promo:10,stock:true},
-{name:"Dior Homme Intense",price:1300,cat:"Homme",promo:20,stock:true},
-{name:"Stronger With You Intensely",price:1200,cat:"Homme",promo:0,stock:true},
-{name:"Power Musk",price:100,cat:"Homme",promo:0,stock:true},
-{name:"9PM Afnan",price:65,cat:"Homme",promo:0,stock:false},
-{name:"9PM Rebel",price:65,cat:"Homme",promo:0,stock:true},
-{name:"Liquid Brun",price:249,cat:"Femme",promo:5,stock:true},
-{name:"I Am The Queen",price:120,cat:"Femme",promo:0,stock:true},
-{name:"Delilah",price:120,cat:"Femme",promo:10,stock:true},
-{name:"Yara Candy",price:199,cat:"Femme",promo:0,stock:true}
+{name:"Writer Anonymous",price:199,cat:"Femme",promo:0,stock:true,new:true},
+{name:"Idole La Nuit",price:249,cat:"Femme",promo:10,stock:true,new:false},
+{name:"Tag Uomo Rose",price:299,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Bois D Iris",price:199,cat:"Oriental",promo:15,stock:true,new:false},
+{name:"Let’s Be Strong",price:199,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Mindset",price:199,cat:"Homme",promo:20,stock:true,new:false},
+{name:"Asade",price:180,cat:"Oriental",promo:0,stock:true,new:false},
+{name:"Your Touch Extrait",price:160,cat:"Femme",promo:5,stock:false,new:true},
+{name:"Asad Bourbon",price:199,cat:"Oriental",promo:0,stock:true,new:false},
+{name:"Champion Money",price:250,cat:"Homme",promo:0,stock:true,new:true},
+{name:"L Absolu",price:349,cat:"Femme",promo:25,stock:true,new:false},
+{name:"Hunter Killer",price:299,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Khamrah Qahwa",price:250,cat:"Oriental",promo:0,stock:true,new:false},
+{name:"Voux Elegante",price:199,cat:"Femme",promo:15,stock:true,new:true},
+{name:"Roya Blend",price:350,cat:"Oriental",promo:10,stock:true,new:false},
+{name:"Dior Homme Intense",price:1300,cat:"Homme",promo:20,stock:true,new:true},
+{name:"Stronger With You Intensely",price:1200,cat:"Homme",promo:0,stock:true,new:false},
+{name:"Power Musk",price:100,cat:"Homme",promo:0,stock:true,new:true},
+{name:"9PM Afnan",price:65,cat:"Homme",promo:0,stock:false,new:false},
+{name:"9PM Rebel",price:65,cat:"Homme",promo:0,stock:true,new:true},
+{name:"Liquid Brun",price:249,cat:"Femme",promo:5,stock:true,new:false},
+{name:"I Am The Queen",price:120,cat:"Femme",promo:0,stock:true,new:true},
+{name:"Delilah",price:120,cat:"Femme",promo:10,stock:true,new:false},
+{name:"Yara Candy",price:199,cat:"Femme",promo:0,stock:true,new:true}
 ];
 
 let cart=[];
@@ -137,11 +138,11 @@ let cart=[];
 function render(){
 let list=[...parfums];
 let s=search.value.toLowerCase();
-let c=category.value;
+let catSelected=[...category.selectedOptions].map(o=>o.value);
 let t=sort.value;
 
 if(s) list=list.filter(p=>p.name.toLowerCase().includes(s));
-if(c) list=list.filter(p=>p.cat===c);
+if(catSelected.length>0) list=list.filter(p=>catSelected.includes(p.cat));
 
 if(t==="price-asc") list.sort((a,b)=>a.price-b.price);
 if(t==="price-desc") list.sort((a,b)=>b.price-a.price);
@@ -151,7 +152,8 @@ products.innerHTML=list.map(p=>{
 let final=p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
 return `
 <div class="product">
-${p.promo?`<div class="badge">-${p.promo}%</div>`:""}
+${p.promo?`<div class="badge promo">-${p.promo}%</div>`:""}
+${p.new?`<div class="badge new">Nouveau</div>`:""}
 ${!p.stock?`<div class="out">Épuisé</div>`:""}
 <img src="${imgUrl}">
 <h3>${p.name}</h3>
@@ -174,10 +176,8 @@ function toggleCart(){document.getElementById("cart").classList.toggle("active")
 
 function addToCart(name,price,btn){
 if(btn.classList.contains("disabled")) return;
-
 flyEffect(btn);
 if(navigator.vibrate) navigator.vibrate(80);
-
 let item=cart.find(i=>i.name===name);
 item?item.qty++:cart.push({name,price,qty:1});
 updateCart();

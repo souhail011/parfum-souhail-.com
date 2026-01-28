@@ -6,22 +6,22 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Souhail Parfums | Luxury Compact</title>
+<title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;}
-body{background:#f3f3f3;color:#000;}
-header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;}
-nav{background:#111;text-align:center;padding:8px;}
-nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;}
-.container{max-width:1200px;margin:auto;padding:12px;}
-.notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px;}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
-.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative;}
-.product img{width:100%;height:130px;object-fit:cover;border-radius:6px;}
-.product h3{font-size:12px;margin:6px 0;}
-.price{font-weight:700;font-size:14px;}
-.btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial}
+body{background:#f3f3f3;color:#000}
+header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold}
+.container{max-width:1200px;margin:auto;padding:12px}
+.notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px}
+
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px}
+.product img{width:100%;height:130px;object-fit:cover;border-radius:6px}
+.product h3{font-size:12px;margin:6px 0}
+.price{font-weight:700;font-size:14px}
+.btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer}
 
 #cart{
 position:fixed;top:0;right:-360px;width:360px;height:100%;
@@ -31,20 +31,42 @@ padding:15px;transition:.4s;z-index:999;overflow:auto
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .cart-item button{padding:2px 7px}
+
 #cart-total{font-weight:bold;text-align:right;margin-top:10px}
 
-/* animation */
+.toast{
+position:fixed;bottom:20px;left:50%;
+transform:translateX(-50%);
+background:#000;color:#d4af37;
+padding:10px 18px;border-radius:25px;
+font-size:13px;opacity:0;transition:.4s;z-index:3000
+}
+.toast.show{opacity:1}
+
 .fly{
-position:fixed;z-index:2000;transition:all .7s ease-in-out;
-border-radius:50%;
+position:fixed;z-index:2000;transition:.7s ease;
+border-radius:50%
+}
+
+.visit{
+max-width:700px;margin:25px auto;
+background:rgba(0,0,0,.85);color:#fff;
+text-align:center;padding:20px;border-radius:14px
+}
+.visit a{
+display:inline-block;padding:8px 15px;
+background:linear-gradient(135deg,#d4af37,#b8962e);
+color:#000;text-decoration:none;border-radius:6px;
+font-weight:600;font-size:13px;margin-top:8px
 }
 </style>
 </head>
+
 <body>
 
 <header>
 Souhail Parfums
-<button onclick="toggleCart()" style="float:right;background:#d4af37;border:none;padding:5px 10px">🛒</button>
+<button onclick="toggleCart()" style="float:right;background:#d4af37;border:none;padding:5px 10px;cursor:pointer">🛒</button>
 </header>
 
 <div class="container">
@@ -52,6 +74,7 @@ Souhail Parfums
 <div class="products" id="products"></div>
 </div>
 
+<!-- PANIER -->
 <div id="cart">
 <h3>🛒 Panier</h3>
 <div id="cart-items"></div>
@@ -59,7 +82,18 @@ Souhail Parfums
 <button class="btn" onclick="sendCart()">Commander WhatsApp</button>
 </div>
 
+<!-- MAPS -->
+<div class="visit">
+<h3>📍 Pour visiter notre magasin</h3>
+<p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
+<a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
+Ouvrir Google Maps
+</a>
+</div>
+
 <footer>© 2026 Souhail Parfums</footer>
+
+<div id="toast" class="toast">✔️ Ajouté au panier</div>
 
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
@@ -74,12 +108,7 @@ const parfums=[
 ["Dior Homme Intense",1300],["Stronger With You Intensely",1200],
 ["Power Musk",100],["9PM Afnan",65],["9PM Rebel",65],
 ["Liquid Brun",249],["I Am The Queen",120],["Delilah",120],
-["Yara Candy",199],["Amber Oud Gold",299],["Oud Satin",280],
-["Oud Rose",220],["Musk Tahara",150],["Oud Vanilla",230],
-["Ameer Al Oud",210],["Black Orchid",260],["Club De Nuit",240],
-["Badee Al Oud",220],["Eternal Oud",300],["Oud Is Great",270],
-["Blue Oud",200],["Rose Musk",190],["Amber Night",280],
-["Velvet Oud",260],["Sweet Vanilla",180]
+["Yara Candy",199]
 ];
 
 let cart=[];
@@ -90,19 +119,26 @@ products.innerHTML=parfums.map(p=>`
 <img src="${imgUrl}">
 <h3>${p[0]}</h3>
 <div class="price">${p[1]} MAD</div>
-<div class="btn" onclick="addToCart('${p[0]}',${p[1]},this)">Ajouter</div>
+<div class="btn" onclick="addToCart('${p[0]}',${p[1]},this)">Ajouter au panier</div>
 </div>
 `).join('');
 }
 
-function toggleCart(){cartDiv.classList.toggle("active")}
-const cartDiv=document.getElementById("cart");
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
 
 function addToCart(name,price,btn){
 flyEffect(btn);
+
+if(navigator.vibrate){
+navigator.vibrate(80);
+}
+
 let item=cart.find(i=>i.name===name);
 item?item.qty++:cart.push({name,price,qty:1});
-updateCart();toggleCart();
+updateCart();
+showToast();
 }
 
 function updateCart(){
@@ -123,7 +159,8 @@ cartTotal.innerText="Total: "+total+" MAD";
 
 function qty(n,d){
 let i=cart.find(x=>x.name===n);
-i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x!==i);
+i.qty+=d;
+if(i.qty<=0)cart=cart.filter(x=>x!==i);
 updateCart();
 }
 
@@ -133,10 +170,12 @@ cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
 window.open(whatsapp+msg);
 }
 
-const cartItems=document.getElementById("cart-items");
-const cartTotal=document.getElementById("cart-total");
+function showToast(){
+let t=document.getElementById("toast");
+t.classList.add("show");
+setTimeout(()=>t.classList.remove("show"),1500);
+}
 
-/* animation function */
 function flyEffect(btn){
 let img=btn.parentElement.querySelector("img");
 let r=img.getBoundingClientRect();
@@ -147,12 +186,19 @@ f.style.top=r.top+"px";
 f.style.width="50px";
 document.body.appendChild(f);
 setTimeout(()=>{
-f.style.left="90%";f.style.top="20px";f.style.opacity=0;
+f.style.left="90%";
+f.style.top="20px";
+f.style.opacity=0;
 },10);
 setTimeout(()=>f.remove(),800);
 }
 
+const cartItems=document.getElementById("cart-items");
+const cartTotal=document.getElementById("cart-total");
+
 render();
 </script>
+
 </body>
 </html>
+

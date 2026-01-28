@@ -136,8 +136,6 @@ let cart=[];
 
 function render(){
 let list=[...parfums];
-
-// filtrer recherche
 let s=search.value.toLowerCase();
 let c=category.value;
 let t=sort.value;
@@ -145,12 +143,10 @@ let t=sort.value;
 if(s) list=list.filter(p=>p.name.toLowerCase().includes(s));
 if(c) list=list.filter(p=>p.cat===c);
 
-// tri
 if(t==="price-asc") list.sort((a,b)=>a.price-b.price);
 if(t==="price-desc") list.sort((a,b)=>b.price-a.price);
 if(t==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
 
-// afficher produits
 products.innerHTML=list.map(p=>{
 let final=p.promo?Math.round(p.price*(1-p.promo/100)):p.price;
 return `

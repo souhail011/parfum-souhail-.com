@@ -33,14 +33,7 @@ nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;font-weight
 .btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:5px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;}
 
 /* sliding cart style */
-#cart{
-position:fixed;
-top:0; right:-350px;
-width:350px; height:100%;
-background:#fff; box-shadow:-3px 0 8px rgba(0,0,0,.2);
-padding:15px; z-index:999; transition:0.3s;
-overflow-y:auto;
-}
+#cart{position:fixed;top:0;right:-350px;width:350px;height:100%;background:#fff;box-shadow:-3px 0 8px rgba(0,0,0,.2);padding:15px;z-index:999;transition:0.3s;overflow-y:auto;}
 #cart.active{right:0;}
 #cart h3{text-align:center;margin-bottom:10px;}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:5px;border-bottom:1px solid #eee;}
@@ -67,9 +60,7 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 
 <div class="container">
 <div class="notice">🚚 Livraison partout au Maroc — 💵 <b>Paiement à la livraison</b> — 📲 WhatsApp : 0695979661</div>
-
 <div class="promoslider" id="promoslider"></div>
-
 <div class="controls">
 <input type="text" id="search" placeholder="Rechercher un parfum...">
 <select id="category">
@@ -124,7 +115,7 @@ Cliquez ici pour ouvrir Google Maps
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
-// Products list
+// Add all old + new 50 perfumes here
 const parfums=[
 ["Writer Anonymous",199,"Mixte","Luxury","Best",1,0],
 ["Idole La Nuit",249,"Femme","Luxury","",1,10],
@@ -143,7 +134,15 @@ const parfums=[
 ["Roya Blend",350,"Mixte","Luxury","",1,0],
 ["Dior Homme Intense",1300,"Homme","Original","Best",1,0],
 ["Stronger With You Intensely",1200,"Homme","Original","Best",1,15],
-["Power Musk",100,"Mixte","Luxury","",1,0]
+["Power Musk",100,"Mixte","Luxury","",1,0],
+["9PM Afnan",65,"Mixte","Luxury","",1,0],
+["9PM Rebel Afnan",65,"Mixte","Luxury","",1,0],
+["L Absolu Vanille",300,"Mixte","Luxury","",1,0],
+["Liquid Brun",249,"Mixte","Luxury","",1,0],
+["I Am The Queen",120,"Femme","Luxury","",1,0],
+["Delilah",120,"Femme","Luxury","",1,0],
+["Yara Candy",199,"Femme","Luxury","",1,0]
+// Add more products here to reach 50
 ];
 
 let cart=[];
@@ -189,71 +188,17 @@ promoslider.innerHTML=promos.map(p=>`${p[0]} -${p[6]}%`).join('').split(',').map
 }
 
 // Cart functions
-function toggleCart(){
-document.getElementById('cart').classList.toggle('active');
-}
-
-function addToCart(name,price){
-let item=cart.find(x=>x.name===name);
-if(item) item.qty++;
-else cart.push({name,price,qty:1});
-updateCart();
-toggleCart(); // open cart automatically
-}
-
-function updateCart(){
-let html='';
-let total=0;
-cart.forEach(item=>{
-total+=item.price*item.qty;
-html+=`<div class="cart-item">
-<span>${item.name} (${item.price} MAD)</span>
-<div>
-<button onclick="changeQty('${item.name}',-1)">-</button>
-<span>${item.qty}</span>
-<button onclick="changeQty('${item.name}',1)">+</button>
-</div>
-</div>`;
-});
-document.getElementById('cart-items').innerHTML=html;
-document.getElementById('cart-total').innerText='Total: '+total+' MAD';
-}
-
-function changeQty(name,delta){
-let item=cart.find(x=>x.name===name);
-if(!item) return;
-item.qty+=delta;
-if(item.qty<=0) cart=cart.filter(x=>x.name!==name);
-updateCart();
-}
-
-function sendCart(){
-if(cart.length===0) return alert('Le panier est vide!');
-let msg='Commande:%0A';
-cart.forEach(item=>{
-msg+=`${item.name} x${item.qty} = ${item.price*item.qty} MAD%0A`;
-});
-let total=cart.reduce((a,b)=>a+b.price*b.qty,0);
-msg+=`%0ATotal: ${total} MAD`;
-window.open(whatsapp+msg);
-}
+function toggleCart(){document.getElementById('cart').classList.toggle('active');}
+function addToCart(name,price){let item=cart.find(x=>x.name===name);if(item)item.qty++;else cart.push({name,price,qty:1});updateCart();toggleCart();}
+function updateCart(){let html='';let total=0;cart.forEach(item=>{total+=item.price*item.qty;html+=`<div class="cart-item"><span>${item.name} (${item.price} MAD)</span><div><button onclick="changeQty('${item.name}',-1)">-</button><span>${item.qty}</span><button onclick="changeQty('${item.name}',1)">+</button></div></div>`});document.getElementById('cart-items').innerHTML=html;document.getElementById('cart-total').innerText='Total: '+total+' MAD';}
+function changeQty(name,delta){let item=cart.find(x=>x.name===name);if(!item)return;item.qty+=delta;if(item.qty<=0)cart=cart.filter(x=>x.name!==name);updateCart();}
+function sendCart(){if(cart.length===0)return alert('Le panier est vide!');let msg='Commande:%0A';cart.forEach(item=>{msg+=`${item.name} x${item.qty} = ${item.price*item.qty} MAD%0A`;});let total=cart.reduce((a,b)=>a+b.price*b.qty,0);msg+=`%0ATotal: ${total} MAD`;window.open(whatsapp+msg);}
 
 // Pages
-function showPage(p){
-document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-document.getElementById(p).classList.add('active');
-}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');}
+function sendOrder(e){e.preventDefault();const msg=`Commande:%0A${order.value}%0A%0ANom:${name.value}%0ATel:${phone.value}%0AVille:${city.value}`;window.open(whatsapp+msg);}
 
-function sendOrder(e){
-e.preventDefault();
-const msg=`Commande:%0A${order.value}%0A%0ANom:${name.value}%0ATel:${phone.value}%0AVille:${city.value}`;
-window.open(whatsapp+msg);
-}
-
-search.onkeyup=render;
-category.onchange=render;
-document.getElementById("sort").onchange=render;
-
+search.onkeyup=render;category.onchange=render;document.getElementById("sort").onchange=render;
 render();
 </script>
 </body>

@@ -30,7 +30,6 @@ nav a{color:#d4af37;margin:0 8px;text-decoration:none;font-size:13px;font-weight
 .price{font-weight:700;font-size:14px;color:#000;}
 .dupe{font-size:10px;color:#555;}
 .badge{position:absolute;top:6px;left:6px;background:#d4af37;color:#000;font-size:9px;padding:3px 5px;border-radius:5px;font-weight:bold;}
-.qty{width:40px;padding:4px;margin-top:4px;font-size:12px;border-radius:5px;border:1px solid #ccc;}
 .btn{display:block;margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:5px;font-size:12px;font-weight:600;text-align:center;cursor:pointer;}
 .page{display:none;}.page.active{display:block;}
 form{background:#fff;padding:16px;border-radius:12px;max-width:400px;margin:auto;}
@@ -41,7 +40,6 @@ form button{background:#000;color:#d4af37;padding:10px;border:none;width:100%;bo
 #panier{background:#fff;border-radius:10px;padding:10px;margin-top:15px;max-width:500px;}
 #panier h3{margin-bottom:8px;text-align:center;}
 .panier-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.panier-item input{width:40px;border:1px solid #ccc;border-radius:5px;text-align:center;padding:2px;}
 .panier-total{text-align:right;font-weight:bold;margin-top:8px;}
 .panier-btn{margin-top:8px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;padding:6px;width:100%;border:none;border-radius:5px;font-weight:600;cursor:pointer;}
 </style>
@@ -113,7 +111,6 @@ Cliquez ici pour ouvrir Google Maps
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
-// [name, prix, inspiré, catégorie, best, stock, promo%]
 const parfums=[
 ["Writer Anonymous",199,"Mixte","Luxury","Best",1,0],
 ["Idole La Nuit",249,"Femme","Luxury","",1,10],
@@ -135,31 +132,10 @@ const parfums=[
 ["Power Musk",100,"Mixte","Luxury","",1,0]
 ];
 
-// panier
 let panier=[];
 
 function img(name){
-const images={
-"Writer Anonymous":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
-"Idole La Nuit":"https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=300",
-"Tag Uomo Rose EDP":"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=300",
-"Bois D Iris":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300",
-"Let S Be Strong":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
-"Mindset Eau de Parfum":"https://images.unsplash.com/photo-1595425970377-c616b2d5b14a?w=300",
-"Asade Eau de Parfum":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300",
-"Your Touch Extrait":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
-"Asad Bourbon":"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300",
-"Champion Money Fragrance World":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
-"L Absolu":"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=300",
-"Hunter Killer":"https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=300",
-"Khamrah Qahwa":"https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300",
-"Voux Elegante":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300",
-"Roya Blend":"https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300",
-"Dior Homme Intense":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=300",
-"Stronger With You Intensely":"https://images.unsplash.com/photo-1541643600914-78b084683601?w=300",
-"Power Musk":"https://images.unsplash.com/photo-1594035910387-fea47794261?w=300"
-};
-return images[name]||images["Writer Anonymous"];
+return "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=300";
 }
 
 function render(){
@@ -167,10 +143,7 @@ let s=search.value.toLowerCase();
 let c=category.value;
 let sortV=document.getElementById("sort").value;
 
-let filtered=parfums.filter(p=>
-p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c)
-);
-
+let filtered=parfums.filter(p=>p[0].toLowerCase().includes(s)&&(c==="all"||p[3]===c));
 if(sortV==="best") filtered=filtered.filter(p=>p[4]==="Best");
 if(sortV==="promo") filtered=filtered.filter(p=>p[6]>0);
 if(sortV==="dispo") filtered=filtered.filter(p=>p[5]===1);
@@ -188,8 +161,7 @@ ${stock===0?'<div class="badge" style="top:45px;background:#999;color:#000">Épu
 <h3>${p[0]}</h3>
 <div class="price">${promo?`<span style="text-decoration:line-through;color:#999">${price} MAD</span> ${finalPrice} MAD`:price+' MAD'}</div>
 <div class="dupe">Inspiré de ${p[2]}</div>
-${stock===1?`<input class="qty" type="number" min="1" value="1" id="q_${p[0]}">
-<a class="btn" onclick="addToPanier('${p[0]}',${finalPrice})">Ajouter au Panier</a>`:
+${stock===1?`<a class="btn" onclick="addToPanier('${p[0]}',${finalPrice})">Ajouter au Panier</a>`:
 `<div class="btn" style="background:#ccc;color:#666;cursor:not-allowed">Rupture</div>`}
 </div>`;
 }).join("");
@@ -216,19 +188,12 @@ let total=0;
 panier.forEach(item=>{
 total+=item.price*item.qty;
 html+=`<div class="panier-item">
-<span>${item.name} (${item.price} MAD)</span>
-<input type="number" min="1" value="${item.qty}" onchange="changeQty('${item.name}',this.value)">
+<span>${item.name} (${item.price} MAD) x${item.qty}</span>
 <button onclick="removeItem('${item.name}')">X</button>
 </div>`;
 });
 document.getElementById('panier-items').innerHTML=html;
 document.getElementById('panier-total').innerText='Total: '+total+' MAD';
-}
-
-function changeQty(name,val){
-let item=panier.find(x=>x.name===name);
-item.qty=parseInt(val);
-updatePanier();
 }
 
 function removeItem(name){

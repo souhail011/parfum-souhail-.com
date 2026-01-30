@@ -14,25 +14,89 @@
 body{background:#f3f3f3;color:#000}
 header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold}
 .container{max-width:1200px;margin:auto;padding:12px}
-.notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px}
 
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px}
-.product img{width:100%;height:130px;object-fit:cover;border-radius:6px}
+.notice{
+background:#fff;padding:10px;border-radius:10px;
+text-align:center;margin-bottom:10px;font-size:13px
+}
+
+/* SEARCH */
+.search-box{
+margin-bottom:10px
+}
+.search-box input{
+width:100%;padding:10px;
+border-radius:8px;border:1px solid #ccc;
+font-size:14px
+}
+
+/* PRODUCTS */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+gap:10px
+}
+.product{
+background:#fff;border-radius:10px;padding:6px;
+text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);
+font-size:12px
+}
+.product img{
+width:100%;height:130px;object-fit:cover;border-radius:6px
+}
 .product h3{font-size:12px;margin:6px 0}
 .price{font-weight:700;font-size:14px}
-.btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer}
 
+.status{
+font-size:12px;font-weight:bold;margin:4px 0
+}
+.dispo{color:green}
+.epuise{color:red}
+
+.btn{
+margin-top:4px;padding:6px;
+background:linear-gradient(135deg,#d4af37,#b8962e);
+border-radius:5px;font-size:12px;
+font-weight:600;cursor:pointer
+}
+.btn.disabled{
+background:#ccc;cursor:not-allowed
+}
+
+/* CART */
 #cart{
 position:fixed;top:0;right:-360px;width:360px;height:100%;
 background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);
 padding:15px;transition:.4s;z-index:999;overflow:auto
 }
 #cart.active{right:0}
-.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 
-#cart-total{font-weight:bold;text-align:right;margin-top:10px}
+.cart-item{
+display:flex;justify-content:space-between;
+align-items:center;margin-bottom:10px
+}
+.cart-item button{padding:2px 7px}
 
+#cart-total{
+font-weight:bold;text-align:right;margin-top:10px
+}
+
+/* TOAST */
+.toast{
+position:fixed;bottom:20px;left:50%;
+transform:translateX(-50%);
+background:#000;color:#d4af37;
+padding:10px 18px;border-radius:25px;
+font-size:13px;opacity:0;transition:.4s;z-index:3000
+}
+.toast.show{opacity:1}
+
+.fly{
+position:fixed;z-index:2000;transition:.7s ease;
+border-radius:50%
+}
+
+/* MAP */
 .visit{
 max-width:700px;margin:25px auto;
 background:rgba(0,0,0,.85);color:#fff;
@@ -55,7 +119,13 @@ Souhail Parfums
 </header>
 
 <div class="container">
+
 <div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="🔍 Rechercher un parfum...">
+</div>
+
 <div class="products" id="products"></div>
 </div>
 
@@ -67,7 +137,7 @@ Souhail Parfums
 <button class="btn" onclick="sendCart()">Commander WhatsApp</button>
 </div>
 
-<!-- MAPS -->
+<!-- MAP -->
 <div class="visit">
 <h3>📍 Pour visiter notre magasin</h3>
 <p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
@@ -78,40 +148,44 @@ Ouvrir Google Maps
 
 <footer>© 2026 Souhail Parfums</footer>
 
+<div id="toast" class="toast">✔️ Ajouté au panier</div>
+
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
 const parfums=[
-["Writer Anonymous",199,"https://i.postimg.cc/WzMWPvrL/IMG-3738.png"],
-["Idole la nuit",249,"https://i.postimg.cc/bwHh97FQ/IMG-3739.jpg"],
-["Tag uomo roso",299,"https://i.postimg.cc/kgFmv0hf/IMG-3740.jpg"],
-["Bois d iris",199,"https://i.postimg.cc/FHg4VMn2/IMG-3741.jpg"],
-["Let’s be strong",199,"https://i.postimg.cc/Nj7ck3zY/IMG-3742.jpg"],
-["Mindset",199,"https://i.postimg.cc/t4tjNKm8/IMG-3743.jpg"],
-["Asade",180,"https://i.postimg.cc/nV0TB0kK/IMG-3744.webp"],
-["Your Touch Extrait",160,"https://i.postimg.cc/W1RZkkQx/IMG-3745.webp"],
-["Asad Bourbon",199,"https://i.postimg.cc/Sxpdcs5M/IMG-3746.webp"],
-["Champion Money",250,"https://i.postimg.cc/W1nGr704/IMG-3748.webp"],
-["Khamrah Qahwa",250,"https://i.postimg.cc/R0hHtxMs/IMG-3751.webp"],
-["Voux Elegante",199,"https://i.postimg.cc/rs10T89v/IMG-3752.webp"],
-["Roya Blend",350,"https://i.postimg.cc/hj9Pz27z/IMG-3753.jpg"],
-["Dior Homme Intense",1300,"https://i.postimg.cc/2j7SCXYy/IMG-3755.jpg"],
-["Stronger With You Intensely",1200,"https://i.postimg.cc/CxzhHhqz/IMG-3756.jpg"],
-["9PM Afnan",65,"https://i.postimg.cc/Dw9TrqhR/IMG-3760.jpg"],
-["9PM Rebel",65,"https://i.postimg.cc/xCYV7nct/IMG-3761.jpg"],
-["Yara",199,"https://i.postimg.cc/V6YLtj9q/IMG-3764.webp"],
-["Good Girl",350,"https://i.postimg.cc/h4XR5yGz/IMG-3797.png"]
+{name:"Writer Anonymous",price:199,img:"https://i.postimg.cc/WzMWPvrL/IMG-3738.png",stock:1},
+{name:"Idole La Nuit",price:249,img:"https://i.postimg.cc/bwHh97FQ/IMG-3739.jpg",stock:1},
+{name:"Tag Uomo Roso",price:299,img:"https://i.postimg.cc/kgFmv0hf/IMG-3740.jpg",stock:1},
+{name:"Bois D Iris",price:199,img:"https://i.postimg.cc/FHg4VMn2/IMG-3741.jpg",stock:0},
+{name:"Let’s Be Strong",price:199,img:"https://i.postimg.cc/Nj7ck3zY/IMG-3742.jpg",stock:1},
+{name:"Mindset",price:199,img:"https://i.postimg.cc/t4tjNKm8/IMG-3743.jpg",stock:1},
+{name:"Asade",price:180,img:"https://i.postimg.cc/nV0TB0kK/IMG-3744.webp",stock:1},
+{name:"Your Touch Extrait",price:160,img:"https://i.postimg.cc/W1RZkkQx/IMG-3745.webp",stock:0},
+{name:"Asad Bourbon",price:199,img:"https://i.postimg.cc/Sxpdcs5M/IMG-3746.webp",stock:1},
+{name:"Champion Money",price:250,img:"https://i.postimg.cc/W1nGr704/IMG-3748.webp",stock:1},
+{name:"Yara",price:199,img:"https://i.postimg.cc/V6YLtj9q/IMG-3764.webp",stock:1},
+{name:"Good Girl",price:350,img:"https://i.postimg.cc/h4XR5yGz/IMG-3797.png",stock:1}
 ];
 
 let cart=[];
 
 function render(){
-products.innerHTML=parfums.map(p=>`
+const q=document.getElementById("search").value.toLowerCase();
+products.innerHTML=parfums
+.filter(p=>p.name.toLowerCase().includes(q))
+.map(p=>`
 <div class="product">
-<img src="${p[2]}" alt="${p[0]}">
-<h3>${p[0]}</h3>
-<div class="price">${p[1]} MAD</div>
-<div class="btn" onclick="addToCart('${p[0]}',${p[1]})">Ajouter au panier</div>
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<div class="price">${p.price} MAD</div>
+<div class="status ${p.stock?'dispo':'epuise'}">
+${p.stock?'Disponible':'Épuisé'}
+</div>
+<div class="btn ${p.stock?'':'disabled'}"
+${p.stock?`onclick="addToCart('${p.name}',${p.price},this)"`:''}>
+Ajouter au panier
+</div>
 </div>
 `).join('');
 }
@@ -120,19 +194,36 @@ function toggleCart(){
 document.getElementById("cart").classList.toggle("active");
 }
 
-function addToCart(name,price){
+function addToCart(name,price,btn){
+flyEffect(btn);
+if(navigator.vibrate){navigator.vibrate(80);}
 let item=cart.find(i=>i.name===name);
 item?item.qty++:cart.push({name,price,qty:1});
 updateCart();
+showToast();
 }
 
 function updateCart(){
 let total=0;
 cartItems.innerHTML=cart.map(i=>{
 total+=i.price*i.qty;
-return `<div class="cart-item">${i.name} x${i.qty}</div>`;
+return `<div class="cart-item">
+<span>${i.name}</span>
+<div>
+<button onclick="qty('${i.name}',-1)">-</button>
+${i.qty}
+<button onclick="qty('${i.name}',1)">+</button>
+</div>
+</div>`;
 }).join('');
 cartTotal.innerText="Total: "+total+" MAD";
+}
+
+function qty(n,d){
+let i=cart.find(x=>x.name===n);
+i.qty+=d;
+if(i.qty<=0)cart=cart.filter(x=>x!==i);
+updateCart();
 }
 
 function sendCart(){
@@ -141,8 +232,32 @@ cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
 window.open(whatsapp+msg);
 }
 
+function showToast(){
+let t=document.getElementById("toast");
+t.classList.add("show");
+setTimeout(()=>t.classList.remove("show"),1500);
+}
+
+function flyEffect(btn){
+let img=btn.parentElement.querySelector("img");
+let r=img.getBoundingClientRect();
+let f=img.cloneNode();
+f.className="fly";
+f.style.left=r.left+"px";
+f.style.top=r.top+"px";
+f.style.width="50px";
+document.body.appendChild(f);
+setTimeout(()=>{
+f.style.left="90%";
+f.style.top="20px";
+f.style.opacity=0;
+},10);
+setTimeout(()=>f.remove(),800);
+}
+
 const cartItems=document.getElementById("cart-items");
 const cartTotal=document.getElementById("cart-total");
+document.getElementById("search").oninput=render;
 
 render();
 </script>

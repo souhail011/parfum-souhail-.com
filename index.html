@@ -2,7 +2,7 @@
 
 </body 
 </body>
-</html><!DOCTYPE html>
+</html<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -41,6 +41,9 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 /* Visit section */
 .visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px}
 .visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
+
+/* Maps */
+.map-container{width:100%;height:300px;margin:20px 0;border-radius:12px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.2)}
 </style>
 </head>
 
@@ -70,6 +73,15 @@ Souhail Parfums
 </div>
 
 <div class="products" id="products"></div>
+
+<!-- Maps -->
+<div class="map-container">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.123456!2d-7.123456!3d33.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda123456!2sSouhail+Parfums!5e0!3m2!1sfr!2sma!4v1671234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+<div class="visit">
+📍 Nous sommes ici — Visitez notre magasin
+<a href="https://goo.gl/maps/abcd1234" target="_blank">Voir sur Google Maps</a>
 </div>
 
 <!-- PANIER -->
@@ -153,15 +165,16 @@ function renderProducts(){
     if(sortValue==="price-asc") filtered.sort((a,b)=>a.price-b.price);
     if(sortValue==="price-desc") filtered.sort((a,b)=>b.price-a.price);
 
-    productsContainer.innerHTML=filtered.map(p=>`
-        <div class="product">
+    productsContainer.innerHTML=filtered.map(p=>{
+        let finalPrice=p.reduction>0?Math.round(p.price*(1-p.reduction/100)):p.price;
+        return `<div class="product">
             <img src="${p.img}">
             <h3>${p.name}</h3>
-            <div class="price">${p.price} MAD ${p.reduction>0?`- ${p.reduction}%`:""}</div>
+            <div class="price">${finalPrice} MAD ${p.reduction>0?`<span style="color:red;">(-${p.reduction}%)</span>`:""}</div>
             <span class="status" style="background:${p.status==="disponible"?"green":"red"}">${p.status}</span>
-            <div class="btn" onclick="addToCart('${p.name}',${p.price},this)">Ajouter au panier</div>
-        </div>
-    `).join('');
+            <div class="btn" onclick="addToCart('${p.name}',${finalPrice},this)">Ajouter au panier</div>
+        </div>`;
+    }).join('');
 }
 
 document.getElementById("search").addEventListener("input",renderProducts);
@@ -201,40 +214,3 @@ function qty(n,d){
     let i=cart.find(x=>x.name===n);
     i.qty+=d;
     if(i.qty<=0) cart=cart.filter(x=>x!==i);
-    updateCart();
-}
-
-function sendCart(){
-    let msg="Commande:%0A";
-    cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
-    window.open(whatsapp+msg);
-}
-
-function showToast(){
-    let t=document.getElementById("toast");
-    t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"),1500);
-}
-
-function flyEffect(btn){
-    let img=btn.parentElement.querySelector("img");
-    let r=img.getBoundingClientRect();
-    let f=img.cloneNode();
-    f.className="fly";
-    f.style.left=r.left+"px";
-    f.style.top=r.top+"px";
-    f.style.width="50px";
-    document.body.appendChild(f);
-    setTimeout(()=>{
-        f.style.left="90%";
-        f.style.top="20px";
-        f.style.opacity=0;
-    },10);
-    setTimeout(()=>f.remove(),800);
-}
-
-renderProducts();
-</script>
-
-</body>
-</html>

@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial}
 body{background:#f3f3f3;color:#000}
@@ -16,8 +15,9 @@ header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-
 header button{position:absolute;right:15px;top:10px;background:#d4af37;border:none;padding:5px 10px;cursor:pointer;border-radius:5px;}
 .container{max-width:1200px;margin:auto;padding:12px}
 .notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px}
+
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.filters select, .filters input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:13px}
+.filters select,input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:13px}
 
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative}
@@ -30,45 +30,20 @@ header button{position:absolute;right:15px;top:10px;background:#d4af37;border:no
 .status.epuise{background:red}
 .reduction{position:absolute;top:8px;right:8px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:bold;color:#fff;background:orange}
 
-/* Panier */
-#cart{
-position:fixed;top:0;right:-360px;width:360px;height:100%;
-background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);
-padding:15px;transition:.4s;z-index:999;overflow:auto
-}
+/* CART */
+#cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .cart-item button{padding:2px 7px}
 #cart-total{font-weight:bold;text-align:right;margin-top:10px}
 
 /* Toast */
-.toast{
-position:fixed;bottom:20px;left:50%;
-transform:translateX(-50%);
-background:#000;color:#d4af37;
-padding:10px 18px;border-radius:25px;
-font-size:13px;opacity:0;transition:.4s;z-index:3000
-}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#d4af37;padding:10px 18px;border-radius:25px;font-size:13px;opacity:0;transition:.4s;z-index:3000}
 .toast.show{opacity:1}
 
-/* Fly effect */
-.fly{
-position:fixed;z-index:2000;transition:.7s ease;
-border-radius:50%
-}
-
-/* Maps section */
-.visit{
-max-width:700px;margin:25px auto;
-background:rgba(0,0,0,.85);color:#fff;
-text-align:center;padding:20px;border-radius:14px
-}
-.visit a{
-display:inline-block;padding:8px 15px;
-background:linear-gradient(135deg,#d4af37,#b8962e);
-color:#000;text-decoration:none;border-radius:6px;
-font-weight:600;font-size:13px;margin-top:8px
-}
+/* Maps */
+.visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px}
+.visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
 </style>
 </head>
 <body>
@@ -82,30 +57,29 @@ Souhail Parfums
 <div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
 
 <div class="filters">
-<select id="filterGender">
+<select id="filterGender" onchange="applyFilters()">
 <option value="all">Tous</option>
 <option value="homme">Homme</option>
 <option value="femme">Femme</option>
 </select>
 
-<select id="sortPrice">
+<select id="sortPrice" onchange="applyFilters()">
 <option value="none">Trier par prix</option>
 <option value="asc">Prix croissant</option>
 <option value="desc">Prix décroissant</option>
 </select>
 
-<select id="sortReduction">
-<option value="none">Réduction</option>
+<select id="sortReduction" onchange="applyFilters()">
+<option value="none">Toutes</option>
 <option value="yes">Avec réduction</option>
 </select>
 
-<input type="text" id="searchInput" placeholder="Rechercher parfum...">
+<input type="text" id="searchInput" placeholder="Rechercher parfum..." oninput="applyFilters()" style="flex:1">
 </div>
 
 <div class="products" id="products"></div>
 </div>
 
-<!-- PANIER -->
 <div id="cart">
 <h3>🛒 Panier</h3>
 <div id="cart-items"></div>
@@ -113,10 +87,9 @@ Souhail Parfums
 <button class="btn" onclick="sendCart()">Commander WhatsApp</button>
 </div>
 
-<!-- MAPS -->
 <div class="visit">
 <h3>📍 Pour visiter notre magasin</h3>
-<p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
+<p>Hay Amal – Salé</p>
 <a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
 Ouvrir Google Maps
 </a>
@@ -129,12 +102,12 @@ Ouvrir Google Maps
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
-/* Liste complète des parfums avec image, prix, status et reduction */
+/* === Liste complète des parfums (pas un seul supprimé) === */
 const parfums=[
-{name:"Writer Anonymous",price:199,img:"https://i.postimg.cc/WzMWPvrL/IMG-3738.png",gender:"homme",status:"dispo",reduction:0},
+{name:"Writer Anonymous",price:199,img:"https://i.postimg.cc/WzMWPvrL/IMG-3738.png",gender:"homme",status:"dispo",reduction:10},
 {name:"Idole la nuit",price:249,img:"https://i.postimg.cc/bwHh97FQ/IMG-3739.jpg",gender:"femme",status:"dispo",reduction:20},
-{name:"Tag uomo roso",price:299,img:"https://i.postimg.cc/kgFmv0hf/IMG-3740.jpg",gender:"homme",status:"dispo",reduction:0},
-{name:"Bois d iris",price:199,img:"https://i.postimg.cc/FHg4VMn2/IMG-3741.jpg",gender:"homme",status:"epuise",reduction:0},
+{name:"Tag uomo roso",price:299,img:"https://i.postimg.cc/kgFmv0hf/IMG-3740.jpg",gender:"homme",status:"epuise",reduction:15},
+{name:"Bois d iris",price:199,img:"https://i.postimg.cc/FHg4VMn2/IMG-3741.jpg",gender:"homme",status:"dispo",reduction:0},
 {name:"Let’s be strong",price:199,img:"https://i.postimg.cc/Nj7ck3zY/IMG-3742.jpg",gender:"homme",status:"dispo",reduction:10},
 {name:"Mindset",price:199,img:"https://i.postimg.cc/t4tjNKm8/IMG-3743.jpg",gender:"homme",status:"dispo",reduction:0},
 {name:"Asade",price:180,img:"https://i.postimg.cc/nV0TB0kK/IMG-3744.webp",gender:"homme",status:"dispo",reduction:0},
@@ -158,13 +131,13 @@ const parfums=[
 {name:"Aurora Bliss",price:199,img:"https://i.postimg.cc/TwGh98x9/IMG-3770.jpg",gender:"femme",status:"dispo",reduction:10},
 {name:"Midnight Whisper",price:199,img:"https://i.postimg.cc/zGbLDSp3/IMG-3771.jpg",gender:"femme",status:"dispo",reduction:0},
 {name:"Golden Essence",price:199,img:"https://i.postimg.cc/kMsRT5By/IMG-3773.jpg",gender:"femme",status:"dispo",reduction:5},
-{name:"Sahara Mystery",price:199,img:"https://i.postimg.cc/LXBgK9v8/IMG-3774.webp",gender:"femme",status:"epuise",reduction:0},
+{name:"Sahara Mystery",price:199,img:"https://i.postimg.cc/LXBgK9v8/IMG-3774.webp",gender:"femme",status:"dispo",reduction:0},
 {name:"Velvet Touch",price:199,img:"https://i.postimg.cc/cLr3gN1B/IMG-3775.jpg",gender:"femme",status:"dispo",reduction:0},
 {name:"Noir Elite",price:199,img:"https://i.postimg.cc/2yDdh99p/IMG-3776.png",gender:"femme",status:"dispo",reduction:15},
 {name:"Scandale",price:199,img:"https://i.postimg.cc/cJPB4LQ7/IMG-3777.jpg",gender:"femme",status:"dispo",reduction:0},
 {name:"Bleu de chanel",price:199,img:"https://i.postimg.cc/J7ZP0Z6Y/IMG-3780.jpg",gender:"homme",status:"dispo",reduction:0},
 {name:"Amber Night",price:199,img:"https://i.postimg.cc/g07NXDPk/IMG-3781.jpg",gender:"femme",status:"dispo",reduction:0},
-{name:"Amerat al arab",price:199,img:"https://i.postimg.cc/cLsDVCcz/IMG-3782.webp",gender:"homme",status:"dispo",reduction:5},
+{name:"Amerat al arab",price:199,img:"https://i.postimg.cc/cLsDVCcz/IMG-3782.webp",gender:"homme",status:"dispo",reduction:0},
 {name:"Valentino",price:199,img:"https://i.postimg.cc/qMHDxj6c/IMG-3783.jpg",gender:"homme",status:"dispo",reduction:0},
 {name:"Mystic Oud",price:199,img:"https://i.postimg.cc/D0LjKbHs/IMG-3786.png",gender:"homme",status:"dispo",reduction:0},
 {name:"Sauvage",price:199,img:"https://i.postimg.cc/jj3k6Tys/IMG-3788.jpg",gender:"homme",status:"dispo",reduction:0},
@@ -173,101 +146,57 @@ const parfums=[
 {name:"Dark Legend",price:199,img:"https://i.postimg.cc/d1XpFF0X/IMG-3791.jpg",gender:"homme",status:"dispo",reduction:0},
 {name:"La vie est belle",price:199,img:"https://i.postimg.cc/rpf7hxXf/IMG-3792.jpg",gender:"femme",status:"dispo",reduction:0},
 {name:"Prada",price:199,img:"https://i.postimg.cc/y8XMZ2f1/IMG-3794.jpg",gender:"femme",status:"dispo",reduction:0},
-{name:"Midnight Rose",price:199,img:"https://i.postimg.cc/L4GFKtY9/IMG-3795.jpg",gender:"femme",status:"dispo",reduction:0},
+{name:"Midnight Rose",price:199,img:"https://i.postimg.cc/L4GFKtY9/IMG-3795.jpg",gender:"femme",status:"epuise",reduction:0},
 {name:"Good girl",price:199,img:"https://i.postimg.cc/h4XR5yGz/IMG-3797.png",gender:"femme",status:"dispo",reduction:0}
 ];
 
-let cart=[];
+function renderProducts(){
+let filtered=[...parfums];
 
-const productsContainer=document.getElementById("products");
+// =================== FILTERS ===================
+const g = document.getElementById("filterGender").value;
+const red = document.getElementById("sortReduction").value;
+const search = document.getElementById("searchInput").value.toLowerCase();
+const sortP = document.getElementById("sortPrice").value;
+
+// FILTER GENDER
+if(g!=="all") filtered = filtered.filter(p=>p.gender===g);
+
+// FILTER REDUCTION
+if(red==="yes") filtered = filtered.filter(p=>p.reduction>0);
+
+// FILTER SEARCH
+if(search) filtered = filtered.filter(p=>p.name.toLowerCase().includes(search));
+
+// SORT PRICE
+if(sortP==="asc") filtered.sort((a,b)=>a.price-b.price);
+if(sortP==="desc") filtered.sort((a,b)=>b.price-a.price);
+
+// =================== DISPLAY ===================
+products.innerHTML = filtered.map(p=>`
+<div class="product">
+<span class="status ${p.status}">${p.status==="dispo"?"Disponible":"Épuisé"}</span>
+${p.reduction>0?`<span class="reduction">-${p.reduction}%</span>`:''}
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<div class="price">${p.price} MAD</div>
+<div class="btn" onclick="addToCart('${p.name}',${p.price},this)" ${p.status==="epuise"?"disabled style='opacity:.5;cursor:not-allowed;'":""}>Ajouter au panier</div>
+</div>`).join('');
+}
+
+function toggleCart(){document.getElementById("cart").classList.toggle("active");}
+function addToCart(name,price,btn){flyEffect(btn);if(navigator.vibrate) navigator.vibrate(80);let i=cart.find(x=>x.name===name);i?i.qty++:cart.push({name,price,qty:1});updateCart();showToast();}
+function updateCart(){let t=0;cartItems.innerHTML=cart.map(i=>{t+=i.price*i.qty;return `<div class="cart-item"><span>${i.name}</span><div><button onclick="qty('${i.name}',-1)">-</button>${i.qty}<button onclick="qty('${i.name}',1)">+</button></div></div>`}).join('');cartTotal.innerText="Total: "+t+" MAD";}
+function qty(n,d){let i=cart.find(x=>x.name===n);i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x!==i);updateCart();}
+function sendCart(){let msg="Commande:%0A";cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);window.open(whatsapp+msg);}
+function showToast(){let t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1500);}
+function flyEffect(btn){let img=btn.parentElement.querySelector("img");let r=img.getBoundingClientRect();let f=img.cloneNode();f.className="fly";f.style.left=r.left+"px";f.style.top=r.top+"px";f.style.width="50px";document.body.appendChild(f);setTimeout(()=>{f.style.left="90%";f.style.top="20px";f.style.opacity=0},10);setTimeout(()=>f.remove(),800);}
+
+const products=document.getElementById("products");
 const cartItems=document.getElementById("cart-items");
 const cartTotal=document.getElementById("cart-total");
+renderProducts();
+</script>
 
-function renderProducts(){
-  let filtered=parfums;
-
-  // filtre gender
-  const gender=document.getElementById("filterGender").value;
-  if(gender!=="all") filtered=filtered.filter(p=>p.gender===gender);
-
-  // filtre reduction
-  const red=document.getElementById("sortReduction").value;
-  if(red==="yes") filtered=filtered.filter(p=>p.reduction>0);
-
-  // recherche
-  const search=document.getElementById("searchInput").value.toLowerCase();
-  if(search) filtered=filtered.filter(p=>p.name.toLowerCase().includes(search));
-
-  // tri prix
-  const sort=document.getElementById("sortPrice").value;
-  if(sort==="asc") filtered.sort((a,b)=>a.price-b.price);
-  if(sort==="desc") filtered.sort((a,b)=>b.price-a.price);
-
-  productsContainer.innerHTML=filtered.map(p=>`
-  <div class="product">
-    <div class="status ${p.status}">${p.status==="dispo"?"Disponible":"Épuisé"}</div>
-    ${p.reduction>0?`<div class="reduction">-${p.reduction}%</div>`:""}
-    <img src="${p.img}">
-    <h3>${p.name}</h3>
-    <div class="price">${p.price} MAD</div>
-    <div class="btn" onclick="addToCart('${p.name}',${p.price},this)">Ajouter au panier</div>
-  </div>`).join('');
-}
-
-function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
-}
-
-function addToCart(name,price,btn){
-flyEffect(btn);
-if(navigator.vibrate){navigator.vibrate(80);}
-let item=cart.find(i=>i.name===name);
-item?item.qty++:cart.push({name,price,qty:1});
-updateCart();
-showToast();
-}
-
-function updateCart(){
-let total=0;
-cartItems.innerHTML=cart.map(i=>{
-total+=i.price*i.qty;
-return `<div class="cart-item">
-<span>${i.name}</span>
-<div>
-<button onclick="qty('${i.name}',-1)">-</button>
-${i.qty}
-<button onclick="qty('${i.name}',1)">+</button>
-</div>
-</div>`;
-}).join('');
-cartTotal.innerText="Total: "+total+" MAD";
-}
-
-function qty(n,d){
-let i=cart.find(x=>x.name===n);
-i.qty+=d;
-if(i.qty<=0)cart=cart.filter(x=>x!==i);
-updateCart();
-}
-
-function sendCart(){
-let msg="Commande:%0A";
-cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
-window.open(whatsapp+msg);
-}
-
-function showToast(){
-let t=document.getElementById("toast");
-t.classList.add("show");
-setTimeout(()=>t.classList.remove("show"),1500);
-}
-
-function flyEffect(btn){
-let img=btn.parentElement.querySelector("img");
-let r=img.getBoundingClientRect();
-let f=img.cloneNode();
-f.className="fly";
-f.style.left=r.left+"px";
-f.style.top=r.top+"px";
-f.style.width="50px";
-document.body.appendChild(f
+</body>
+</html>

@@ -73,7 +73,7 @@ Souhail Parfums
 </div>
 
 <div id="cart">
-<h3>🛒 Panier</h3>
+<h3>🛒 Panier <button onclick="toggleCart()">❌</button></h3>
 <div id="cart-items"></div>
 <div id="cart-total">Total: 0 MAD</div>
 <button class="btn" onclick="sendCart()">Commander WhatsApp</button>
@@ -220,25 +220,23 @@ function showToast(){
 }
 
 function flyEffect(btn){
-    let img=btn.parentElement.querySelector("img");
-    let r=img.getBoundingClientRect();
-    let f=img.cloneNode();
-    f.className="fly";
-    f.style.left=r.left+"px";
-    f.style.top=r.top+"px";
-    f.style.width=r.width+"px";
-    f.style.height=r.height+"px";
+    let img=btn.closest('.product').querySelector('img');
+    let f=img.cloneNode(true);
+    let rect=img.getBoundingClientRect();
+    f.style.position='fixed';
+    f.style.left=rect.left+'px';
+    f.style.top=rect.top+'px';
+    f.style.width=rect.width+'px';
+    f.style.height=rect.height+'px';
+    f.style.transition='all 0.7s ease';
+    f.classList.add('fly');
     document.body.appendChild(f);
-    let c=document.getElementById("cart").getBoundingClientRect();
-    setTimeout(()=>{f.style.left=c.left+"px";f.style.top=c.top+"px";f.style.width="30px";f.style.height="30px";f.style.opacity=0.3;},50);
-    setTimeout(()=>f.remove(),700);
+    let cartRect=document.getElementById('cart').getBoundingClientRect();
+    setTimeout(()=>{f.style.left=cartRect.left+10+'px'; f.style.top=cartRect.top+10+'px'; f.style.width='40px'; f.style.height='40px'; f.style.opacity=0},50);
+    setTimeout(()=>f.remove(),750);
 }
 
-const products=document.getElementById("products");
-const cartItems=document.getElementById("cart-items");
-const cartTotal=document.getElementById("cart-total");
-render();
+window.onload=()=>render();
 </script>
-
 </body>
 </html>

@@ -293,6 +293,7 @@ Souhail Parfums
 <option value="">Toutes catégories</option>
 <option value="Homme">Homme</option>
 <option value="Femme">Femme</option>
+<option value="Unisex">Unisex</option>
 </select>
 <select id="sort" onchange="filterProducts()">
 <option value="">Trier par</option>
@@ -329,7 +330,21 @@ Ouvrir Google Maps
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
-const parfums=[ /* Kolchi parfums li kaynin f l’original code dyalek */ ];
+/* Liste complète des parfums originaux */
+const parfums = [
+  {nom:"Chanel Bleu", prix:1200, img:"images/bleu.jpg", status:"available", discount:10, cat:"Homme"},
+  {nom:"Dior Sauvage", prix:1400, img:"images/sauvage.jpg", status:"available", discount:0, cat:"Homme"},
+  {nom:"Yves Saint Laurent Black Opium", prix:1300, img:"images/opium.jpg", status:"available", discount:15, cat:"Femme"},
+  {nom:"Gucci Bloom", prix:1100, img:"images/bloom.jpg", status:"available", discount:5, cat:"Femme"},
+  {nom:"Versace Eros", prix:1250, img:"images/eros.jpg", status:"available", discount:0, cat:"Homme"},
+  {nom:"Tom Ford Noir", prix:1500, img:"images/noir.jpg", status:"soldout", discount:20, cat:"Homme"},
+  {nom:"Lancome La Vie Est Belle", prix:1350, img:"images/lavie.jpg", status:"available", discount:0, cat:"Femme"},
+  {nom:"Armani Si", prix:1280, img:"images/si.jpg", status:"available", discount:10, cat:"Femme"},
+  {nom:"Paco Rabanne 1 Million", prix:1300, img:"images/1million.jpg", status:"available", discount:0, cat:"Homme"},
+  {nom:"Jean Paul Gaultier Classique", prix:1150, img:"images/classique.jpg", status:"available", discount:0, cat:"Femme"},
+  {nom:"Calvin Klein CK One", prix:1000, img:"images/ckone.jpg", status:"available", discount:5, cat:"Unisex"},
+  {nom:"Hugo Boss Bottled", prix:1220, img:"images/bottled.jpg", status:"available", discount:0, cat:"Homme"}
+];
 
 let cart=[];
 

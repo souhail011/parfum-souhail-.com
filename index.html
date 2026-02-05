@@ -10,54 +10,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;transition:all .3s;}
-body{background:linear-gradient(to bottom,#fdf6f0,#f3f3f3);color:#000;}
-header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;position:relative;}
-header button{float:right;background:#d4af37;border:none;padding:6px 12px;cursor:pointer;border-radius:6px;font-weight:600;transition: background .3s, transform .3s;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;transition: all .3s ease;}
+body{background:#f3f3f3;color:#000}
+header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;position:relative}
+header button{float:right;background:#d4af37;border:none;padding:5px 10px;cursor:pointer;border-radius:5px;transition: .3s;}
 header button:hover{background:#b8962e;transform:scale(1.05);}
-.container{max-width:1200px;margin:auto;padding:12px;}
-.notice{background:#fff;padding:12px;border-radius:12px;text-align:center;margin-bottom:15px;font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.1);}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:15px;}
-.product{background:#fff;border-radius:12px;padding:8px;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.1);font-size:12px;position:relative;transition: transform .3s, box-shadow .3s;}
-.product:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.15);}
-.product img{width:100%;height:140px;object-fit:cover;border-radius:8px;transition: transform .3s;}
+.container{max-width:1200px;margin:auto;padding:12px}
+.notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative;transition:.3s}
+.product:hover{transform:translateY(-4px);box-shadow:0 6px 15px rgba(0,0,0,.2);}
+.product img{width:100%;height:130px;object-fit:cover;border-radius:6px;transition:.3s}
 .product img:hover{transform:scale(1.05);}
-.product h3{font-size:13px;margin:8px 0;font-weight:600;}
-.price{font-weight:700;font-size:14px;margin-bottom:5px;}
-.btn{margin-top:5px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition: transform .2s, opacity .2s;}
+.product h3{font-size:12px;margin:6px 0}
+.price{font-weight:700;font-size:14px;margin-bottom:4px}
+.btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;}
 .btn:hover{transform:scale(1.05);}
-.status{position:absolute;top:6px;left:6px;padding:3px 7px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;}
-.available{background:green;}
-.soldout{background:red;}
-.discount{position:absolute;top:6px;right:6px;padding:3px 7px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b;}
-#cart{position:fixed;top:0;right:-380px;width:380px;height:100%;background:#fff;box-shadow:-3px 0 15px rgba(0,0,0,.3);padding:15px;transition:.5s;z-index:999;overflow:auto;border-left:2px solid #d4af37;}
-#cart.active{right:0;}
-.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:6px;border-radius:6px;background:#f9f9f9;box-shadow:0 2px 5px rgba(0,0,0,.05);}
-.cart-item button{padding:3px 8px;border-radius:4px;border:none;cursor:pointer;font-weight:600;transition: background .3s;}
-.cart-item button:hover{background:#d4af37;color:#000;}
-#cart-total{font-weight:bold;text-align:right;margin-top:10px;font-size:14px;}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#d4af37;padding:12px 20px;border-radius:30px;font-size:13px;opacity:0;transition:.4s;z-index:3000;}
-.toast.show{opacity:1;}
-.fly{position:fixed;z-index:2000;transition:.7s ease;border-radius:50%;}
-.mini-toast{position:fixed;top:20px;right:20px;background:#000;color:#d4af37;padding:10px 18px;border-radius:25px;font-size:13px;box-shadow:0 4px 15px rgba(0,0,0,.2);opacity:0;transform:translateY(-20px);transition: all .5s;z-index:4000;}
-.mini-toast.show{opacity:1;transform:translateY(0);}
-.visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:22px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.2);}
-.visit a{display:inline-block;padding:9px 18px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:10px;transition: transform .2s, background .3s;}
-.visit a:hover{transform:scale(1.05);background:#b8962e;}
-.filters{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:15px;text-align:center;justify-content:center;}
-.filters select,.filters input{padding:7px;border-radius:6px;border:1px solid #ccc;font-size:13px;transition: border .3s, box-shadow .3s;}
-.filters select:focus,.filters input:focus{outline:none;border-color:#d4af37;box-shadow:0 0 8px rgba(212,175,55,.5);}
-@media(max-width:768px){.products{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}#cart{width:300px;}}
-@media(max-width:480px){.products{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}}
+.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff}
+.available{background:green}
+.soldout{background:red}
+.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b}
+#cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
+#cart.active{right:0}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cart-item button{padding:2px 7px;border-radius:4px;border:none;cursor:pointer}
+#cart-total{font-weight:bold;text-align:right;margin-top:10px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#d4af37;padding:10px 18px;border-radius:25px;font-size:13px;opacity:0;transition:.4s;z-index:3000}
+.toast.show{opacity:1}
+.fly{position:fixed;z-index:2000;transition:.7s ease;border-radius:50%}
+.visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px}
+.visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;text-align:center}
+.filters select,.filters input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
 </style>
 </head>
 <body>
 
-<header>Souhail Parfums
+<header>
+Souhail Parfums
 <button onclick="toggleCart()">🛒</button>
 </header>
 
 <div class="container">
+
 <div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
 
 <div class="filters">
@@ -87,18 +82,18 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 <div class="visit">
 <h3>📍 Pour visiter notre magasin</h3>
 <p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
-<a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">Ouvrir Google Maps</a>
+<a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
+Ouvrir Google Maps
+</a>
 </div>
 
 <footer>© 2026 Souhail Parfums</footer>
 
 <div id="toast" class="toast">✔️ Ajouté au panier</div>
-<div id="mini-toast" class="mini-toast"></div>
 
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
-/* =================== RWAY7 ORIGINAL =================== */
 const parfums=[
 {nom:"Writer Anonymous",prix:199,img:"https://i.postimg.cc/WzMWPvrL/IMG-3738.png",cat:"Homme",status:"available",discount:10},
 {nom:"Idole la nuit",prix:249,img:"https://i.postimg.cc/bwHh97FQ/IMG-3739.jpg",cat:"Homme",status:"available",discount:0},
@@ -148,21 +143,102 @@ const parfums=[
 
 let cart=[];
 
-/* =================== FONCTIONS =================== */
-const products=document.getElementById("products");
-const cartItems=document.getElementById("cart-items");
-const cartTotal=document.getElementById("cart-total");
-
-function render(list = parfums){
-    products.innerHTML = list.map(p => {
+function render(productsList = parfums){
+    products.innerHTML = productsList.map(p => {
         let finalPrice = p.discount ? p.prix - (p.prix*p.discount/100) : p.prix;
-        return `<div class="product">
+        return `
+        <div class="product">
             <img src="${p.img}" alt="${p.nom}">
             <h3>${p.nom}</h3>
             <div class="price">${finalPrice} MAD ${p.discount?'<span class="discount">-'+p.discount+'%</span>':''}</div>
             <div class="status ${p.status==='available'?'available':'soldout'}">${p.status==='available'?'Disponible':'Épuisé'}</div>
             <div class="btn" onclick="addToCart('${p.nom}',${finalPrice},this)" ${p.status==='soldout'?'disabled style="opacity:0.5;cursor:not-allowed"':''}>Ajouter au panier</div>
         </div>`;
-   
+    }).join('');
+}
 
-                                
+function filterProducts(){
+    const search = document.getElementById('search').value.toLowerCase();
+    const category = document.getElementById('category').value;
+    const sort = document.getElementById('sort').value;
+    
+    let filtered = parfums.filter(p => 
+        p.nom.toLowerCase().includes(search) &&
+        (category=="" || p.cat===category)
+    );
+    
+    if(sort==='price-asc') filtered.sort((a,b)=> (a.discount?a.prix-a.prix*a.discount/100:a.prix) - (b.discount?b.prix-b.prix*b.discount/100:b.prix));
+    if(sort==='price-desc') filtered.sort((a,b)=> (b.discount?b.prix-b.prix*b.discount/100:b.prix) - (a.discount?a.prix-a.prix*a.discount/100:a.prix));
+    
+    render(filtered);
+}
+
+function toggleCart(){document.getElementById("cart").classList.toggle("active");}
+
+function addToCart(name,price,btn){
+    flyEffect(btn);
+    if(navigator.vibrate) navigator.vibrate(80);
+    let item = cart.find(i=>i.name===name);
+    item ? item.qty++ : cart.push({name,price,qty:1});
+    updateCart();
+    showToast();
+}
+
+function updateCart(){
+    let total=0;
+    cartItems.innerHTML=cart.map(i=>{
+        total+=i.price*i.qty;
+        return `<div class="cart-item">
+            <span>${i.name}</span>
+            <div>
+            <button onclick="qty('${i.name}',-1)">-</button>
+            ${i.qty}
+            <button onclick="qty('${i.name}',1)">+</button>
+            </div>
+        </div>`;
+    }).join('');
+    cartTotal.innerText="Total: "+total+" MAD";
+}
+
+function qty(n,d){
+    let i=cart.find(x=>x.name===n);
+    i.qty+=d;
+    if(i.qty<=0) cart=cart.filter(x=>x!==i);
+    updateCart();
+}
+
+function sendCart(){
+    let msg="Commande:%0A";
+    cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
+    window.open(whatsapp+msg);
+}
+
+function showToast(){
+    let t=document.getElementById("toast");
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"),1500);
+}
+
+function flyEffect(btn){
+    let img=btn.parentElement.querySelector("img");
+    let r=img.getBoundingClientRect();
+    let f=img.cloneNode();
+    f.className="fly";
+    f.style.left=r.left+"px";
+    f.style.top=r.top+"px";
+    f.style.width=r.width+"px";
+    f.style.height=r.height+"px";
+    document.body.appendChild(f);
+    let c=document.getElementById("cart").getBoundingClientRect();
+    setTimeout(()=>{f.style.left=c.left+"px";f.style.top=c.top+"px";f.style.width="30px";f.style.height="30px";f.style.opacity=0.3;},50);
+    setTimeout(()=>f.remove(),700);
+}
+
+const products=document.getElementById("products");
+const cartItems=document.getElementById("cart-items");
+const cartTotal=document.getElementById("cart-total");
+render();
+</script>
+
+</body>
+</html>

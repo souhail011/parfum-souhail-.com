@@ -98,6 +98,7 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 <script>
 const whatsapp="https://wa.me/212695979661?text=";
 
+/* =================== RWAY7 ORIGINAL =================== */
 const parfums=[
 {nom:"Writer Anonymous",prix:199,img:"https://i.postimg.cc/WzMWPvrL/IMG-3738.png",cat:"Homme",status:"available",discount:10},
 {nom:"Idole la nuit",prix:249,img:"https://i.postimg.cc/bwHh97FQ/IMG-3739.jpg",cat:"Homme",status:"available",discount:0},
@@ -147,26 +148,21 @@ const parfums=[
 
 let cart=[];
 
-/* RENDER PRODUCTS */
-function render(productsList = parfums){
-    products.innerHTML = productsList.map(p => {
+/* =================== FONCTIONS =================== */
+const products=document.getElementById("products");
+const cartItems=document.getElementById("cart-items");
+const cartTotal=document.getElementById("cart-total");
+
+function render(list = parfums){
+    products.innerHTML = list.map(p => {
         let finalPrice = p.discount ? p.prix - (p.prix*p.discount/100) : p.prix;
-        return `
-        <div class="product">
+        return `<div class="product">
             <img src="${p.img}" alt="${p.nom}">
             <h3>${p.nom}</h3>
             <div class="price">${finalPrice} MAD ${p.discount?'<span class="discount">-'+p.discount+'%</span>':''}</div>
             <div class="status ${p.status==='available'?'available':'soldout'}">${p.status==='available'?'Disponible':'Épuisé'}</div>
             <div class="btn" onclick="addToCart('${p.nom}',${finalPrice},this)" ${p.status==='soldout'?'disabled style="opacity:0.5;cursor:not-allowed"':''}>Ajouter au panier</div>
         </div>`;
-    }).join('');
-}
+   
 
-/* FILTER PRODUCTS */
-function filterProducts(){
-    const search = document.getElementById('search').value.toLowerCase();
-    const category = document.getElementById('category').value;
-    const sort = document.getElementById('sort').value;
-    
-    let filtered = parfums.filter(p => 
-        p.nom.toLowerCase().includes(search
+                                

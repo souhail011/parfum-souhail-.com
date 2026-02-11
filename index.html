@@ -24,8 +24,23 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .product img:hover{transform:scale(1.05);}
 .product h3{font-size:12px;margin:6px 0}
 .price{font-weight:700;font-size:14px;margin-bottom:4px}
-.btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;}
-.btn:hover{transform:scale(1.05);}
+.btn{
+    margin-top:4px;
+    padding:6px;
+    background: transparent;
+    border: 2px solid #d4af37;
+    border-radius:5px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+    color: #d4af37;
+}
+.btn:hover{
+    background: #d4af37;
+    color:#000;
+    transform:scale(1.05);
+}
 .status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff}
 .available{background:green}
 .soldout{background:red}
@@ -186,9 +201,9 @@ function addToCart(name,price,btn){
 }
 
 function updateCart(){
+    let total=0;
     const cartItems=document.getElementById('cart-items');
     const cartTotal=document.getElementById('cart-total');
-    let total=0;
     cartItems.innerHTML=cart.map(i=>{
         total+=i.price*i.qty;
         return `<div class="cart-item">
@@ -200,56 +215,49 @@ function updateCart(){
             </div>
         </div>`;
     }).join('');
-    cartTotal.innerText="Total: "+total+" MAD";
+    cartTotal.textContent=`Total: ${total} MAD`;
 }
 
-function qty(n,d){
-    let i=cart.find(x=>x.name===n);
-    i.qty+=d;
-    if(i.qty<=0) cart=cart.filter(x=>x!==i);
-    updateCart();
+function qty(name,delta){
+    let item=cart.find(i=>i.name===name);
+    if(item){
+        item.qty+=delta;
+        if(item.qty<=0) cart=cart.filter(i=>i.name!==name);
+        updateCart();
+    }
 }
 
 function sendCart(){
-    let msg="Commande:%0A";
-    cart.forEach(i=>msg+=`${i.name} x${i.qty}%0A`);
-    window.open(whatsapp+msg);
+    if(cart.length===0){alert("Votre panier est vide!"); return;}
+    let msg="Bonjour, je voudrais commander:\n";
+    cart.forEach(i=>msg+=`- ${i.name} x${i.qty} = ${i.price*i.qty} MAD\n`);
+    let total=cart.reduce((a,b)=>a+b.price*b.qty,0);
+    msg+=`Total: ${total} MAD`;
+    window.open(whatsapp+encodeURIComponent(msg),'_blank');
 }
 
 function showToast(){
-    const t=document.getElementById("toast");
-    t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"),1500);
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),1800);
 }
 
 function flyEffect(btn){
-    const img=btn.parentElement.querySelector('img');
-    const clone=img.cloneNode(true);
-    const rect=img.getBoundingClientRect();
-    clone.style.position="fixed";
-    clone.style.left=rect.left+"px";
-    clone.style.top=rect.top+"px";
-    clone.style.width=rect.width+"px";
-    clone.style.height=rect.height+"px";
-    clone.classList.add("fly");
-    document.body.appendChild(clone);
-
-    const cartIcon=document.querySelector('header button');
-    const cartRect=cartIcon.getBoundingClientRect();
-
-    requestAnimationFrame(()=>{
-        clone.style.left=cartRect.left+"px";
-        clone.style.top=cartRect.top+"px";
-        clone.style.width="40px";
-        clone.style.height="40px";
-        clone.style.opacity="0.5";
-    });
-
-    clone.addEventListener('transitionend',()=>clone.remove());
+    const img=btn.parentElement.querySelector('img').cloneNode();
+    const rect=btn.getBoundingClientRect();
+    img.className='fly';
+    img.style.top=rect.top+'px';
+    img.style.left=rect.left+'px';
+    img.style.width=rect.width+'px';
+    document.body.appendChild(img);
+    const cartBtn=document.querySelector('header button');
+    const cartRect=cartBtn.getBoundingClientRect();
+    setTimeout(()=>{img.style.top=cartRect.top+'px';img.style.left=cartRect.left+'px';img.style.width='30px';img.style.opacity='0.4'},10);
+    setTimeout(()=>img.remove(),700);
 }
 
-window.onload=()=>render();
+render();
 </script>
+
 </body>
 </html>
-

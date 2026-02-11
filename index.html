@@ -215,45 +215,49 @@ function updateCart(){
             </div>
         </div>`;
     }).join('');
-    cartTotal.textContent=`Total: ${total} MAD`;
+    cartTotal.innerText=`Total: ${total} MAD`;
 }
 
-function qty(name,delta){
+function qty(name,change){
     let item=cart.find(i=>i.name===name);
-    if(item){
-        item.qty+=delta;
-        if(item.qty<=0) cart=cart.filter(i=>i.name!==name);
-        updateCart();
-    }
+    if(!item) return;
+    item.qty+=change;
+    if(item.qty<1) cart=cart.filter(i=>i.name!==name);
+    updateCart();
 }
 
 function sendCart(){
-    if(cart.length===0){alert("Votre panier est vide!"); return;}
-    let msg="Bonjour, je voudrais commander:\n";
-    cart.forEach(i=>msg+=`- ${i.name} x${i.qty} = ${i.price*i.qty} MAD\n`);
+    if(cart.length==0) return alert("Panier vide !");
+    let text="Bonjour, je souhaite commander :\n";
+    cart.forEach(i=>text+=`${i.name} x${i.qty} = ${i.price*i.qty} MAD\n`);
     let total=cart.reduce((a,b)=>a+b.price*b.qty,0);
-    msg+=`Total: ${total} MAD`;
-    window.open(whatsapp+encodeURIComponent(msg),'_blank');
+    text+=`Total : ${total} MAD`;
+    window.open(whatsapp+encodeURIComponent(text),'_blank');
 }
 
 function showToast(){
-    const t=document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),1800);
+    const toast=document.getElementById("toast");
+    toast.classList.add("show");
+    setTimeout(()=>toast.classList.remove("show"),2000);
 }
 
 function flyEffect(btn){
-    const img=btn.parentElement.querySelector('img').cloneNode();
-    const rect=btn.getBoundingClientRect();
-    img.className='fly';
-    img.style.top=rect.top+'px';
-    img.style.left=rect.left+'px';
-    img.style.width=rect.width+'px';
-    document.body.appendChild(img);
-    const cartBtn=document.querySelector('header button');
-    const cartRect=cartBtn.getBoundingClientRect();
-    setTimeout(()=>{img.style.top=cartRect.top+'px';img.style.left=cartRect.left+'px';img.style.width='30px';img.style.opacity='0.4'},10);
-    setTimeout(()=>img.remove(),700);
+    const img=btn.parentElement.querySelector('img');
+    if(!img) return;
+    const clone=img.cloneNode(true);
+    const rect=img.getBoundingClientRect();
+    clone.style.position="fixed";
+    clone.style.left=rect.left+"px";
+    clone.style.top=rect.top+"px";
+    clone.style.width=rect.width+"px";
+    clone.style.height=rect.height+"px";
+    clone.style.zIndex=2000;
+    clone.classList.add("fly");
+    document.body.appendChild(clone);
+    const cartIcon=document.querySelector('header button');
+    const cartRect=cartIcon.getBoundingClientRect();
+    setTimeout(()=>{clone.style.left=cartRect.left+"px"; clone.style.top=cartRect.top+"px"; clone.style.width="40px"; clone.style.height="40px"; clone.style.opacity=0.3;},10);
+    setTimeout(()=>clone.remove(),700);
 }
 
 render();

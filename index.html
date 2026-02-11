@@ -144,6 +144,7 @@ const parfums=[
 let cart=[];
 
 function render(productsList = parfums){
+    const products=document.getElementById('products');
     products.innerHTML = productsList.map(p => {
         let finalPrice = p.discount ? p.prix - (p.prix*p.discount/100) : p.prix;
         return `
@@ -185,6 +186,8 @@ function addToCart(name,price,btn){
 }
 
 function updateCart(){
+    const cartItems=document.getElementById('cart-items');
+    const cartTotal=document.getElementById('cart-total');
     let total=0;
     cartItems.innerHTML=cart.map(i=>{
         total+=i.price*i.qty;
@@ -214,29 +217,39 @@ function sendCart(){
 }
 
 function showToast(){
-    let t=document.getElementById("toast");
+    const t=document.getElementById("toast");
     t.classList.add("show");
     setTimeout(()=>t.classList.remove("show"),1500);
 }
 
 function flyEffect(btn){
-    let img=btn.closest('.product').querySelector('img');
-    let f=img.cloneNode(true);
-    let rect=img.getBoundingClientRect();
-    f.style.position='fixed';
-    f.style.left=rect.left+'px';
-    f.style.top=rect.top+'px';
-    f.style.width=rect.width+'px';
-    f.style.height=rect.height+'px';
-    f.style.transition='all 0.7s ease';
-    f.classList.add('fly');
-    document.body.appendChild(f);
-    let cartRect=document.getElementById('cart').getBoundingClientRect();
-    setTimeout(()=>{f.style.left=cartRect.left+10+'px'; f.style.top=cartRect.top+10+'px'; f.style.width='40px'; f.style.height='40px'; f.style.opacity=0},50);
-    setTimeout(()=>f.remove(),750);
+    const img=btn.parentElement.querySelector('img');
+    const clone=img.cloneNode(true);
+    const rect=img.getBoundingClientRect();
+    clone.style.position="fixed";
+    clone.style.left=rect.left+"px";
+    clone.style.top=rect.top+"px";
+    clone.style.width=rect.width+"px";
+    clone.style.height=rect.height+"px";
+    clone.classList.add("fly");
+    document.body.appendChild(clone);
+
+    const cartIcon=document.querySelector('header button');
+    const cartRect=cartIcon.getBoundingClientRect();
+
+    requestAnimationFrame(()=>{
+        clone.style.left=cartRect.left+"px";
+        clone.style.top=cartRect.top+"px";
+        clone.style.width="40px";
+        clone.style.height="40px";
+        clone.style.opacity="0.5";
+    });
+
+    clone.addEventListener('transitionend',()=>clone.remove());
 }
 
 window.onload=()=>render();
 </script>
 </body>
 </html>
+

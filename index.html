@@ -29,7 +29,9 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;z-index:3}
 .available{background:green}
 .soldout{background:red}
-.discount{position:absolute;top:6px;right:6px;padding:3px 7px;border-radius:20px;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(45deg,#ff6b6b,#ff3c3c);z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+.discount{position:absolute;top:6px;right:6px;padding:3px 7px;border-radius:20px;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(45deg,#ff6b6b,#ff3c3c);z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.2);animation:blink 1s infinite alternate;}
+@keyframes blink{0%{opacity:1;}50%{opacity:0.6;}100%{opacity:1;}}
+.countdown{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:#000;color:#fff;font-size:10px;padding:2px 5px;border-radius:5px;z-index:3;}
 #cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -142,10 +144,13 @@ const parfums=[
 ];
 
 let cart=[];
-
 const products=document.getElementById("products");
 const cartItems=document.getElementById("cart-items");
 const cartTotal=document.getElementById("cart-total");
+
+// تاريخ انتهاء العرض (مثال: 3 أيام من الآن)
+const saleEnd = new Date();
+saleEnd.setDate(saleEnd.getDate() + 3);
 
 function render(list=parfums){
     products.innerHTML = list.map(p=>{
@@ -156,9 +161,30 @@ function render(list=parfums){
             <div class="price">${finalPrice} MAD</div>
             ${p.discount?`<div class="discount">-${p.discount}%</div>`:""}
             <div class="status ${p.status==='available'?'available':'soldout'}">${p.status==='available'?'Disponible':'Épuisé'}</div>
+            <div class="countdown" id="cd-${p.nom.replace(/\s/g,'')}"></div>
             <div class="btn" onclick="addToCart('${p.nom}',${finalPrice},this)" ${p.status==='soldout'?'disabled style="opacity:0.5;cursor:not-allowed"':''}>Ajouter au panier</div>
         </div>`;
     }).join('');
+    updateCountdown();
+}
+
+function updateCountdown(){
+    const now=new Date().getTime();
+    const distance = saleEnd.getTime() - now;
+    parfums.forEach(p=>{
+        const el=document.getElementById("cd-"+p.nom.replace(/\s/g,''));
+        if(!el) return;
+        if(distance>0){
+            const d=Math.floor(distance/(1000*60*60*24));
+            const h=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+            const m=Math.floor((distance%(1000*60*60))/(1000*60));
+            const s=Math.floor((distance%(1000*60))/1000);
+            el.innerText=`Offre: ${d}j ${h}h ${m}m ${s}s`;
+        }else{
+            el.innerText="Offre terminée";
+        }
+    });
+    setTimeout(updateCountdown,1000);
 }
 
 function filterProducts(){

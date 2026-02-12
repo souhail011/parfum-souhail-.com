@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;transition: all .3s ease;}
 body{background:#f3f3f3;color:#000}
@@ -23,12 +24,12 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .product img:hover{transform:scale(1.05);}
 .product h3{font-size:12px;margin:6px 0}
 .price{font-weight:700;font-size:14px;margin-bottom:4px}
-.btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;opacity:0.9;}
+.btn{margin-top:4px;padding:6px;background:rgba(212,175,55,0.5);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;}
 .btn:hover{transform:scale(1.05);}
-.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;transition:.3s;}
+.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff}
 .available{background:green}
 .soldout{background:red}
-.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b;transition:.3s;}
+.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b}
 #cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -41,17 +42,6 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
 .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;text-align:center}
 .filters select,.filters input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
-
-/* Hover effects badges */
-.discount:hover {
-  transform: scale(1.1) rotate(-5deg);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-.status:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  cursor: default;
-}
 </style>
 </head>
 <body>
@@ -152,12 +142,14 @@ const parfums=[
 
 let cart=[];
 
-function render(productsList = parfums){
-    const products = document.getElementById('products');
-    products.innerHTML = productsList.map(p => {
+const products=document.getElementById("products");
+const cartItems=document.getElementById("cart-items");
+const cartTotal=document.getElementById("cart-total");
+
+function render(list=parfums){
+    products.innerHTML = list.map(p=>{
         let finalPrice = p.discount ? p.prix - (p.prix*p.discount/100) : p.prix;
-        return `
-        <div class="product">
+        return `<div class="product">
             <img src="${p.img}" alt="${p.nom}">
             <h3>${p.nom}</h3>
             <div class="price">${finalPrice} MAD ${p.discount?'<span class="discount">-'+p.discount+'%</span>':''}</div>
@@ -168,18 +160,12 @@ function render(productsList = parfums){
 }
 
 function filterProducts(){
-    const search = document.getElementById('search').value.toLowerCase();
-    const category = document.getElementById('category').value;
-    const sort = document.getElementById('sort').value;
-    
-    let filtered = parfums.filter(p => 
-        p.nom.toLowerCase().includes(search) &&
-        (category=="" || p.cat===category)
-    );
-    
-    if(sort==='price-asc') filtered.sort((a,b)=> (a.discount?a.prix-a.prix*a.discount/100:a.prix) - (b.discount?b.prix-b.prix*b.discount/100:b.prix));
-    if(sort==='price-desc') filtered.sort((a,b)=> (b.discount?b.prix-b.prix*b.discount/100:b.prix) - (a.discount?a.prix-a.prix*a.discount/100:a.prix));
-    
+    const search=document.getElementById("search").value.toLowerCase();
+    const cat=document.getElementById("category").value;
+    const sort=document.getElementById("sort").value;
+    let filtered = parfums.filter(p=>p.nom.toLowerCase().includes(search)&&(cat==""||p.cat===cat));
+    if(sort==='price-asc') filtered.sort((a,b)=>(a.discount?a.prix-a.prix*a.discount/100:a.prix)-(b.discount?b.prix-b.prix*b.discount/100:b.prix));
+    if(sort==='price-desc') filtered.sort((a,b)=>(b.discount?b.prix-b.prix*b.discount/100:b.prix)-(a.discount?a.prix-a.prix*a.discount/100:a.prix));
     render(filtered);
 }
 
@@ -189,72 +175,67 @@ function addToCart(name,price,btn){
     flyEffect(btn);
     if(navigator.vibrate) navigator.vibrate(80);
     let item = cart.find(i=>i.name===name);
-    item ? item.qty++ : cart.push({name,price,qty:1});
+    item?item.qty++:cart.push({name,price,qty:1});
     updateCart();
     showToast();
 }
 
 function updateCart(){
     let total=0;
-    const cartItems = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
     cartItems.innerHTML=cart.map(i=>{
         total+=i.price*i.qty;
-        return `<div class="cart-item">
-            <span>${i.name}</span>
-            <div>
-            <button onclick="qty('${i.name}',-1)">-</button>
-            ${i.qty}
-            <button onclick="qty('${i.name}',1)">+</button>
-            </div>
-        </div>`;
+        return `<div class="cart-item"><span>${i.name}</span>
+        <div><button onclick="qty('${i.name}',-1)">-</button>${i.qty}<button onclick="qty('${i.name}',1)">+</button></div></div>`;
     }).join('');
-    cartTotal.textContent="Total: "+total+" MAD";
+    cartTotal.innerText="Total: "+total+" MAD";
 }
 
 function qty(name,change){
-    let item = cart.find(i=>i.name===name);
-    if(item){item.qty+=change;if(item.qty<1) cart=cart.filter(i=>i.name!==name);}
+    let item=cart.find(i=>i.name===name);
+    if(!item) return;
+    item.qty+=change;
+    if(item.qty<=0) cart=cart.filter(i=>i.name!==name);
     updateCart();
 }
 
 function sendCart(){
-    if(cart.length===0) return alert("Votre panier est vide");
-    let text = "Bonjour, je veux commander:%0A"+cart.map(i=>i.qty+" x "+i.name+" = "+i.price*i.qty+" MAD").join("%0A");
-    window.open(whatsapp+text,"_blank");
+    if(cart.length===0){alert("Le panier est vide!"); return;}
+    let msg="Bonjour, je voudrais commander:\n";
+    cart.forEach(i=>msg+=`${i.name} x${i.qty} = ${i.price*i.qty} MAD\n`);
+    let total=cart.reduce((acc,i)=>acc+i.price*i.qty,0);
+    msg+=`Total: ${total} MAD`;
+    window.open(whatsapp+encodeURIComponent(msg));
 }
 
 function showToast(){
-    const t = document.getElementById("toast");
+    const t=document.getElementById("toast");
     t.classList.add("show");
-    setTimeout(()=>{t.classList.remove("show")},1500);
+    setTimeout(()=>t.classList.remove("show"),1500);
 }
 
 function flyEffect(btn){
-    const img = btn.parentElement.querySelector("img");
-    const fly = img.cloneNode(true);
-    const rect = img.getBoundingClientRect();
-    fly.style.position="fixed";
-    fly.style.left=rect.left+"px";
-    fly.style.top=rect.top+"px";
-    fly.style.width=rect.width+"px";
-    fly.style.height=rect.height+"px";
-    fly.style.transition="all .7s ease";
-    fly.style.zIndex=2000;
-    document.body.appendChild(fly);
-    const cartBtn=document.querySelector("header button");
-    const cartRect=cartBtn.getBoundingClientRect();
+    const img=btn.parentElement.querySelector("img");
+    const clone=img.cloneNode(true);
+    const rect=img.getBoundingClientRect();
+    clone.style.position="fixed";
+    clone.style.left=rect.left+"px";
+    clone.style.top=rect.top+"px";
+    clone.style.width=rect.width+"px";
+    clone.style.height=rect.height+"px";
+    clone.classList.add("fly");
+    document.body.appendChild(clone);
+    const cartRect=document.querySelector("#cart button").getBoundingClientRect();
     setTimeout(()=>{
-        fly.style.left=cartRect.left+"px";
-        fly.style.top=cartRect.top+"px";
-        fly.style.width="30px";
-        fly.style.height="30px";
-        fly.style.opacity=0.5;
+        clone.style.left=cartRect.left+"px";
+        clone.style.top=cartRect.top+"px";
+        clone.style.width="0px";
+        clone.style.height="0px";
+        clone.style.opacity=0;
     },10);
-    setTimeout(()=>document.body.removeChild(fly),700);
+    setTimeout(()=>document.body.removeChild(clone),700);
 }
 
-// Initial render
+// initial render
 render();
 </script>
 

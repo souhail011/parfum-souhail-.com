@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;transition: all .3s ease;}
 body{background:#f3f3f3;color:#000}
@@ -24,27 +23,12 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .product img:hover{transform:scale(1.05);}
 .product h3{font-size:12px;margin:6px 0}
 .price{font-weight:700;font-size:14px;margin-bottom:4px}
-.btn{
-    margin-top:4px;
-    padding:6px;
-    background: transparent;
-    border: 2px solid #d4af37;
-    border-radius:5px;
-    font-size:12px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.2s;
-    color: #d4af37;
-}
-.btn:hover{
-    background: #d4af37;
-    color:#000;
-    transform:scale(1.05);
-}
-.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff}
+.btn{margin-top:4px;padding:6px;background:linear-gradient(135deg,#d4af37,#b8962e);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;opacity:0.9;}
+.btn:hover{transform:scale(1.05);}
+.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;transition:.3s;}
 .available{background:green}
 .soldout{background:red}
-.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b}
+.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b;transition:.3s;}
 #cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -57,6 +41,17 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
 .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;text-align:center}
 .filters select,.filters input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
+
+/* Hover effects badges */
+.discount:hover {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.status:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: default;
+}
 </style>
 </head>
 <body>
@@ -67,7 +62,6 @@ Souhail Parfums
 </header>
 
 <div class="container">
-
 <div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
 
 <div class="filters">
@@ -159,7 +153,7 @@ const parfums=[
 let cart=[];
 
 function render(productsList = parfums){
-    const products=document.getElementById('products');
+    const products = document.getElementById('products');
     products.innerHTML = productsList.map(p => {
         let finalPrice = p.discount ? p.prix - (p.prix*p.discount/100) : p.prix;
         return `
@@ -202,8 +196,8 @@ function addToCart(name,price,btn){
 
 function updateCart(){
     let total=0;
-    const cartItems=document.getElementById('cart-items');
-    const cartTotal=document.getElementById('cart-total');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
     cartItems.innerHTML=cart.map(i=>{
         total+=i.price*i.qty;
         return `<div class="cart-item">
@@ -215,47 +209,52 @@ function updateCart(){
             </div>
         </div>`;
     }).join('');
-    cartTotal.textContent=`Total: ${total} MAD`;
+    cartTotal.textContent="Total: "+total+" MAD";
 }
 
-function qty(name,delta){
-    let item=cart.find(i=>i.name===name);
-    if(item){
-        item.qty+=delta;
-        if(item.qty<=0) cart=cart.filter(i=>i.name!==name);
-        updateCart();
-    }
+function qty(name,change){
+    let item = cart.find(i=>i.name===name);
+    if(item){item.qty+=change;if(item.qty<1) cart=cart.filter(i=>i.name!==name);}
+    updateCart();
 }
 
 function sendCart(){
-    if(cart.length===0){alert("Votre panier est vide!"); return;}
-    let msg="Bonjour, je voudrais commander:\n";
-    cart.forEach(i=>msg+=`- ${i.name} x${i.qty} = ${i.price*i.qty} MAD\n`);
-    let total=cart.reduce((a,b)=>a+b.price*b.qty,0);
-    msg+=`Total: ${total} MAD`;
-    window.open(whatsapp+encodeURIComponent(msg),'_blank');
+    if(cart.length===0) return alert("Votre panier est vide");
+    let text = "Bonjour, je veux commander:%0A"+cart.map(i=>i.qty+" x "+i.name+" = "+i.price*i.qty+" MAD").join("%0A");
+    window.open(whatsapp+text,"_blank");
 }
 
 function showToast(){
-    const t=document.getElementById('toast');
-    t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),1800);
+    const t = document.getElementById("toast");
+    t.classList.add("show");
+    setTimeout(()=>{t.classList.remove("show")},1500);
 }
 
 function flyEffect(btn){
-    const img=btn.parentElement.querySelector('img').cloneNode();
-    const rect=btn.getBoundingClientRect();
-    img.className='fly';
-    img.style.top=rect.top+'px';
-    img.style.left=rect.left+'px';
-    img.style.width=rect.width+'px';
-    document.body.appendChild(img);
-    const cartBtn=document.querySelector('header button');
+    const img = btn.parentElement.querySelector("img");
+    const fly = img.cloneNode(true);
+    const rect = img.getBoundingClientRect();
+    fly.style.position="fixed";
+    fly.style.left=rect.left+"px";
+    fly.style.top=rect.top+"px";
+    fly.style.width=rect.width+"px";
+    fly.style.height=rect.height+"px";
+    fly.style.transition="all .7s ease";
+    fly.style.zIndex=2000;
+    document.body.appendChild(fly);
+    const cartBtn=document.querySelector("header button");
     const cartRect=cartBtn.getBoundingClientRect();
-    setTimeout(()=>{img.style.top=cartRect.top+'px';img.style.left=cartRect.left+'px';img.style.width='30px';img.style.opacity='0.4'},10);
-    setTimeout(()=>img.remove(),700);
+    setTimeout(()=>{
+        fly.style.left=cartRect.left+"px";
+        fly.style.top=cartRect.top+"px";
+        fly.style.width="30px";
+        fly.style.height="30px";
+        fly.style.opacity=0.5;
+    },10);
+    setTimeout(()=>document.body.removeChild(fly),700);
 }
 
+// Initial render
 render();
 </script>
 

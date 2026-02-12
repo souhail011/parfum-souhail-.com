@@ -18,18 +18,18 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .container{max-width:1200px;margin:auto;padding:12px}
 .notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative;transition:.3s}
-.product:hover{transform:translateY(-4px);box-shadow:0 6px 15px rgba(0,0,0,.2);}
+.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative;overflow:hidden;transition:.3s}
+.product:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 8px 20px rgba(0,0,0,.25);}
 .product img{width:100%;height:130px;object-fit:cover;border-radius:6px;transition:.3s}
-.product img:hover{transform:scale(1.05);}
+.product img:hover{transform:scale(1.08);}
 .product h3{font-size:12px;margin:6px 0}
-.price{font-weight:700;font-size:14px;margin-bottom:4px}
-.btn{margin-top:4px;padding:6px;background:rgba(212,175,55,0.5);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;}
-.btn:hover{transform:scale(1.05);}
-.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff}
+.price{font-weight:700;font-size:14px;margin-bottom:4px;position:relative;z-index:2}
+.btn{margin-top:4px;padding:6px;background:rgba(212,175,55,0.5);border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;position:relative;z-index:2;}
+.btn:hover{transform:scale(1.05);background:rgba(212,175,55,0.8);}
+.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;z-index:3}
 .available{background:green}
 .soldout{background:red}
-.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b}
+.discount{position:absolute;top:6px;right:6px;padding:3px 7px;border-radius:20px;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(45deg,#ff6b6b,#ff3c3c);z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.2);}
 #cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
 #cart.active{right:0}
 .cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -39,7 +39,8 @@ header button:hover{background:#b8962e;transform:scale(1.05);}
 .toast.show{opacity:1}
 .fly{position:fixed;z-index:2000;transition:.7s ease;border-radius:50%}
 .visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px}
-.visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
+.visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px;transition:.3s}
+.visit a:hover{transform:scale(1.05);}
 .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;text-align:center}
 .filters select,.filters input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
 </style>
@@ -152,7 +153,8 @@ function render(list=parfums){
         return `<div class="product">
             <img src="${p.img}" alt="${p.nom}">
             <h3>${p.nom}</h3>
-            <div class="price">${finalPrice} MAD ${p.discount?'<span class="discount">-'+p.discount+'%</span>':''}</div>
+            <div class="price">${finalPrice} MAD</div>
+            ${p.discount?`<div class="discount">-${p.discount}%</div>`:""}
             <div class="status ${p.status==='available'?'available':'soldout'}">${p.status==='available'?'Disponible':'Épuisé'}</div>
             <div class="btn" onclick="addToCart('${p.nom}',${finalPrice},this)" ${p.status==='soldout'?'disabled style="opacity:0.5;cursor:not-allowed"':''}>Ajouter au panier</div>
         </div>`;
@@ -199,7 +201,7 @@ function qty(name,change){
 }
 
 function sendCart(){
-    if(cart.length===0){alert("Le panier est vide!"); return;}
+    if(cart.length===0){alert("Votre panier est vide"); return;}
     let msg="Bonjour, je voudrais commander:\n";
     cart.forEach(i=>msg+=`${i.name} x${i.qty} = ${i.price*i.qty} MAD\n`);
     let total=cart.reduce((acc,i)=>acc+i.price*i.qty,0);
@@ -235,7 +237,6 @@ function flyEffect(btn){
     setTimeout(()=>document.body.removeChild(clone),700);
 }
 
-// initial render
 render();
 </script>
 

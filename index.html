@@ -7,48 +7,69 @@
 <title>Messhop</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f6f9}
+body{margin:0;font-family:Arial;background:#f5f6f8}
 
 /* HEADER */
 header{
 background:#00a2ff;
 color:white;
-padding:12px;
+padding:10px;
 text-align:center;
-font-size:20px;
 font-weight:bold;
 position:sticky;
 top:0;
+z-index:10;
 }
 
-/* GRID */
+/* SEARCH */
+.search{
+padding:8px;
+background:white;
+}
+
+.search input{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+/* GRID (TEMU STYLE SMALL) */
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:10px;
-padding:10px;
+gap:6px;
+padding:6px;
 }
 
-/* CARD */
 .card{
 background:white;
-border-radius:12px;
+border-radius:10px;
 overflow:hidden;
 cursor:pointer;
+box-shadow:0 1px 4px rgba(0,0,0,0.08);
 }
 
 .card img{
 width:100%;
-height:130px;
+height:100px;
 object-fit:cover;
 }
 
-.card p{margin:5px;font-size:13px}
+.card p{
+margin:4px;
+font-size:11px;
+}
 
-/* PAGE */
+.card b{
+font-size:12px;
+color:#0099ff;
+}
+
+/* PRODUCT PAGE */
 .page{
 display:none;
-padding:15px;
+padding:10px;
 }
 
 .page img{
@@ -63,12 +84,12 @@ font-weight:bold;
 margin:10px 0;
 }
 
-/* SIZE BUTTONS */
+/* SIZE */
 .sizes button{
-margin:5px;
-padding:8px 12px;
+margin:4px;
+padding:6px 10px;
 border:none;
-border-radius:8px;
+border-radius:6px;
 background:#eee;
 cursor:pointer;
 }
@@ -78,62 +99,57 @@ background:#00a2ff;
 color:white;
 }
 
-/* BTN */
+/* BUTTON */
 .btn{
 display:block;
 background:#ff6b00;
 color:white;
 text-align:center;
-padding:12px;
+padding:10px;
 border-radius:10px;
-text-decoration:none;
-margin-top:10px;
+margin-top:8px;
 border:none;
-cursor:pointer;
-}
-
-/* BACK */
-.back{
-background:black;
-color:white;
-padding:8px 12px;
-border:none;
-border-radius:8px;
-margin-bottom:10px;
 cursor:pointer;
 }
 
 /* RELATED */
-.relatedTitle{
-margin-top:25px;
-font-weight:bold;
-}
-
 .smallGrid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+grid-template-columns:repeat(3,1fr);
+gap:6px;
 margin-top:10px;
 }
 
 .small{
 background:white;
-border-radius:10px;
+border-radius:8px;
 overflow:hidden;
 cursor:pointer;
 }
 
 .small img{
 width:100%;
-height:110px;
+height:80px;
 object-fit:cover;
 }
 
-/* ANIMATION */
-.show{display:block;animation:fade .25s ease}
+/* CART */
+.cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#ff6b00;
+color:white;
+padding:12px;
+border-radius:50px;
+font-weight:bold;
+}
+
+/* SHOW */
+.show{display:block;animation:fade .2s ease}
 
 @keyframes fade{
-from{opacity:0;transform:translateY(10px)}
+from{opacity:0;transform:translateY(8px)}
 to{opacity:1;transform:translateY(0)}
 }
 </style>
@@ -143,85 +159,59 @@ to{opacity:1;transform:translateY(0)}
 
 <header>Messhop 🌊</header>
 
+<div class="search">
+<input placeholder="Search products... 🔍">
+</div>
+
 <!-- HOME -->
 <div id="home" class="grid"></div>
 
 <!-- PRODUCT PAGE -->
 <div id="product" class="page">
 
-<button class="back" onclick="goHome()">⬅ Back</button>
+<button class="btn" onclick="goHome()">⬅ Back</button>
 
 <h2 id="title"></h2>
-
 <img id="img">
 
 <div class="price" id="price"></div>
-
 <p id="desc"></p>
 
 <h3>Sizes</h3>
 <div class="sizes" id="sizes"></div>
 
-<button class="btn">Add to cart 🛒</button>
+<button class="btn" onclick="addCart()">Add to cart 🛒</button>
 <button class="btn">Commander</button>
 
-<div class="relatedTitle">Produits similaires 🔥</div>
+<h3>Produits similaires 🔥</h3>
 <div class="smallGrid" id="related"></div>
 
 </div>
 
+<!-- CART -->
+<div class="cart">
+🛒 <span id="cartCount">0</span>
+</div>
+
 <script>
 
-/* PRODUCTS DATABASE */
+/* ===== PRODUCTS (30+ like Temu) ===== */
 const products = [
-{
-id:1,
-name:"Pochette Waterproof",
-price:"99 DH",
-img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
-sizes:["S","M","L","XL"],
-desc:"Protection ضد الماء للبحر و piscine"
-},
-{
-id:2,
-name:"Mini Fan",
-price:"79 DH",
-img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",
-sizes:["One Size"],
-desc:"Ventilateur portable قوي للصيف"
-},
-{
-id:3,
-name:"LED Lamp",
-price:"120 DH",
-img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",
-sizes:["Small","Medium"],
-desc:"Lampe décorative للدار"
-},
-{
-id:4,
-name:"Beach Bag",
-price:"89 DH",
-img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
-sizes:["S","M","L"],
-desc:"Sac ديال البحر و السفر"
-},
-{
-id:5,
-name:"Phone Holder",
-price:"59 DH",
-img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
-sizes:["Universal"],
-desc:"Support téléphone للسيارة"
-},
-{
-id:6,
-name:"Speaker Mini",
-price:"149 DH",
-img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-sizes:["One Size"],
-desc:"Speaker قوي وصغير"
-}
+{id:1,name:"Waterproof Case",price:"99 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["S","M","L"],desc:"Anti water phone case"},
+{id:2,name:"Mini Fan",price:"79 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["One"],desc:"Portable fan"},
+{id:3,name:"LED Lamp",price:"120 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["S","M"],desc:"Room light"},
+{id:4,name:"Beach Bag",price:"89 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Beach bag"},
+{id:5,name:"Phone Stand",price:"59 DH",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",sizes:["Universal"],desc:"Phone holder"},
+{id:6,name:"Speaker",price:"149 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Bluetooth speaker"},
+{id:7,name:"Watch Sport",price:"199 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["M","L"],desc:"Sport watch"},
+{id:8,name:"Sunglasses",price:"79 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"UV protection"},
+{id:9,name:"Cap",price:"49 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["M"],desc:"Summer cap"},
+{id:10,name:"Power Bank",price:"199 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["10000mAh"],desc:"Fast charge"},
+{id:11,name:"Mouse",price:"89 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"Wireless mouse"},
+{id:12,name:"Keyboard",price:"149 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Gaming keyboard"},
+{id:13,name:"Headphones",price:"129 DH",img:"https://images.unsplash.com/photo-1518441314795-6d3b9c1c0a1e",sizes:["One"],desc:"Bass headphones"},
+{id:14,name:"Ring Light",price:"99 DH",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",sizes:["Small","Big"],desc:"For photos"},
+{id:15,name:"Tripod",price:"79 DH",img:"https://images.unsplash.com/photo-1519183071298-a2962be96f83",sizes:["One"],desc:"Phone tripod"}
 ]
 
 /* LOAD HOME */
@@ -231,7 +221,7 @@ products.map(p=>`
 <div class="card" onclick="openProduct(${p.id})">
 <img src="${p.img}">
 <p>${p.name}</p>
-<p><b>${p.price}</b></p>
+<b>${p.price}</b>
 </div>
 `).join("")
 }
@@ -250,30 +240,36 @@ document.getElementById("img").src=p.img
 document.getElementById("price").innerText=p.price
 document.getElementById("desc").innerText=p.desc
 
-/* sizes */
 document.getElementById("sizes").innerHTML =
 p.sizes.map(s=>`<button onclick="selectSize(this)">${s}</button>`).join("")
 
-/* related */
 document.getElementById("related").innerHTML =
-products.filter(x=>x.id!==id).map(r=>`
+products.filter(x=>x.id!==id).slice(0,9).map(r=>`
 <div class="small" onclick="openProduct(${r.id})">
 <img src="${r.img}">
 </div>
 `).join("")
 }
 
-/* SIZE SELECT */
+/* SIZE */
 function selectSize(btn){
 document.querySelectorAll(".sizes button").forEach(b=>b.classList.remove("active"))
 btn.classList.add("active")
 }
 
-/* GO HOME */
+/* CART */
+let cart=0
+function addCart(){
+cart++
+document.getElementById("cartCount").innerText=cart
+}
+
+/* BACK */
 function goHome(){
 document.getElementById("product").classList.remove("show")
 document.getElementById("home").style.display="grid"
 }
+
 </script>
 
 </body>

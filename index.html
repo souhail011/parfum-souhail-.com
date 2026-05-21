@@ -1,190 +1,214 @@
 </footer>
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Messhop</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#f4faff;color:#222}
+body{margin:0;font-family:Arial;background:#f4f6f9}
 
+/* HEADER */
 header{
-background:linear-gradient(135deg,#00a2ff,#00d9ff);
+background:#00a2ff;
 color:white;
 text-align:center;
-padding:60px 20px;
-}
-
-header h1{font-size:48px}
-header p{margin-top:10px;font-size:18px}
-
-.btn{
-display:inline-block;
-margin-top:15px;
-background:#ff6b00;
-color:white;
-padding:12px 25px;
-border-radius:10px;
-text-decoration:none;
+padding:15px;
+font-size:22px;
 font-weight:bold;
 }
 
-.section{
-padding:50px 20px;
-text-align:center;
-}
-
-.products{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
+/* HOME GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+padding:10px;
 }
 
 .card{
 background:white;
-width:280px;
-border-radius:15px;
+border-radius:12px;
 overflow:hidden;
-box-shadow:0 4px 12px rgba(0,0,0,0.1);
+text-decoration:none;
+color:black;
 }
 
 .card img{
 width:100%;
-height:250px;
+height:140px;
 object-fit:cover;
 }
 
-.card-content{padding:15px}
+.price{color:#0099ff;font-weight:bold;margin:5px}
 
-.price{
-color:#0099ff;
-font-size:24px;
-margin:10px 0;
-font-weight:bold;
+/* PAGE */
+.page{
+display:none;
+padding:15px;
 }
 
-footer{
-background:#111;
+.page img{
+width:100%;
+border-radius:12px;
+}
+
+.btn{
+display:block;
+background:#ff6b00;
 color:white;
 text-align:center;
-padding:20px;
-margin-top:40px;
+padding:12px;
+border-radius:10px;
+text-decoration:none;
+margin-top:10px;
+}
+
+/* similar */
+.similar{
+margin-top:20px;
+}
+
+.similar-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.small{
+background:white;
+border-radius:10px;
+overflow:hidden;
+text-decoration:none;
+color:black;
+}
+
+.small img{
+width:100%;
+height:110px;
+object-fit:cover;
 }
 </style>
-
 </head>
 
 <body>
 
-<header>
-<h1>Messhop 🌊</h1>
-<p>Protection waterproof pour ton téléphone 📱</p>
-<a href="#shop" class="btn">Acheter maintenant</a>
-</header>
+<header>Messhop 🌊</header>
 
-<!-- PRODUCTS -->
-<section class="section" id="shop">
+<!-- HOME -->
+<div id="home" class="grid">
 
-<h2>Nos Produits 🔥</h2>
-
-<div class="products">
-
-<div class="card">
+<a class="card" href="#p1">
 <img src="p1.jpg">
-<div class="card-content">
-<h3>Pochette Noire</h3>
+<p>Pochette Waterproof</p>
 <div class="price">99 DH</div>
-<a class="btn" href="https://wa.me/212600000000">Commander</a>
-</div>
-</div>
+</a>
 
-<div class="card">
+<a class="card" href="#p2">
 <img src="p2.jpg">
-<div class="card-content">
-<h3>Pochette Bleue</h3>
-<div class="price">99 DH</div>
-<a class="btn" href="https://wa.me/212600000000">Commander</a>
-</div>
-</div>
+<p>Mini Fan</p>
+<div class="price">79 DH</div>
+</a>
 
-<div class="card">
+<a class="card" href="#p3">
 <img src="p3.jpg">
-<div class="card-content">
-<h3>Pochette Rouge</h3>
-<div class="price">99 DH</div>
+<p>LED Lamp</p>
+<div class="price">120 DH</div>
+</a>
+
+</div>
+
+<!-- PRODUCT 1 -->
+<div id="p1" class="page">
+
+<h2>Pochette Waterproof 📱</h2>
+<img src="p1.jpg">
+<p>Protection ضد الماء للبحر و piscine</p>
+<h3>99 DH</h3>
+
 <a class="btn" href="https://wa.me/212600000000">Commander</a>
+
+<div class="similar">
+<h3>Produits similaires 🔥</h3>
+
+<div class="similar-grid">
+
+<a class="small" href="#p2">
+<img src="p2.jpg">
+<p>Mini Fan</p>
+</a>
+
+<a class="small" href="#p3">
+<img src="p3.jpg">
+<p>LED Lamp</p>
+</a>
+
+</div>
+</div>
+
+</div>
+
+<!-- PRODUCT 2 -->
+<div id="p2" class="page">
+
+<h2>Mini Fan ❄️</h2>
+<img src="p2.jpg">
+<p>Ventilateur portable</p>
+<h3>79 DH</h3>
+
+<a class="btn" href="https://wa.me/212600000000">Commander</a>
+
+<div class="similar">
+<h3>Produits similaires 🔥</h3>
+
+<div class="similar-grid">
+
+<a class="small" href="#p1">
+<img src="p1.jpg">
+<p>Pochette</p>
+</a>
+
+<a class="small" href="#p3">
+<img src="p3.jpg">
+<p>LED Lamp</p>
+</a>
+
 </div>
 </div>
 
 </div>
-</section>
 
-<!-- RELATED -->
-<section class="section">
+<!-- PRODUCT 3 -->
+<div id="p3" class="page">
 
-<h2>Produits Similaires 🔥</h2>
+<h2>LED Lamp 💡</h2>
+<img src="p3.jpg">
+<p>Lumière décorative</p>
+<h3>120 DH</h3>
 
-<div class="products">
+<a class="btn" href="https://wa.me/212600000000">Commander</a>
 
-<div class="card"><img src="r1.jpg"></div>
-<div class="card"><img src="r2.jpg"></div>
-<div class="card"><img src="r3.jpg"></div>
+<div class="similar">
+<h3>Produits similaires 🔥</h3>
 
-</div>
+<div class="similar-grid">
 
-</section>
+<a class="small" href="#p1">
+<img src="p1.jpg">
+<p>Pochette</p>
+</a>
 
-<!-- GALLERY -->
-<section class="section">
-
-<h2>Galerie 📸</h2>
-
-<div class="products">
-
-<div class="card"><img src="g1.jpg"></div>
-<div class="card"><img src="g2.jpg"></div>
-<div class="card"><img src="g3.jpg"></div>
-<div class="card"><img src="g4.jpg"></div>
-<div class="card"><img src="g5.jpg"></div>
-<div class="card"><img src="g6.jpg"></div>
-<div class="card"><img src="g7.jpg"></div>
-<div class="card"><img src="g8.jpg"></div>
-<div class="card"><img src="g9.jpg"></div>
-<div class="card"><img src="g10.jpg"></div>
-
-<div class="card"><img src="g11.jpg"></div>
-<div class="card"><img src="g12.jpg"></div>
-<div class="card"><img src="g13.jpg"></div>
-<div class="card"><img src="g14.jpg"></div>
-<div class="card"><img src="g15.jpg"></div>
-<div class="card"><img src="g16.jpg"></div>
-<div class="card"><img src="g17.jpg"></div>
-<div class="card"><img src="g18.jpg"></div>
-<div class="card"><img src="g19.jpg"></div>
-<div class="card"><img src="g20.jpg"></div>
-
-<div class="card"><img src="g21.jpg"></div>
-<div class="card"><img src="g22.jpg"></div>
-<div class="card"><img src="g23.jpg"></div>
-<div class="card"><img src="g24.jpg"></div>
-<div class="card"><img src="g25.jpg"></div>
-<div class="card"><img src="g26.jpg"></div>
-<div class="card"><img src="g27.jpg"></div>
-<div class="card"><img src="g28.jpg"></div>
-<div class="card"><img src="g29.jpg"></div>
-<div class="card"><img src="g30.jpg"></div>
+<a class="small" href="#p2">
+<img src="p2.jpg">
+<p>Mini Fan</p>
+</a>
 
 </div>
+</div>
 
-</section>
-
-<footer>
-© 2026 Messhop - Tous droits réservés
-</footer>
+</div>
 
 </body>
 </html>

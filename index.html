@@ -22,10 +22,9 @@ text-align:center;
 font-weight:bold;
 position:sticky;
 top:0;
-z-index:10;
 }
 
-/* GRID (VERY DENSE LIKE TEMU) */
+/* GRID TEMU STYLE */
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -43,10 +42,10 @@ box-shadow:0 1px 3px rgba(0,0,0,0.08);
 padding:4px;
 }
 
-/* SMALL IMAGES FIX 100% */
+/* 🔥 SQUARE IMAGES (IMPORTANT) */
 .card img{
 width:100%;
-height:65px !important;
+aspect-ratio:1/1;
 object-fit:cover;
 border-radius:6px;
 }
@@ -61,7 +60,7 @@ font-size:11px;
 color:#0099ff;
 }
 
-/* PRODUCT PAGE */
+/* PAGE */
 .page{
 display:none;
 padding:10px;
@@ -69,12 +68,11 @@ padding:10px;
 
 .page img{
 width:100%;
-max-height:240px;
+aspect-ratio:1/1;
 object-fit:cover;
 border-radius:12px;
 }
 
-/* PRICE */
 .price{
 font-size:22px;
 color:#0099ff;
@@ -110,30 +108,29 @@ border:none;
 cursor:pointer;
 }
 
-/* CART */
-.cart{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#ff6b00;
-color:white;
-padding:12px;
-border-radius:50px;
-font-weight:bold;
+/* RELATED */
+.smallGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:4px;
+margin-top:10px;
 }
 
-/* PRODUCT LIST INSIDE PAGE (NO EMPTY SPACE) */
-.more{
-margin-top:15px;
+.small img{
+width:100%;
+aspect-ratio:1/1;
+object-fit:cover;
+border-radius:6px;
 }
 
+/* SHOW */
 .show{
 display:block;
 animation:fade .2s ease;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(10px)}
+from{opacity:0;transform:translateY(8px)}
 to{opacity:1;transform:translateY(0)}
 }
 
@@ -153,6 +150,7 @@ to{opacity:1;transform:translateY(0)}
 <button class="btn" onclick="goHome()">⬅ Back</button>
 
 <h2 id="title"></h2>
+
 <img id="img">
 
 <div class="price" id="price"></div>
@@ -164,18 +162,13 @@ to{opacity:1;transform:translateY(0)}
 <button class="btn">Add to cart 🛒</button>
 
 <h3>🔥 More Products</h3>
-<div class="grid more" id="moreProducts"></div>
+<div class="smallGrid" id="related"></div>
 
-</div>
-
-<!-- CART -->
-<div class="cart">
-🛒 <span id="cartCount">0</span>
 </div>
 
 <script>
 
-/* ===== BIG DATA (like Temu) ===== */
+/* ===== 30+ PRODUCTS ===== */
 const products = [
 {id:1,name:"Waterproof Case",price:"99 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["S","M","L"],desc:"Anti water case"},
 {id:2,name:"Mini Fan",price:"79 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["One"],desc:"Portable fan"},
@@ -183,7 +176,7 @@ const products = [
 {id:4,name:"Beach Bag",price:"89 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Beach bag"},
 {id:5,name:"Phone Stand",price:"59 DH",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",sizes:["Universal"],desc:"Phone holder"},
 {id:6,name:"Speaker",price:"149 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Bluetooth speaker"},
-{id:7,name:"Watch Sport",price:"199 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["M","L"],desc:"Sport watch"},
+{id:7,name:"Watch Sport",price:"199 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M","L"],desc:"Sport watch"},
 {id:8,name:"Sunglasses",price:"79 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"UV glasses"},
 {id:9,name:"Cap",price:"49 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["M"],desc:"Summer cap"},
 {id:10,name:"Power Bank",price:"199 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["10000mAh"],desc:"Fast charge"},
@@ -204,7 +197,13 @@ const products = [
 {id:22,name:"Wallet",price:"59 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"Leather wallet"},
 {id:23,name:"Shirt",price:"99 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["S","M","L"],desc:"Cotton shirt"},
 {id:24,name:"Shoes",price:"199 DH",img:"https://images.unsplash.com/photo-1519741497674-611481863552",sizes:["40","41","42"],desc:"Sport shoes"},
-{id:25,name:"Jeans",price:"149 DH",img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246",sizes:["S","M","L"],desc:"Blue jeans"}
+{id:25,name:"Jeans",price:"149 DH",img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246",sizes:["S","M","L"],desc:"Blue jeans"},
+
+{id:26,name:"Perfume",price:"179 DH",img:"https://images.unsplash.com/photo-1594035910387-fea47794261f",sizes:["50ml"],desc:"Luxury perfume"},
+{id:27,name:"Watch Classic",price:"299 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M"],desc:"Elegant watch"},
+{id:28,name:"Table Lamp",price:"89 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["One"],desc:"Desk lamp"},
+{id:29,name:"Speaker Mini",price:"99 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Mini speaker"},
+{id:30,name:"Phone Case",price:"49 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["Universal"],desc:"Shock case"}
 ]
 
 /* LOAD HOME */
@@ -236,13 +235,10 @@ document.getElementById("desc").innerText=p.desc
 document.getElementById("sizes").innerHTML =
 p.sizes.map(s=>`<button onclick="selectSize(this)">${s}</button>`).join("")
 
-/* 🔥 NO EMPTY SPACE UNDER PAGE */
-document.getElementById("moreProducts").innerHTML =
+document.getElementById("related").innerHTML =
 products.map(r=>`
-<div class="card" onclick="openProduct(${r.id})">
+<div class="small" onclick="openProduct(${r.id})">
 <img src="${r.img}">
-<p>${r.name}</p>
-<b>${r.price}</b>
 </div>
 `).join("")
 }

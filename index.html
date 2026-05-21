@@ -4,256 +4,253 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Messhop</title>
+<title>Messhop Payments</title>
 
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#f5f6f8;
-}
+body{margin:0;font-family:Arial;background:#f5f6f8;}
 
-/* HEADER */
 header{
-background:#00a2ff;
-color:white;
-padding:10px;
-text-align:center;
-font-weight:bold;
-position:sticky;
-top:0;
-z-index:10;
+background:#00a2ff;color:white;
+padding:10px;text-align:center;
+position:sticky;top:0;
 }
 
-/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:4px;
-padding:4px;
+gap:4px;padding:4px;
 }
 
-/* CARD */
 .card{
-background:white;
-border-radius:8px;
-overflow:hidden;
-cursor:pointer;
-box-shadow:0 1px 2px rgba(0,0,0,0.08);
-padding:3px;
+background:white;border-radius:8px;padding:3px;cursor:pointer;
 }
 
-/* 🔥 ULTRA SMALL SQUARE IMAGES */
-.card img{
-width:100%;
-height:80px !important;   /* 👈 صغيييييرة بزاف */
-object-fit:cover;
-border-radius:6px;
-}
+.card img{width:100%;height:80px;object-fit:cover;border-radius:6px;}
+.card p{font-size:10px;margin:2px;}
+.card b{font-size:11px;color:#0099ff;}
 
-.card p{
-margin:2px;
-font-size:9px;
-}
+.page{display:none;padding:10px;}
 
-.card b{
-font-size:10px;
-color:#0099ff;
-}
-
-/* PAGE */
-.page{
-display:none;
-padding:10px;
-}
-
-.page img{
-width:100%;
-height:220px;
-object-fit:cover;
-border-radius:12px;
-}
-
-/* PRICE */
-.price{
-font-size:20px;
-color:#0099ff;
-font-weight:bold;
-margin:10px 0;
-}
-
-/* SIZE */
-.sizes button{
-margin:3px;
-padding:5px 8px;
-border:none;
-border-radius:6px;
-background:#eee;
-cursor:pointer;
-}
-
-.sizes button.active{
-background:#00a2ff;
-color:white;
-}
-
-/* BUTTON */
 .btn{
-display:block;
+width:100%;
 background:#ff6b00;
 color:white;
-text-align:center;
 padding:10px;
+border:none;
 border-radius:10px;
 margin-top:6px;
-border:none;
 cursor:pointer;
 }
 
-/* RELATED SMALL GRID */
-.smallGrid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:4px;
-margin-top:10px;
+.cart{
+position:fixed;bottom:20px;right:20px;
+background:#ff6b00;color:white;
+padding:12px;border-radius:50px;
+cursor:pointer;
 }
 
-.small img{
+input,textarea,select{
 width:100%;
-height:70px !important;  /* 👈 أصغر من home */
-object-fit:cover;
-border-radius:6px;
+padding:8px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ddd;
 }
 
-/* SHOW ANIMATION */
-.show{
-display:block;
-animation:fade .2s ease;
+.item{
+background:white;
+padding:8px;
+margin:5px 0;
+border-radius:8px;
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(8px)}
-to{opacity:1;transform:translateY(0)}
-}
-
+.price{font-weight:bold;color:#0099ff;}
 </style>
 </head>
 
 <body>
 
-<header>Messhop 🌊</header>
+<header>Messhop 💳🚀</header>
 
-<!-- HOME -->
 <div id="home" class="grid"></div>
 
-<!-- PRODUCT PAGE -->
 <div id="product" class="page">
 
 <button class="btn" onclick="goHome()">⬅ Back</button>
 
 <h2 id="title"></h2>
-
-<img id="img">
-
+<img id="img" style="width:100%;height:220px;object-fit:cover;border-radius:12px;">
 <div class="price" id="price"></div>
-<p id="desc"></p>
 
-<h3>Sizes</h3>
-<div class="sizes" id="sizes"></div>
+<h3>Quantity</h3>
+<input type="number" id="qty" value="1" min="1">
 
-<button class="btn">Add to cart 🛒</button>
+<h3>Payment Method</h3>
+<select id="payment">
+<option value="COD">Cash on Delivery (COD)</option>
+<option value="CARD">Credit Card (Stripe)</option>
+</select>
 
-<h3>🔥 More products</h3>
-<div class="smallGrid" id="related"></div>
+<button class="btn" onclick="addToCart()">🛒 Add to Cart</button>
 
+</div>
+
+<!-- CART -->
+<div id="cartPage" class="page">
+
+<h2>Your Cart 🛒</h2>
+<div id="cartItems"></div>
+
+<h3 id="total"></h3>
+
+<h3>Checkout Info</h3>
+
+<input id="name" placeholder="Name">
+<input id="phone" placeholder="Phone">
+<textarea id="address" placeholder="Address"></textarea>
+
+<h3>Payment</h3>
+<select id="payMethod">
+<option value="COD">Cash on Delivery</option>
+<option value="CARD">Card (Stripe)</option>
+</select>
+
+<button class="btn" style="background:#25D366" onclick="sendWhatsApp()">
+📩 Confirm Order (WhatsApp)
+</button>
+
+<button class="btn" onclick="closeCart()">⬅ Back</button>
+
+</div>
+
+<div class="cart" onclick="openCart()">
+🛒 <span id="count">0</span>
 </div>
 
 <script>
 
-/* ===== PRODUCTS ===== */
-const products = [
-{id:1,name:"Waterproof Case",price:"99 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["S","M","L"],desc:"Anti water case"},
-{id:2,name:"Mini Fan",price:"79 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["One"],desc:"Portable fan"},
-{id:3,name:"LED Lamp",price:"120 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["S","M"],desc:"Room lamp"},
-{id:4,name:"Beach Bag",price:"89 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Beach bag"},
-{id:5,name:"Phone Stand",price:"59 DH",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",sizes:["Universal"],desc:"Phone holder"},
-{id:6,name:"Speaker",price:"149 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Bluetooth speaker"},
-{id:7,name:"Watch Sport",price:"199 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M"],desc:"Sport watch"},
-{id:8,name:"Sunglasses",price:"79 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"UV glasses"},
-{id:9,name:"Cap",price:"49 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["M"],desc:"Summer cap"},
-{id:10,name:"Power Bank",price:"199 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["10000mAh"],desc:"Fast charge"},
-
-{id:11,name:"Mouse",price:"89 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"Wireless mouse"},
-{id:12,name:"Keyboard",price:"149 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Gaming keyboard"},
-{id:13,name:"Headphones",price:"129 DH",img:"https://images.unsplash.com/photo-1518441314795-6d3b9c1c0a1e",sizes:["One"],desc:"Bass sound"},
-{id:14,name:"Ring Light",price:"99 DH",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",sizes:["Small"],desc:"For video"},
-{id:15,name:"Tripod",price:"79 DH",img:"https://images.unsplash.com/photo-1519183071298-a2962be96f83",sizes:["One"],desc:"Phone stand"},
-
-{id:16,name:"USB Cable",price:"29 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m"],desc:"Fast cable"},
-{id:17,name:"Smart Watch",price:"249 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M"],desc:"Smart watch"},
-{id:18,name:"Gaming Mouse",price:"129 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"RGB mouse"},
-{id:19,name:"Laptop Stand",price:"119 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Aluminium stand"},
-{id:20,name:"HDMI Cable",price:"39 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m"],desc:"4K cable"},
-
-{id:21,name:"Backpack",price:"149 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Travel bag"},
-{id:22,name:"Wallet",price:"59 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"Leather wallet"},
-{id:23,name:"Shirt",price:"99 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["S","M","L"],desc:"Cotton shirt"},
-{id:24,name:"Shoes",price:"199 DH",img:"https://images.unsplash.com/photo-1519741497674-611481863552",sizes:["40","41","42"],desc:"Sport shoes"},
-{id:25,name:"Jeans",price:"149 DH",img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246",sizes:["S","M","L"],desc:"Blue jeans"},
-
-{id:26,name:"Perfume",price:"179 DH",img:"https://images.unsplash.com/photo-1594035910387-fea47794261f",sizes:["50ml"],desc:"Luxury perfume"},
-{id:27,name:"Watch Classic",price:"299 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M"],desc:"Elegant watch"},
-{id:28,name:"Table Lamp",price:"89 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["One"],desc:"Desk lamp"},
-{id:29,name:"Speaker Mini",price:"99 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Mini speaker"},
-{id:30,name:"Phone Case",price:"49 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["Universal"],desc:"Shock case"}
+const products=[
+{id:1,name:"Waterproof Case",price:99,img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c"},
+{id:2,name:"Mini Fan",price:79,img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c"},
+{id:3,name:"LED Lamp",price:120,img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c"}
 ]
 
-/* HOME */
-function loadHome(){
-document.getElementById("home").innerHTML =
+let cart=[]
+let current=null
+
+function load(){
+document.getElementById("home").innerHTML=
 products.map(p=>`
-<div class="card" onclick="openProduct(${p.id})">
+<div class="card" onclick="openP(${p.id})">
 <img src="${p.img}">
 <p>${p.name}</p>
-<b>${p.price}</b>
+<b>${p.price} DH</b>
 </div>
 `).join("")
 }
-loadHome()
+load()
 
-/* OPEN */
-function openProduct(id){
-
-let p = products.find(x=>x.id===id)
+function openP(id){
+current=products.find(x=>x.id===id)
 
 document.getElementById("home").style.display="none"
-document.getElementById("product").classList.add("show")
+document.getElementById("product").style.display="block"
 
-document.getElementById("title").innerText=p.name
-document.getElementById("img").src=p.img
-document.getElementById("price").innerText=p.price
-document.getElementById("desc").innerText=p.desc
-
-document.getElementById("sizes").innerHTML =
-p.sizes.map(s=>`<button onclick="selectSize(this)">${s}</button>`).join("")
-
-document.getElementById("related").innerHTML =
-products.map(r=>`
-<div class="small" onclick="openProduct(${r.id})">
-<img src="${r.img}">
-</div>
-`).join("")
+document.getElementById("title").innerText=current.name
+document.getElementById("img").src=current.img
+document.getElementById("price").innerText=current.price+" DH"
 }
 
-/* SIZE */
-function selectSize(btn){
-document.querySelectorAll(".sizes button").forEach(b=>b.classList.remove("active"))
-btn.classList.add("active")
+function addToCart(){
+let qty=parseInt(document.getElementById("qty").value)
+let pay=document.getElementById("payment").value
+
+cart.push({
+name:current.name,
+price:current.price,
+qty:qty,
+payment:pay
+})
+
+document.getElementById("count").innerText=cart.length
+alert("Added 🛒")
 }
 
-/* BACK */
+function openCart(){
+document.getElementById("product").style.display="none"
+document.getElementById("home").style.display="none"
+document.getElementById("cartPage").style.display="block"
+
+let total=0
+
+document.getElementById("cartItems").innerHTML=
+cart.map(c=>{
+total+=c.price*c.qty
+return `<div class="item">
+<b>${c.name}</b><br>
+${c.price} DH x ${c.qty}<br>
+Payment: ${c.payment}
+</div>`
+}).join("")
+
+document.getElementById("total").innerText="Total: "+total+" DH"
+}
+
+/* WHATSAPP ORDER */
+function sendWhatsApp(){
+
+let name=document.getElementById("name").value
+let phone=document.getElementById("phone").value
+let address=document.getElementById("address").value
+let pay=document.getElementById("payMethod").value
+
+if(!name||!phone||!address){
+alert("Fill all fields")
+return
+}
+
+let items=""
+let total=0
+
+cart.forEach(c=>{
+items+=`- ${c.name} x${c.qty} = ${c.price*c.qty} DH | Payment: ${c.payment}\n`
+total+=c.price*c.qty
+})
+
+/* PAYMENT LOGIC */
+let paymentText=""
+if(pay==="COD"){
+paymentText="Cash on Delivery"
+}else{
+paymentText="Card Payment (Stripe - pending confirmation)"
+}
+
+let msg=
+`🛒 NEW ORDER
+
+${items}
+
+TOTAL: ${total} DH
+
+💳 Payment: ${paymentText}
+
+👤 ${name}
+📞 ${phone}
+📍 ${address}
+
+🚚 Delivery: 20 DH`
+
+// WhatsApp send (hidden number)
+window.open("https://wa.me/212695979661?text="+encodeURIComponent(msg))
+}
+
 function goHome(){
-document.getElementById("product").classList.remove("show")
+document.getElementById("product").style.display="none"
+document.getElementById("home").style.display="grid"
+}
+
+function closeCart(){
+document.getElementById("cartPage").style.display="none"
 document.getElementById("home").style.display="grid"
 }
 

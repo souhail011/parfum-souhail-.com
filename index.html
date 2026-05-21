@@ -17,9 +17,11 @@ padding:12px;
 text-align:center;
 font-size:20px;
 font-weight:bold;
+position:sticky;
+top:0;
 }
 
-/* GRID HOME */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -27,6 +29,7 @@ gap:10px;
 padding:10px;
 }
 
+/* CARD */
 .card{
 background:white;
 border-radius:12px;
@@ -40,10 +43,10 @@ height:130px;
 object-fit:cover;
 }
 
-.card p{margin:5px}
+.card p{margin:5px;font-size:13px}
 
-/* PAGES */
-.page, #checkoutBox{
+/* PAGE */
+.page{
 display:none;
 padding:15px;
 }
@@ -53,7 +56,29 @@ width:100%;
 border-radius:12px;
 }
 
-/* BUTTON */
+.price{
+font-size:22px;
+color:#0099ff;
+font-weight:bold;
+margin:10px 0;
+}
+
+/* SIZE BUTTONS */
+.sizes button{
+margin:5px;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+background:#eee;
+cursor:pointer;
+}
+
+.sizes button.active{
+background:#00a2ff;
+color:white;
+}
+
+/* BTN */
 .btn{
 display:block;
 background:#ff6b00;
@@ -78,33 +103,34 @@ margin-bottom:10px;
 cursor:pointer;
 }
 
-/* CART */
-.cart{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#ff6b00;
-color:white;
-padding:12px;
-border-radius:50px;
+/* RELATED */
+.relatedTitle{
+margin-top:25px;
 font-weight:bold;
+}
+
+.smallGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.small{
+background:white;
+border-radius:10px;
+overflow:hidden;
 cursor:pointer;
 }
 
-/* CHECKOUT */
-input{
+.small img{
 width:100%;
-padding:10px;
-margin:5px 0;
-border:1px solid #ccc;
-border-radius:8px;
+height:110px;
+object-fit:cover;
 }
 
 /* ANIMATION */
-.show{
-display:block;
-animation:fade 0.25s ease;
-}
+.show{display:block;animation:fade .25s ease}
 
 @keyframes fade{
 from{opacity:0;transform:translateY(10px)}
@@ -118,165 +144,136 @@ to{opacity:1;transform:translateY(0)}
 <header>Messhop 🌊</header>
 
 <!-- HOME -->
-<div id="home" class="grid">
+<div id="home" class="grid"></div>
 
-<div class="card" onclick="openPage('p1')">
-<img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c">
-<p>Pochette Waterproof</p>
-</div>
-
-<div class="card" onclick="openPage('p2')">
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
-<p>Mini Fan</p>
-</div>
-
-<div class="card" onclick="openPage('p3')">
-<img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c">
-<p>LED Lamp</p>
-</div>
-
-</div>
-
-<!-- PRODUCT 1 -->
-<div id="p1" class="page">
+<!-- PRODUCT PAGE -->
+<div id="product" class="page">
 
 <button class="back" onclick="goHome()">⬅ Back</button>
 
-<h2>Pochette Waterproof 📱</h2>
+<h2 id="title"></h2>
 
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+<img id="img">
 
-<p>Protection ضد الماء للبحر و piscine</p>
+<div class="price" id="price"></div>
 
-<h3>99 DH</h3>
+<p id="desc"></p>
 
-<button class="btn" onclick="addCart()">Add to cart 🛒</button>
-<button class="btn" onclick="openCheckout()">Commander</button>
+<h3>Sizes</h3>
+<div class="sizes" id="sizes"></div>
 
-<h3>Produits similaires 🔥</h3>
+<button class="btn">Add to cart 🛒</button>
+<button class="btn">Commander</button>
 
-<div class="grid">
-<div class="card" onclick="openPage('p2')">
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
-</div>
-<div class="card" onclick="openPage('p3')">
-<img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c">
-</div>
-</div>
+<div class="relatedTitle">Produits similaires 🔥</div>
+<div class="smallGrid" id="related"></div>
 
-</div>
-
-<!-- PRODUCT 2 -->
-<div id="p2" class="page">
-
-<button class="back" onclick="goHome()">⬅ Back</button>
-
-<h2>Mini Fan ❄️</h2>
-
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
-
-<p>Ventilateur portable</p>
-
-<h3>79 DH</h3>
-
-<button class="btn" onclick="addCart()">Add to cart 🛒</button>
-<button class="btn" onclick="openCheckout()">Commander</button>
-
-</div>
-
-<!-- PRODUCT 3 -->
-<div id="p3" class="page">
-
-<button class="back" onclick="goHome()">⬅ Back</button>
-
-<h2>LED Lamp 💡</h2>
-
-<img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c">
-
-<p>Lumière décorative</p>
-
-<h3>120 DH</h3>
-
-<button class="btn" onclick="addCart()">Add to cart 🛒</button>
-<button class="btn" onclick="openCheckout()">Commander</button>
-
-</div>
-
-<!-- CHECKOUT -->
-<div id="checkoutBox">
-
-<button class="back" onclick="closeCheckout()">⬅ Back</button>
-
-<h2>Commande COD 🚚</h2>
-
-<input id="name" placeholder="Nom">
-<input id="phone" placeholder="Téléphone">
-<input id="city" placeholder="Ville">
-<input id="address" placeholder="Adresse">
-
-<button class="btn" onclick="confirmOrder()">
-Confirmer la commande
-</button>
-
-<p id="msg"></p>
-
-</div>
-
-<!-- CART -->
-<div class="cart" onclick="alert('Cart: '+cart)">
-🛒 <span id="cartCount">0</span>
 </div>
 
 <script>
 
-let cart = 0;
+/* PRODUCTS DATABASE */
+const products = [
+{
+id:1,
+name:"Pochette Waterproof",
+price:"99 DH",
+img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+sizes:["S","M","L","XL"],
+desc:"Protection ضد الماء للبحر و piscine"
+},
+{
+id:2,
+name:"Mini Fan",
+price:"79 DH",
+img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+sizes:["One Size"],
+desc:"Ventilateur portable قوي للصيف"
+},
+{
+id:3,
+name:"LED Lamp",
+price:"120 DH",
+img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",
+sizes:["Small","Medium"],
+desc:"Lampe décorative للدار"
+},
+{
+id:4,
+name:"Beach Bag",
+price:"89 DH",
+img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",
+sizes:["S","M","L"],
+desc:"Sac ديال البحر و السفر"
+},
+{
+id:5,
+name:"Phone Holder",
+price:"59 DH",
+img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+sizes:["Universal"],
+desc:"Support téléphone للسيارة"
+},
+{
+id:6,
+name:"Speaker Mini",
+price:"149 DH",
+img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+sizes:["One Size"],
+desc:"Speaker قوي وصغير"
+}
+]
 
-function openPage(id){
-document.getElementById("home").style.display="none";
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
-document.getElementById("checkoutBox").style.display="none";
-document.getElementById(id).classList.add("show");
+/* LOAD HOME */
+function loadHome(){
+document.getElementById("home").innerHTML =
+products.map(p=>`
+<div class="card" onclick="openProduct(${p.id})">
+<img src="${p.img}">
+<p>${p.name}</p>
+<p><b>${p.price}</b></p>
+</div>
+`).join("")
+}
+loadHome()
+
+/* OPEN PRODUCT */
+function openProduct(id){
+
+let p = products.find(x=>x.id===id)
+
+document.getElementById("home").style.display="none"
+document.getElementById("product").classList.add("show")
+
+document.getElementById("title").innerText=p.name
+document.getElementById("img").src=p.img
+document.getElementById("price").innerText=p.price
+document.getElementById("desc").innerText=p.desc
+
+/* sizes */
+document.getElementById("sizes").innerHTML =
+p.sizes.map(s=>`<button onclick="selectSize(this)">${s}</button>`).join("")
+
+/* related */
+document.getElementById("related").innerHTML =
+products.filter(x=>x.id!==id).map(r=>`
+<div class="small" onclick="openProduct(${r.id})">
+<img src="${r.img}">
+</div>
+`).join("")
 }
 
+/* SIZE SELECT */
+function selectSize(btn){
+document.querySelectorAll(".sizes button").forEach(b=>b.classList.remove("active"))
+btn.classList.add("active")
+}
+
+/* GO HOME */
 function goHome(){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
-document.getElementById("checkoutBox").style.display="none";
-document.getElementById("home").style.display="grid";
+document.getElementById("product").classList.remove("show")
+document.getElementById("home").style.display="grid"
 }
-
-function addCart(){
-cart++;
-document.getElementById("cartCount").innerText=cart;
-}
-
-function openCheckout(){
-document.getElementById("home").style.display="none";
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
-document.getElementById("checkoutBox").style.display="block";
-}
-
-function closeCheckout(){
-document.getElementById("checkoutBox").style.display="none";
-document.getElementById("home").style.display="grid";
-}
-
-function confirmOrder(){
-
-let n=document.getElementById("name").value;
-let p=document.getElementById("phone").value;
-let c=document.getElementById("city").value;
-let a=document.getElementById("address").value;
-
-if(!n||!p||!c||!a){
-document.getElementById("msg").innerText="❌ Fill all fields";
-return;
-}
-
-document.getElementById("msg").innerText="✅ Order confirmed!";
-cart=0;
-document.getElementById("cartCount").innerText=0;
-}
-
 </script>
 
 </body>

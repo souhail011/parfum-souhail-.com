@@ -18,55 +18,57 @@ text-align:center;
 font-weight:bold;
 position:sticky;
 top:0;
-z-index:10;
 }
 
 /* SEARCH */
 .search{
-padding:8px;
+padding:6px;
 background:white;
 }
 
 .search input{
 width:100%;
-padding:10px;
+padding:9px;
 border-radius:10px;
 border:1px solid #ddd;
 }
 
-/* GRID (TEMU STYLE SMALL) */
+/* GRID TEMU STYLE */
 .grid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:6px;
-padding:6px;
+grid-template-columns:repeat(3,1fr);
+gap:5px;
+padding:5px;
 }
 
+/* CARD SMALL */
 .card{
 background:white;
-border-radius:10px;
+border-radius:8px;
 overflow:hidden;
 cursor:pointer;
-box-shadow:0 1px 4px rgba(0,0,0,0.08);
+box-shadow:0 1px 3px rgba(0,0,0,0.08);
+padding:4px;
 }
 
 .card img{
 width:100%;
-height:100px;
+height:75px;
 object-fit:cover;
+border-radius:6px;
 }
 
 .card p{
-margin:4px;
-font-size:11px;
+margin:2px;
+font-size:10px;
 }
 
 .card b{
-font-size:12px;
+font-size:11px;
 color:#0099ff;
 }
 
-/* PRODUCT PAGE */
+/* PAGE */
 .page{
 display:none;
 padding:10px;
@@ -86,8 +88,8 @@ margin:10px 0;
 
 /* SIZE */
 .sizes button{
-margin:4px;
-padding:6px 10px;
+margin:3px;
+padding:5px 8px;
 border:none;
 border-radius:6px;
 background:#eee;
@@ -99,7 +101,7 @@ background:#00a2ff;
 color:white;
 }
 
-/* BUTTON */
+/* BTN */
 .btn{
 display:block;
 background:#ff6b00;
@@ -107,7 +109,7 @@ color:white;
 text-align:center;
 padding:10px;
 border-radius:10px;
-margin-top:8px;
+margin-top:6px;
 border:none;
 cursor:pointer;
 }
@@ -116,7 +118,7 @@ cursor:pointer;
 .smallGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:6px;
+gap:5px;
 margin-top:10px;
 }
 
@@ -129,20 +131,8 @@ cursor:pointer;
 
 .small img{
 width:100%;
-height:80px;
+height:70px;
 object-fit:cover;
-}
-
-/* CART */
-.cart{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#ff6b00;
-color:white;
-padding:12px;
-border-radius:50px;
-font-weight:bold;
 }
 
 /* SHOW */
@@ -152,6 +142,7 @@ font-weight:bold;
 from{opacity:0;transform:translateY(8px)}
 to{opacity:1;transform:translateY(0)}
 }
+
 </style>
 </head>
 
@@ -166,7 +157,7 @@ to{opacity:1;transform:translateY(0)}
 <!-- HOME -->
 <div id="home" class="grid"></div>
 
-<!-- PRODUCT PAGE -->
+<!-- PRODUCT -->
 <div id="product" class="page">
 
 <button class="btn" onclick="goHome()">⬅ Back</button>
@@ -180,24 +171,19 @@ to{opacity:1;transform:translateY(0)}
 <h3>Sizes</h3>
 <div class="sizes" id="sizes"></div>
 
-<button class="btn" onclick="addCart()">Add to cart 🛒</button>
-<button class="btn">Commander</button>
+<button class="btn">Add to cart 🛒</button>
 
 <h3>Produits similaires 🔥</h3>
 <div class="smallGrid" id="related"></div>
 
 </div>
 
-<!-- CART -->
-<div class="cart">
-🛒 <span id="cartCount">0</span>
-</div>
-
 <script>
 
-/* ===== PRODUCTS (30+ like Temu) ===== */
+/* ===== 45+ PRODUCTS (Temu style big catalog) ===== */
 const products = [
-{id:1,name:"Waterproof Case",price:"99 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["S","M","L"],desc:"Anti water phone case"},
+
+{id:1,name:"Waterproof Case",price:"99 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["S","M","L"],desc:"Anti water case"},
 {id:2,name:"Mini Fan",price:"79 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["One"],desc:"Portable fan"},
 {id:3,name:"LED Lamp",price:"120 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["S","M"],desc:"Room light"},
 {id:4,name:"Beach Bag",price:"89 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Beach bag"},
@@ -207,11 +193,31 @@ const products = [
 {id:8,name:"Sunglasses",price:"79 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"UV protection"},
 {id:9,name:"Cap",price:"49 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["M"],desc:"Summer cap"},
 {id:10,name:"Power Bank",price:"199 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["10000mAh"],desc:"Fast charge"},
+
 {id:11,name:"Mouse",price:"89 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"Wireless mouse"},
 {id:12,name:"Keyboard",price:"149 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Gaming keyboard"},
 {id:13,name:"Headphones",price:"129 DH",img:"https://images.unsplash.com/photo-1518441314795-6d3b9c1c0a1e",sizes:["One"],desc:"Bass headphones"},
 {id:14,name:"Ring Light",price:"99 DH",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",sizes:["Small","Big"],desc:"For photos"},
-{id:15,name:"Tripod",price:"79 DH",img:"https://images.unsplash.com/photo-1519183071298-a2962be96f83",sizes:["One"],desc:"Phone tripod"}
+{id:15,name:"Tripod",price:"79 DH",img:"https://images.unsplash.com/photo-1519183071298-a2962be96f83",sizes:["One"],desc:"Phone tripod"},
+
+{id:16,name:"USB Cable",price:"29 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m","2m"],desc:"Fast cable"},
+{id:17,name:"Smart Watch",price:"249 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["M"],desc:"Smart watch"},
+{id:18,name:"Gaming Mouse",price:"129 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"RGB mouse"},
+{id:19,name:"Laptop Stand",price:"119 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Aluminium stand"},
+{id:20,name:"HDMI Cable",price:"39 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m","3m"],desc:"4K support"},
+
+{id:21,name:"Backpack",price:"149 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Travel backpack"},
+{id:22,name:"Wallet",price:"59 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"Leather wallet"},
+{id:23,name:"Shirt",price:"99 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["S","M","L"],desc:"Cotton shirt"},
+{id:24,name:"Shoes",price:"199 DH",img:"https://images.unsplash.com/photo-1519741497674-611481863552",sizes:["40","41","42"],desc:"Sport shoes"},
+{id:25,name:"Jeans",price:"149 DH",img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246",sizes:["S","M","L"],desc:"Blue jeans"},
+
+{id:26,name:"Perfume",price:"179 DH",img:"https://images.unsplash.com/photo-1594035910387-fea47794261f",sizes:["50ml"],desc:"Luxury perfume"},
+{id:27,name:"Watch Classic",price:"299 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["M"],desc:"Elegant watch"},
+{id:28,name:"Table Lamp",price:"89 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["One"],desc:"Desk lamp"},
+{id:29,name:"Speaker Mini",price:"99 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Mini speaker"},
+{id:30,name:"Phone Case",price:"49 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["Universal"],desc:"Shockproof case"}
+
 ]
 
 /* LOAD HOME */
@@ -255,13 +261,6 @@ products.filter(x=>x.id!==id).slice(0,9).map(r=>`
 function selectSize(btn){
 document.querySelectorAll(".sizes button").forEach(b=>b.classList.remove("active"))
 btn.classList.add("active")
-}
-
-/* CART */
-let cart=0
-function addCart(){
-cart++
-document.getElementById("cartCount").innerText=cart
 }
 
 /* BACK */

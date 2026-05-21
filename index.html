@@ -22,9 +22,10 @@ text-align:center;
 font-weight:bold;
 position:sticky;
 top:0;
+z-index:10;
 }
 
-/* GRID TEMU STYLE */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -38,25 +39,25 @@ background:white;
 border-radius:8px;
 overflow:hidden;
 cursor:pointer;
-box-shadow:0 1px 3px rgba(0,0,0,0.08);
-padding:4px;
+box-shadow:0 1px 2px rgba(0,0,0,0.08);
+padding:3px;
 }
 
-/* 🔥 SQUARE IMAGES (IMPORTANT) */
+/* 🔥 ULTRA SMALL SQUARE IMAGES */
 .card img{
 width:100%;
-aspect-ratio:1/1;
+height:80px !important;   /* 👈 صغيييييرة بزاف */
 object-fit:cover;
 border-radius:6px;
 }
 
 .card p{
 margin:2px;
-font-size:10px;
+font-size:9px;
 }
 
 .card b{
-font-size:11px;
+font-size:10px;
 color:#0099ff;
 }
 
@@ -68,13 +69,14 @@ padding:10px;
 
 .page img{
 width:100%;
-aspect-ratio:1/1;
+height:220px;
 object-fit:cover;
 border-radius:12px;
 }
 
+/* PRICE */
 .price{
-font-size:22px;
+font-size:20px;
 color:#0099ff;
 font-weight:bold;
 margin:10px 0;
@@ -108,7 +110,7 @@ border:none;
 cursor:pointer;
 }
 
-/* RELATED */
+/* RELATED SMALL GRID */
 .smallGrid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -118,12 +120,12 @@ margin-top:10px;
 
 .small img{
 width:100%;
-aspect-ratio:1/1;
+height:70px !important;  /* 👈 أصغر من home */
 object-fit:cover;
 border-radius:6px;
 }
 
-/* SHOW */
+/* SHOW ANIMATION */
 .show{
 display:block;
 animation:fade .2s ease;
@@ -161,22 +163,22 @@ to{opacity:1;transform:translateY(0)}
 
 <button class="btn">Add to cart 🛒</button>
 
-<h3>🔥 More Products</h3>
+<h3>🔥 More products</h3>
 <div class="smallGrid" id="related"></div>
 
 </div>
 
 <script>
 
-/* ===== 30+ PRODUCTS ===== */
+/* ===== PRODUCTS ===== */
 const products = [
 {id:1,name:"Waterproof Case",price:"99 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["S","M","L"],desc:"Anti water case"},
-{id:2,name:"Mini Fan",price:"79 DH",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30",sizes:["One"],desc:"Portable fan"},
+{id:2,name:"Mini Fan",price:"79 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["One"],desc:"Portable fan"},
 {id:3,name:"LED Lamp",price:"120 DH",img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c",sizes:["S","M"],desc:"Room lamp"},
 {id:4,name:"Beach Bag",price:"89 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Beach bag"},
 {id:5,name:"Phone Stand",price:"59 DH",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",sizes:["Universal"],desc:"Phone holder"},
 {id:6,name:"Speaker",price:"149 DH",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e",sizes:["One"],desc:"Bluetooth speaker"},
-{id:7,name:"Watch Sport",price:"199 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M","L"],desc:"Sport watch"},
+{id:7,name:"Watch Sport",price:"199 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M"],desc:"Sport watch"},
 {id:8,name:"Sunglasses",price:"79 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"UV glasses"},
 {id:9,name:"Cap",price:"49 DH",img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49",sizes:["M"],desc:"Summer cap"},
 {id:10,name:"Power Bank",price:"199 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["10000mAh"],desc:"Fast charge"},
@@ -184,14 +186,14 @@ const products = [
 {id:11,name:"Mouse",price:"89 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"Wireless mouse"},
 {id:12,name:"Keyboard",price:"149 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Gaming keyboard"},
 {id:13,name:"Headphones",price:"129 DH",img:"https://images.unsplash.com/photo-1518441314795-6d3b9c1c0a1e",sizes:["One"],desc:"Bass sound"},
-{id:14,name:"Ring Light",price:"99 DH",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",sizes:["Small","Big"],desc:"For video"},
+{id:14,name:"Ring Light",price:"99 DH",img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",sizes:["Small"],desc:"For video"},
 {id:15,name:"Tripod",price:"79 DH",img:"https://images.unsplash.com/photo-1519183071298-a2962be96f83",sizes:["One"],desc:"Phone stand"},
 
-{id:16,name:"USB Cable",price:"29 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m","2m"],desc:"Fast cable"},
+{id:16,name:"USB Cable",price:"29 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m"],desc:"Fast cable"},
 {id:17,name:"Smart Watch",price:"249 DH",img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c",sizes:["M"],desc:"Smart watch"},
 {id:18,name:"Gaming Mouse",price:"129 DH",img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",sizes:["One"],desc:"RGB mouse"},
-{id:19,name:"Laptop Stand",price:"119 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Aluminium"},
-{id:20,name:"HDMI Cable",price:"39 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m","3m"],desc:"4K cable"},
+{id:19,name:"Laptop Stand",price:"119 DH",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8",sizes:["One"],desc:"Aluminium stand"},
+{id:20,name:"HDMI Cable",price:"39 DH",img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0",sizes:["1m"],desc:"4K cable"},
 
 {id:21,name:"Backpack",price:"149 DH",img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f",sizes:["M","L"],desc:"Travel bag"},
 {id:22,name:"Wallet",price:"59 DH",img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083",sizes:["One"],desc:"Leather wallet"},
@@ -206,7 +208,7 @@ const products = [
 {id:30,name:"Phone Case",price:"49 DH",img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",sizes:["Universal"],desc:"Shock case"}
 ]
 
-/* LOAD HOME */
+/* HOME */
 function loadHome(){
 document.getElementById("home").innerHTML =
 products.map(p=>`
@@ -219,7 +221,7 @@ products.map(p=>`
 }
 loadHome()
 
-/* OPEN PRODUCT */
+/* OPEN */
 function openProduct(id){
 
 let p = products.find(x=>x.id===id)

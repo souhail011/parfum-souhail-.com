@@ -4,48 +4,65 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Messhop Payments</title>
+<title>Messhop Final</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f5f6f8;}
-
-header{
-background:#00a2ff;color:white;
-padding:10px;text-align:center;
-position:sticky;top:0;
+body{
+margin:0;
+font-family:Arial;
+background:#f5f6f8;
 }
 
+/* HEADER */
+header{
+background:#00a2ff;
+color:white;
+padding:10px;
+text-align:center;
+font-weight:bold;
+position:sticky;
+top:0;
+}
+
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:4px;padding:4px;
+gap:4px;
+padding:4px;
 }
 
 .card{
-background:white;border-radius:8px;padding:3px;cursor:pointer;
-}
-
-.card img{width:100%;height:80px;object-fit:cover;border-radius:6px;}
-.card p{font-size:10px;margin:2px;}
-.card b{font-size:11px;color:#0099ff;}
-
-.page{display:none;padding:10px;}
-
-.btn{
-width:100%;
-background:#ff6b00;
-color:white;
-padding:10px;
-border:none;
-border-radius:10px;
-margin-top:6px;
+background:white;
+border-radius:8px;
+padding:3px;
 cursor:pointer;
 }
 
-.cart{
-position:fixed;bottom:20px;right:20px;
-background:#ff6b00;color:white;
-padding:12px;border-radius:50px;
+.card img{
+width:100%;
+height:80px;
+object-fit:cover;
+border-radius:6px;
+}
+
+.card p{font-size:10px;margin:2px;}
+.card b{font-size:11px;color:#0099ff;}
+
+/* PAGE */
+.page{
+display:none;
+padding:10px;
+}
+
+.btn{
+width:100%;
+padding:10px;
+background:#ff6b00;
+color:white;
+border:none;
+border-radius:10px;
+margin-top:6px;
 cursor:pointer;
 }
 
@@ -64,16 +81,31 @@ margin:5px 0;
 border-radius:8px;
 }
 
-.price{font-weight:bold;color:#0099ff;}
+.cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#ff6b00;
+color:white;
+padding:12px;
+border-radius:50px;
+cursor:pointer;
+}
+
+.price{
+color:#0099ff;
+font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
-<header>Messhop 💳🚀</header>
+<header>Messhop 🚀</header>
 
 <div id="home" class="grid"></div>
 
+<!-- PRODUCT -->
 <div id="product" class="page">
 
 <button class="btn" onclick="goHome()">⬅ Back</button>
@@ -82,13 +114,13 @@ border-radius:8px;
 <img id="img" style="width:100%;height:220px;object-fit:cover;border-radius:12px;">
 <div class="price" id="price"></div>
 
-<h3>Quantity</h3>
+<h3>Qty</h3>
 <input type="number" id="qty" value="1" min="1">
 
-<h3>Payment Method</h3>
+<h3>Payment</h3>
 <select id="payment">
-<option value="COD">Cash on Delivery (COD)</option>
-<option value="CARD">Credit Card (Stripe)</option>
+<option value="COD">Cash on Delivery</option>
+<option value="CARD">Card</option>
 </select>
 
 <button class="btn" onclick="addToCart()">🛒 Add to Cart</button>
@@ -103,20 +135,14 @@ border-radius:8px;
 
 <h3 id="total"></h3>
 
-<h3>Checkout Info</h3>
+<h3>Checkout</h3>
 
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Phone">
 <textarea id="address" placeholder="Address"></textarea>
 
-<h3>Payment</h3>
-<select id="payMethod">
-<option value="COD">Cash on Delivery</option>
-<option value="CARD">Card (Stripe)</option>
-</select>
-
 <button class="btn" style="background:#25D366" onclick="sendWhatsApp()">
-📩 Confirm Order (WhatsApp)
+📩 Send via WhatsApp
 </button>
 
 <button class="btn" onclick="closeCart()">⬅ Back</button>
@@ -129,15 +155,19 @@ border-radius:8px;
 
 <script>
 
+/* PRODUCTS */
 const products=[
 {id:1,name:"Waterproof Case",price:99,img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c"},
 {id:2,name:"Mini Fan",price:79,img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c"},
-{id:3,name:"LED Lamp",price:120,img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c"}
+{id:3,name:"LED Lamp",price:120,img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c"},
+{id:4,name:"Speaker",price:149,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e"},
+{id:5,name:"Cap",price:49,img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49"}
 ]
 
 let cart=[]
 let current=null
 
+/* LOAD HOME ALWAYS FIXED */
 function load(){
 document.getElementById("home").innerHTML=
 products.map(p=>`
@@ -150,10 +180,12 @@ products.map(p=>`
 }
 load()
 
+/* OPEN PRODUCT */
 function openP(id){
 current=products.find(x=>x.id===id)
 
 document.getElementById("home").style.display="none"
+document.getElementById("cartPage").style.display="none"
 document.getElementById("product").style.display="block"
 
 document.getElementById("title").innerText=current.name
@@ -161,6 +193,7 @@ document.getElementById("img").src=current.img
 document.getElementById("price").innerText=current.price+" DH"
 }
 
+/* ADD CART */
 function addToCart(){
 let qty=parseInt(document.getElementById("qty").value)
 let pay=document.getElementById("payment").value
@@ -176,9 +209,10 @@ document.getElementById("count").innerText=cart.length
 alert("Added 🛒")
 }
 
+/* CART PAGE */
 function openCart(){
-document.getElementById("product").style.display="none"
 document.getElementById("home").style.display="none"
+document.getElementById("product").style.display="none"
 document.getElementById("cartPage").style.display="block"
 
 let total=0
@@ -196,13 +230,17 @@ Payment: ${c.payment}
 document.getElementById("total").innerText="Total: "+total+" DH"
 }
 
-/* WHATSAPP ORDER */
+/* WHATSAPP */
 function sendWhatsApp(){
+
+if(cart.length===0){
+alert("Cart empty")
+return
+}
 
 let name=document.getElementById("name").value
 let phone=document.getElementById("phone").value
 let address=document.getElementById("address").value
-let pay=document.getElementById("payMethod").value
 
 if(!name||!phone||!address){
 alert("Fill all fields")
@@ -213,26 +251,16 @@ let items=""
 let total=0
 
 cart.forEach(c=>{
-items+=`- ${c.name} x${c.qty} = ${c.price*c.qty} DH | Payment: ${c.payment}\n`
+items+=`- ${c.name} x${c.qty} = ${c.price*c.qty} DH | ${c.payment}\n`
 total+=c.price*c.qty
 })
 
-/* PAYMENT LOGIC */
-let paymentText=""
-if(pay==="COD"){
-paymentText="Cash on Delivery"
-}else{
-paymentText="Card Payment (Stripe - pending confirmation)"
-}
-
 let msg=
-`🛒 NEW ORDER
+`🛒 ORDER
 
 ${items}
 
 TOTAL: ${total} DH
-
-💳 Payment: ${paymentText}
 
 👤 ${name}
 📞 ${phone}
@@ -240,18 +268,21 @@ TOTAL: ${total} DH
 
 🚚 Delivery: 20 DH`
 
-// WhatsApp send (hidden number)
 window.open("https://wa.me/212695979661?text="+encodeURIComponent(msg))
 }
 
+/* BACK HOME FIX */
 function goHome(){
 document.getElementById("product").style.display="none"
+document.getElementById("cartPage").style.display="none"
 document.getElementById("home").style.display="grid"
+load()
 }
 
 function closeCart(){
 document.getElementById("cartPage").style.display="none"
 document.getElementById("home").style.display="grid"
+load()
 }
 
 </script>

@@ -1,265 +1,190 @@
 </footer>
 
-</body 
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Souhail Parfums</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messhop</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial;transition: all .3s ease;}
-body{background:#f3f3f3;color:#000}
-header,footer{background:#000;color:#d4af37;text-align:center;padding:14px;font-weight:bold;position:relative}
-header button{float:right;background:#d4af37;border:none;padding:5px 10px;cursor:pointer;border-radius:5px;transition: .3s;}
-header button:hover{background:#b8962e;transform:scale(1.05);}
-.container{max-width:1200px;margin:auto;padding:12px}
-.notice{background:#fff;padding:10px;border-radius:10px;text-align:center;margin-bottom:12px;font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
-.product{background:#fff;border-radius:10px;padding:6px;text-align:center;box-shadow:0 3px 8px rgba(0,0,0,.15);font-size:12px;position:relative;transition:.3s}
-.product:hover{transform:translateY(-4px);box-shadow:0 6px 15px rgba(0,0,0,.2);}
-.product img{width:100%;height:130px;object-fit:cover;border-radius:6px;transition:.3s}
-.product img:hover{transform:scale(1.05);}
-.product h3{font-size:12px;margin:6px 0}
-.price{font-weight:700;font-size:14px;margin-bottom:4px}
-.status{position:absolute;top:6px;left:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff}
-.available{background:green}
-.soldout{background:red}
-.discount{position:absolute;top:6px;right:6px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:600;color:#fff;background:#ff6b6b}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f4faff;color:#222}
+
+header{
+background:linear-gradient(135deg,#00a2ff,#00d9ff);
+color:white;
+text-align:center;
+padding:60px 20px;
+}
+
+header h1{font-size:48px}
+header p{margin-top:10px;font-size:18px}
+
 .btn{
-    margin-top:4px;
-    padding:6px;
-    background: rgba(212, 175, 55, 0.3); /* زر شفاف */
-    border-radius:5px;
-    font-size:12px;
-    font-weight:600;
-    cursor:pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(212, 175, 55, 0.6); /* حد شفاف */
-    color: #000;
+display:inline-block;
+margin-top:15px;
+background:#ff6b00;
+color:white;
+padding:12px 25px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
 }
-.btn:hover{
-    background: rgba(212, 175, 55, 0.6);
-    transform: scale(1.05);
+
+.section{
+padding:50px 20px;
+text-align:center;
 }
-#cart{position:fixed;top:0;right:-360px;width:360px;height:100%;background:#fff;box-shadow:-3px 0 10px rgba(0,0,0,.3);padding:15px;transition:.4s;z-index:999;overflow:auto}
-#cart.active{right:0}
-.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.cart-item button{padding:2px 7px;border-radius:4px;border:none;cursor:pointer}
-#cart-total{font-weight:bold;text-align:right;margin-top:10px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#d4af37;padding:10px 18px;border-radius:25px;font-size:13px;opacity:0;transition:.4s;z-index:3000}
-.toast.show{opacity:1}
-.fly{position:fixed;z-index:2000;transition:.7s ease;border-radius:50%}
-.visit{max-width:700px;margin:25px auto;background:rgba(0,0,0,.85);color:#fff;text-align:center;padding:20px;border-radius:14px}
-.visit a{display:inline-block;padding:8px 15px;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;border-radius:6px;font-weight:600;font-size:13px;margin-top:8px}
-.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;text-align:center}
-.filters select,.filters input{padding:6px;border-radius:6px;border:1px solid #ccc;font-size:12px}
+
+.products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+width:280px;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.card-content{padding:15px}
+
+.price{
+color:#0099ff;
+font-size:24px;
+margin:10px 0;
+font-weight:bold;
+}
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
 </style>
+
 </head>
+
 <body>
 
 <header>
-Souhail Parfums
-<button onclick="toggleCart()">🛒</button>
+<h1>Messhop 🌊</h1>
+<p>Protection waterproof pour ton téléphone 📱</p>
+<a href="#shop" class="btn">Acheter maintenant</a>
 </header>
 
-<div class="container">
+<!-- PRODUCTS -->
+<section class="section" id="shop">
 
-<div class="notice">🚚 Livraison partout au Maroc — 💵 Paiement à la livraison</div>
+<h2>Nos Produits 🔥</h2>
 
-<div class="filters">
-<input type="text" id="search" placeholder="Rechercher un parfum..." oninput="filterProducts()">
-<select id="category" onchange="filterProducts()">
-<option value="">Toutes catégories</option>
-<option value="Homme">Homme</option>
-<option value="Femme">Femme</option>
-</select>
-<select id="sort" onchange="filterProducts()">
-<option value="">Trier par</option>
-<option value="price-asc">Prix croissant</option>
-<option value="price-desc">Prix décroissant</option>
-</select>
+<div class="products">
+
+<div class="card">
+<img src="p1.jpg">
+<div class="card-content">
+<h3>Pochette Noire</h3>
+<div class="price">99 DH</div>
+<a class="btn" href="https://wa.me/212600000000">Commander</a>
+</div>
 </div>
 
-<div class="products" id="products"></div>
+<div class="card">
+<img src="p2.jpg">
+<div class="card-content">
+<h3>Pochette Bleue</h3>
+<div class="price">99 DH</div>
+<a class="btn" href="https://wa.me/212600000000">Commander</a>
+</div>
 </div>
 
-<div id="cart">
-<h3>🛒 Panier <button onclick="toggleCart()">❌</button></h3>
-<div id="cart-items"></div>
-<div id="cart-total">Total: 0 MAD</div>
-<button class="btn" onclick="sendCart()">Commander WhatsApp</button>
+<div class="card">
+<img src="p3.jpg">
+<div class="card-content">
+<h3>Pochette Rouge</h3>
+<div class="price">99 DH</div>
+<a class="btn" href="https://wa.me/212600000000">Commander</a>
+</div>
 </div>
 
-<div class="visit">
-<h3>📍 Pour visiter notre magasin</h3>
-<p>Notre boutique est située à <b>Hay Amal – Salé</b></p>
-<a href="https://www.google.com/maps/search/?api=1&query=Hay+Amal+Salé" target="_blank">
-Ouvrir Google Maps
-</a>
+</div>
+</section>
+
+<!-- RELATED -->
+<section class="section">
+
+<h2>Produits Similaires 🔥</h2>
+
+<div class="products">
+
+<div class="card"><img src="r1.jpg"></div>
+<div class="card"><img src="r2.jpg"></div>
+<div class="card"><img src="r3.jpg"></div>
+
 </div>
 
-<footer>© 2026 Souhail Parfums</footer>
+</section>
 
-<div id="toast" class="toast">✔️ Ajouté au panier</div>
+<!-- GALLERY -->
+<section class="section">
 
-<script>
-const whatsapp="https://wa.me/212695979661?text=";
+<h2>Galerie 📸</h2>
 
-const parfums=[
-{nom:"Writer Anonymous",prix:199,img:"https://i.postimg.cc/WzMWPvrL/IMG-3738.png",cat:"Homme",status:"available",discount:10},
-{nom:"Idole la nuit",prix:249,img:"https://i.postimg.cc/bwHh97FQ/IMG-3739.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"Tag uomo roso",prix:299,img:"https://i.postimg.cc/kgFmv0hf/IMG-3740.jpg",cat:"Homme",status:"available",discount:15},
-{nom:"Bois d iris",prix:199,img:"https://i.postimg.cc/FHg4VMn2/IMG-3741.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"Let’s be strong",prix:199,img:"https://i.postimg.cc/Nj7ck3zY/IMG-3742.jpg",cat:"Homme",status:"soldout",discount:0},
-{nom:"Mindset",prix:199,img:"https://i.postimg.cc/t4tjNKm8/IMG-3743.jpg",cat:"Homme",status:"available",discount:5},
-{nom:"Asade",prix:180,img:"https://i.postimg.cc/nV0TB0kK/IMG-3744.webp",cat:"Homme",status:"available",discount:0},
-{nom:"Your touch extrait",prix:160,img:"https://i.postimg.cc/W1RZkkQx/IMG-3745.webp",cat:"Homme",status:"available",discount:0},
-{nom:"Asade bourbon",prix:199,img:"https://i.postimg.cc/Sxpdcs5M/IMG-3746.webp",cat:"Homme",status:"soldout",discount:10},
-{nom:"Champion money",prix:250,img:"https://i.postimg.cc/W1nGr704/IMG-3748.webp",cat:"Homme",status:"available",discount:0},
-{nom:"L’absolu",prix:349,img:"https://i.postimg.cc/3Ryms56s/IMG-3749.webp",cat:"Homme",status:"available",discount:20},
-{nom:"Hunter killer",prix:299,img:"https://i.postimg.cc/K8ZLZgwp/IMG-3750.webp",cat:"Homme",status:"available",discount:0},
-{nom:"Khamrah qahwa",prix:250,img:"https://i.postimg.cc/R0hHtxMs/IMG-3751.webp",cat:"Homme",status:"soldout",discount:0},
-{nom:"Voux elegante",prix:199,img:"https://i.postimg.cc/rs10T89v/IMG-3752.webp",cat:"Homme",status:"available",discount:0},
-{nom:"Roya blend",prix:350,img:"https://i.postimg.cc/hj9Pz27z/IMG-3753.jpg",cat:"Homme",status:"available",discount:15},
-{nom:"Dior homme intense",prix:1300,img:"https://i.postimg.cc/2j7SCXYy/IMG-3755.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"Stronger with you intensely",prix:1200,img:"https://i.postimg.cc/CxzhHhqz/IMG-3756.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"Powder musk",prix:100,img:"https://i.postimg.cc/ZRF4K016/IMG-3757.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"9pm afnan",prix:65,img:"https://i.postimg.cc/Dw9TrqhR/IMG-3760.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"9pm rebel",prix:65,img:"https://i.postimg.cc/xCYV7nct/IMG-3761.jpg",cat:"Homme",status:"soldout",discount:0},
-{nom:"Liquid brun",prix:249,img:"https://i.postimg.cc/Wp5cWRjd/IMG-3762.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"I am the queen",prix:120,img:"https://i.postimg.cc/NFFsJBzr/IMG-3763.jpg",cat:"Femme",status:"available",discount:5},
-{nom:"Yara",prix:199,img:"https://i.postimg.cc/V6YLtj9q/IMG-3764.webp",cat:"Femme",status:"available",discount:0},
-{nom:"Yara candy",prix:199,img:"https://i.postimg.cc/Gh9tzx03/IMG-3767.webp",cat:"Femme",status:"available",discount:0},
-{nom:"Aurora Bliss",prix:220,img:"https://i.postimg.cc/TwGh98x9/IMG-3770.jpg",cat:"Femme",status:"available",discount:10},
-{nom:"Midnight Whisper",prix:230,img:"https://i.postimg.cc/zGbLDSp3/IMG-3771.jpg",cat:"Femme",status:"available",discount:0},
-{nom:"Golden Essence",prix:340,img:"https://i.postimg.cc/kMsRT5By/IMG-3773.jpg",cat:"Femme",status:"soldout",discount:0},
-{nom:"Sahara Mystery",prix:310,img:"https://i.postimg.cc/LXBgK9v8/IMG-3774.webp",cat:"Femme",status:"available",discount:15},
-{nom:"Velvet Touch",prix:280,img:"https://i.postimg.cc/cLr3gN1B/IMG-3775.jpg",cat:"Femme",status:"available",discount:0},
-{nom:"Noir Elite",prix:350,img:"https://i.postimg.cc/2yDdh99p/IMG-3776.png",cat:"Homme",status:"available",discount:0},
-{nom:"Scandale",prix:270,img:"https://i.postimg.cc/cJPB4LQ7/IMG-3777.jpg",cat:"Femme",status:"available",discount:5},
-{nom:"Bleu de chanel",prix:900,img:"https://i.postimg.cc/J7ZP0Z6Y/IMG-3780.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"Amber Night",prix:450,img:"https://i.postimg.cc/g07NXDPk/IMG-3781.jpg",cat:"Homme",status:"available",discount:10},
-{nom:"Amerat al arab",prix:500,img:"https://i.postimg.cc/cLsDVCcz/IMG-3782.webp",cat:"Femme",status:"available",discount:0},
-{nom:"Valentino",prix:600,img:"https://i.postimg.cc/qMHDxj6c/IMG-3783.jpg",cat:"Homme",status:"available",discount:20},
-{nom:"Mystic Oud",prix:750,img:"https://i.postimg.cc/D0LjKbHs/IMG-3786.png",cat:"Homme",status:"soldout",discount:0},
-{nom:"Sauvage",prix:1200,img:"https://i.postimg.cc/jj3k6Tys/IMG-3788.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"Silver Moon",prix:900,img:"https://i.postimg.cc/L6j7crFW/IMG-3789.jpg",cat:"Homme",status:"available",discount:5},
-{nom:"Jasmine Aura",prix:400,img:"https://i.postimg.cc/ZYBXcW7z/IMG-3790.jpg",cat:"Femme",status:"available",discount:0},
-{nom:"Dark Legend",prix:600,img:"https://i.postimg.cc/d1XpFF0X/IMG-3791.jpg",cat:"Homme",status:"available",discount:0},
-{nom:"La vie est belle",prix:950,img:"https://i.postimg.cc/rpf7hxXf/IMG-3792.jpg",cat:"Femme",status:"available",discount:0},
-{nom:"Prada",prix:1000,img:"https://i.postimg.cc/y8XMZ2f1/IMG-3794.jpg",cat:"Femme",status:"available",discount:15},
-{nom:"Midnight Rose",prix:650,img:"https://i.postimg.cc/L4GFKtY9/IMG-3795.jpg",cat:"Femme",status:"available",discount:0},
-{nom:"Good girl",prix:700,img:"https://i.postimg.cc/h4XR5yGz/IMG-3797.png",cat:"Femme",status:"available",discount:0}
-];
+<div class="products">
 
-let cart=[];
+<div class="card"><img src="g1.jpg"></div>
+<div class="card"><img src="g2.jpg"></div>
+<div class="card"><img src="g3.jpg"></div>
+<div class="card"><img src="g4.jpg"></div>
+<div class="card"><img src="g5.jpg"></div>
+<div class="card"><img src="g6.jpg"></div>
+<div class="card"><img src="g7.jpg"></div>
+<div class="card"><img src="g8.jpg"></div>
+<div class="card"><img src="g9.jpg"></div>
+<div class="card"><img src="g10.jpg"></div>
 
-function render(productsList = parfums){
-    const products=document.getElementById('products');
-    products.innerHTML = productsList.map(p => {
-        let finalPrice = p.discount ? p.prix - (p.prix*p.discount/100) : p.prix;
-        return `
-        <div class="product">
-            <img src="${p.img}" alt="${p.nom}">
-            <h3>${p.nom}</h3>
-            <div class="price">${finalPrice} MAD ${p.discount?'<span class="discount">-'+p.discount+'%</span>':''}</div>
-            <div class="status ${p.status==='available'?'available':'soldout'}">${p.status==='available'?'Disponible':'Épuisé'}</div>
-            <div class="btn" onclick="addToCart('${p.nom}',${finalPrice},this)" ${p.status==='soldout'?'disabled style="opacity:0.5;cursor:not-allowed"':''}>Ajouter au panier</div>
-        </div>`;
-    }).join('');
-}
+<div class="card"><img src="g11.jpg"></div>
+<div class="card"><img src="g12.jpg"></div>
+<div class="card"><img src="g13.jpg"></div>
+<div class="card"><img src="g14.jpg"></div>
+<div class="card"><img src="g15.jpg"></div>
+<div class="card"><img src="g16.jpg"></div>
+<div class="card"><img src="g17.jpg"></div>
+<div class="card"><img src="g18.jpg"></div>
+<div class="card"><img src="g19.jpg"></div>
+<div class="card"><img src="g20.jpg"></div>
 
-function filterProducts(){
-    const search = document.getElementById('search').value.toLowerCase();
-    const category = document.getElementById('category').value;
-    const sort = document.getElementById('sort').value;
-    
-    let filtered = parfums.filter(p => 
-        p.nom.toLowerCase().includes(search) &&
-        (category=="" || p.cat===category)
-    );
-    
-    if(sort==='price-asc') filtered.sort((a,b)=> (a.discount?a.prix-a.prix*a.discount/100:a.prix) - (b.discount?b.prix-b.prix*b.discount/100:b.prix));
-    if(sort==='price-desc') filtered.sort((a,b)=> (b.discount?b.prix-b.prix*b.discount/100:b.prix) - (a.discount?a.prix-a.prix*a.discount/100:a.prix));
-    
-    render(filtered);
-}
+<div class="card"><img src="g21.jpg"></div>
+<div class="card"><img src="g22.jpg"></div>
+<div class="card"><img src="g23.jpg"></div>
+<div class="card"><img src="g24.jpg"></div>
+<div class="card"><img src="g25.jpg"></div>
+<div class="card"><img src="g26.jpg"></div>
+<div class="card"><img src="g27.jpg"></div>
+<div class="card"><img src="g28.jpg"></div>
+<div class="card"><img src="g29.jpg"></div>
+<div class="card"><img src="g30.jpg"></div>
 
-function toggleCart(){document.getElementById("cart").classList.toggle("active");}
+</div>
 
-function addToCart(name,price,btn){
-    flyEffect(btn);
-    if(navigator.vibrate) navigator.vibrate(80);
-    let item = cart.find(i=>i.name===name);
-    item ? item.qty++ : cart.push({name,price,qty:1});
-    updateCart();
-    showToast();
-}
+</section>
 
-function updateCart(){
-    const cartItems=document.getElementById('cart-items');
-    const cartTotal=document.getElementById('cart-total');
-    let total=0;
-    cartItems.innerHTML=cart.map(i=>{
-        total+=i.price*i.qty;
-        return `<div class="cart-item">
-            <span>${i.name}</span>
-            <div>
-            <button onclick="qty('${i.name}',-1)">-</button>
-            ${i.qty}
-            <button onclick="qty('${i.name}',1)">+</button>
-            </div>
-        </div>`;
-    }).join('');
-    cartTotal.innerText="Total: "+total+" MAD";
-}
+<footer>
+© 2026 Messhop - Tous droits réservés
+</footer>
 
-function qty(name,delta){
-    let i=cart.find(x=>x.name===name);
-    i.qty+=delta;
-    if(i.qty<=0) cart=cart.filter(x=>x.name!==name);
-    updateCart();
-}
-
-function sendCart(){
-    if(cart.length===0){alert("Votre panier est vide"); return;}
-    let msg="Commande:%0A";
-    let total=0;
-    cart.forEach(i=>{
-        total+=i.price*i.qty;
-        msg+=`${i.name} x${i.qty} = ${i.price*i.qty} MAD%0A`;
-    });
-    msg+=`Total: ${total} MAD`;
-    window.open(whatsapp+encodeURIComponent(msg));
-}
-
-function showToast(){
-    const t=document.getElementById("toast");
-    t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"),1500);
-}
-
-function flyEffect(btn){
-    const img=btn.closest('.product').querySelector('img');
-    const f=img.cloneNode(true);
-    const rect=img.getBoundingClientRect();
-    f.style.position='fixed';
-    f.style.left=rect.left+'px';
-    f.style.top=rect.top+'px';
-    f.style.width=rect.width+'px';
-    f.style.height=rect.height+'px';
-    f.style.transition='all 0.7s ease';
-    f.classList.add('fly');
-    document.body.appendChild(f);
-    const cartRect=document.getElementById('cart').getBoundingClientRect();
-    setTimeout(()=>{f.style.left=cartRect.left+10+'px'; f.style.top=cartRect.top+10+'px'; f.style.width='40px'; f.style.height='40px'; f.style.opacity=0},50);
-    setTimeout(()=>f.remove(),750);
-}
-
-window.onload=()=>render();
-</script>
 </body>
 </html>

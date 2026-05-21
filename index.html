@@ -1,6 +1,5 @@
 </footer>
 
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,13 +13,13 @@ body{margin:0;font-family:Arial;background:#f4f6f9}
 header{
 background:#00a2ff;
 color:white;
+padding:12px;
 text-align:center;
-padding:15px;
-font-size:22px;
+font-size:20px;
 font-weight:bold;
 }
 
-/* HOME GRID */
+/* GRID HOME */
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -32,20 +31,19 @@ padding:10px;
 background:white;
 border-radius:12px;
 overflow:hidden;
-text-decoration:none;
-color:black;
+cursor:pointer;
 }
 
 .card img{
 width:100%;
-height:140px;
+height:130px;
 object-fit:cover;
 }
 
-.price{color:#0099ff;font-weight:bold;margin:5px}
+.card p{margin:5px}
 
-/* PAGE */
-.page{
+/* PAGES */
+.page, #checkoutBox{
 display:none;
 padding:15px;
 }
@@ -55,6 +53,7 @@ width:100%;
 border-radius:12px;
 }
 
+/* BUTTON */
 .btn{
 display:block;
 background:#ff6b00;
@@ -64,31 +63,52 @@ padding:12px;
 border-radius:10px;
 text-decoration:none;
 margin-top:10px;
+border:none;
+cursor:pointer;
 }
 
-/* similar */
-.similar{
-margin-top:20px;
+/* BACK */
+.back{
+background:black;
+color:white;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+margin-bottom:10px;
+cursor:pointer;
 }
 
-.similar-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+/* CART */
+.cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#ff6b00;
+color:white;
+padding:12px;
+border-radius:50px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.small{
-background:white;
-border-radius:10px;
-overflow:hidden;
-text-decoration:none;
-color:black;
-}
-
-.small img{
+/* CHECKOUT */
+input{
 width:100%;
-height:110px;
-object-fit:cover;
+padding:10px;
+margin:5px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+/* ANIMATION */
+.show{
+display:block;
+animation:fade 0.25s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
@@ -100,51 +120,47 @@ object-fit:cover;
 <!-- HOME -->
 <div id="home" class="grid">
 
-<a class="card" href="#p1">
-<img src="p1.jpg">
+<div class="card" onclick="openPage('p1')">
+<img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c">
 <p>Pochette Waterproof</p>
-<div class="price">99 DH</div>
-</a>
+</div>
 
-<a class="card" href="#p2">
-<img src="p2.jpg">
+<div class="card" onclick="openPage('p2')">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
 <p>Mini Fan</p>
-<div class="price">79 DH</div>
-</a>
+</div>
 
-<a class="card" href="#p3">
-<img src="p3.jpg">
+<div class="card" onclick="openPage('p3')">
+<img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c">
 <p>LED Lamp</p>
-<div class="price">120 DH</div>
-</a>
+</div>
 
 </div>
 
 <!-- PRODUCT 1 -->
 <div id="p1" class="page">
 
+<button class="back" onclick="goHome()">⬅ Back</button>
+
 <h2>Pochette Waterproof 📱</h2>
-<img src="p1.jpg">
+
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+
 <p>Protection ضد الماء للبحر و piscine</p>
+
 <h3>99 DH</h3>
 
-<a class="btn" href="https://wa.me/212600000000">Commander</a>
+<button class="btn" onclick="addCart()">Add to cart 🛒</button>
+<button class="btn" onclick="openCheckout()">Commander</button>
 
-<div class="similar">
 <h3>Produits similaires 🔥</h3>
 
-<div class="similar-grid">
-
-<a class="small" href="#p2">
-<img src="p2.jpg">
-<p>Mini Fan</p>
-</a>
-
-<a class="small" href="#p3">
-<img src="p3.jpg">
-<p>LED Lamp</p>
-</a>
-
+<div class="grid">
+<div class="card" onclick="openPage('p2')">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+</div>
+<div class="card" onclick="openPage('p3')">
+<img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c">
 </div>
 </div>
 
@@ -153,62 +169,115 @@ object-fit:cover;
 <!-- PRODUCT 2 -->
 <div id="p2" class="page">
 
+<button class="back" onclick="goHome()">⬅ Back</button>
+
 <h2>Mini Fan ❄️</h2>
-<img src="p2.jpg">
+
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+
 <p>Ventilateur portable</p>
+
 <h3>79 DH</h3>
 
-<a class="btn" href="https://wa.me/212600000000">Commander</a>
-
-<div class="similar">
-<h3>Produits similaires 🔥</h3>
-
-<div class="similar-grid">
-
-<a class="small" href="#p1">
-<img src="p1.jpg">
-<p>Pochette</p>
-</a>
-
-<a class="small" href="#p3">
-<img src="p3.jpg">
-<p>LED Lamp</p>
-</a>
-
-</div>
-</div>
+<button class="btn" onclick="addCart()">Add to cart 🛒</button>
+<button class="btn" onclick="openCheckout()">Commander</button>
 
 </div>
 
 <!-- PRODUCT 3 -->
 <div id="p3" class="page">
 
+<button class="back" onclick="goHome()">⬅ Back</button>
+
 <h2>LED Lamp 💡</h2>
-<img src="p3.jpg">
+
+<img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c">
+
 <p>Lumière décorative</p>
+
 <h3>120 DH</h3>
 
-<a class="btn" href="https://wa.me/212600000000">Commander</a>
-
-<div class="similar">
-<h3>Produits similaires 🔥</h3>
-
-<div class="similar-grid">
-
-<a class="small" href="#p1">
-<img src="p1.jpg">
-<p>Pochette</p>
-</a>
-
-<a class="small" href="#p2">
-<img src="p2.jpg">
-<p>Mini Fan</p>
-</a>
+<button class="btn" onclick="addCart()">Add to cart 🛒</button>
+<button class="btn" onclick="openCheckout()">Commander</button>
 
 </div>
-</div>
+
+<!-- CHECKOUT -->
+<div id="checkoutBox">
+
+<button class="back" onclick="closeCheckout()">⬅ Back</button>
+
+<h2>Commande COD 🚚</h2>
+
+<input id="name" placeholder="Nom">
+<input id="phone" placeholder="Téléphone">
+<input id="city" placeholder="Ville">
+<input id="address" placeholder="Adresse">
+
+<button class="btn" onclick="confirmOrder()">
+Confirmer la commande
+</button>
+
+<p id="msg"></p>
 
 </div>
+
+<!-- CART -->
+<div class="cart" onclick="alert('Cart: '+cart)">
+🛒 <span id="cartCount">0</span>
+</div>
+
+<script>
+
+let cart = 0;
+
+function openPage(id){
+document.getElementById("home").style.display="none";
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+document.getElementById("checkoutBox").style.display="none";
+document.getElementById(id).classList.add("show");
+}
+
+function goHome(){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+document.getElementById("checkoutBox").style.display="none";
+document.getElementById("home").style.display="grid";
+}
+
+function addCart(){
+cart++;
+document.getElementById("cartCount").innerText=cart;
+}
+
+function openCheckout(){
+document.getElementById("home").style.display="none";
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("show"));
+document.getElementById("checkoutBox").style.display="block";
+}
+
+function closeCheckout(){
+document.getElementById("checkoutBox").style.display="none";
+document.getElementById("home").style.display="grid";
+}
+
+function confirmOrder(){
+
+let n=document.getElementById("name").value;
+let p=document.getElementById("phone").value;
+let c=document.getElementById("city").value;
+let a=document.getElementById("address").value;
+
+if(!n||!p||!c||!a){
+document.getElementById("msg").innerText="❌ Fill all fields";
+return;
+}
+
+document.getElementById("msg").innerText="✅ Order confirmed!";
+cart=0;
+document.getElementById("cartCount").innerText=0;
+}
+
+</script>
 
 </body>
 </html>

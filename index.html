@@ -4,56 +4,45 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Messhop Final</title>
+<title>Messhop Ultimate</title>
 
 <style>
-body{
-margin:0;
-font-family:Arial;
-background:#f5f6f8;
-}
+body{margin:0;font-family:Arial;background:#f5f6f8;}
 
-/* HEADER */
 header{
-background:#00a2ff;
-color:white;
-padding:10px;
-text-align:center;
+background:#00a2ff;color:white;
+padding:10px;text-align:center;
 font-weight:bold;
-position:sticky;
-top:0;
+position:sticky;top:0;
+z-index:10;
 }
 
-/* GRID */
+.search{
+padding:6px;background:white;
+}
+.search input{
+width:100%;padding:8px;border-radius:8px;border:1px solid #ddd;
+}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:4px;
-padding:4px;
+gap:4px;padding:4px;
 }
 
 .card{
-background:white;
-border-radius:8px;
-padding:3px;
-cursor:pointer;
+background:white;border-radius:8px;
+padding:3px;cursor:pointer;
 }
 
 .card img{
-width:100%;
-height:80px;
-object-fit:cover;
-border-radius:6px;
+width:100%;height:80px;object-fit:cover;border-radius:6px;
 }
 
 .card p{font-size:10px;margin:2px;}
 .card b{font-size:11px;color:#0099ff;}
 
-/* PAGE */
-.page{
-display:none;
-padding:10px;
-}
+.page{display:none;padding:10px;}
 
 .btn{
 width:100%;
@@ -64,21 +53,6 @@ border:none;
 border-radius:10px;
 margin-top:6px;
 cursor:pointer;
-}
-
-input,textarea,select{
-width:100%;
-padding:8px;
-margin:5px 0;
-border-radius:8px;
-border:1px solid #ddd;
-}
-
-.item{
-background:white;
-padding:8px;
-margin:5px 0;
-border-radius:8px;
 }
 
 .cart{
@@ -92,16 +66,33 @@ border-radius:50px;
 cursor:pointer;
 }
 
-.price{
-color:#0099ff;
-font-weight:bold;
+.item{
+background:white;
+padding:8px;
+margin:5px 0;
+border-radius:8px;
 }
+
+input,textarea,select{
+width:100%;
+padding:8px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ddd;
+}
+
+.price{color:#0099ff;font-weight:bold;}
+.small{height:70px;border-radius:6px;object-fit:cover;width:100%;}
 </style>
 </head>
 
 <body>
 
 <header>Messhop 🚀</header>
+
+<div class="search">
+<input id="search" placeholder="Search..." oninput="filter()">
+</div>
 
 <div id="home" class="grid"></div>
 
@@ -142,7 +133,7 @@ font-weight:bold;
 <textarea id="address" placeholder="Address"></textarea>
 
 <button class="btn" style="background:#25D366" onclick="sendWhatsApp()">
-📩 Send via WhatsApp
+📩 Send Order
 </button>
 
 <button class="btn" onclick="closeCart()">⬅ Back</button>
@@ -155,19 +146,71 @@ font-weight:bold;
 
 <script>
 
-/* PRODUCTS */
+/* 50 PRODUCTS */
 const products=[
 {id:1,name:"Waterproof Case",price:99,img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c"},
 {id:2,name:"Mini Fan",price:79,img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c"},
 {id:3,name:"LED Lamp",price:120,img:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c"},
 {id:4,name:"Speaker",price:149,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e"},
-{id:5,name:"Cap",price:49,img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49"}
+{id:5,name:"Cap",price:49,img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49"},
+{id:6,name:"Power Bank",price:199,img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0"},
+{id:7,name:"Watch",price:299,img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c"},
+{id:8,name:"Earbuds",price:249,img:"https://images.unsplash.com/photo-1585386959984-a41552231693"},
+{id:9,name:"Mouse",price:179,img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46"},
+{id:10,name:"Tripod",price:89,img:"https://images.unsplash.com/photo-1516035069371-29a1b5e2f3d7"},
+
+{id:11,name:"Ring Light",price:129,img:"https://images.unsplash.com/photo-1587614382346-4ec70e388b28"},
+{id:12,name:"Webcam",price:219,img:"https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04"},
+{id:13,name:"Laptop Stand",price:99,img:"https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc"},
+{id:14,name:"USB Fan",price:45,img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c"},
+{id:15,name:"Car Holder",price:55,img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"},
+
+{id:16,name:"Travel Bag",price:199,img:"https://images.unsplash.com/photo-1512436991641-6745cdb1723f"},
+{id:17,name:"Backpack",price:159,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62"},
+{id:18,name:"Sunglasses",price:79,img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083"},
+{id:19,name:"Cap Sport",price:59,img:"https://images.unsplash.com/photo-1521335629791-ce4aec67dd49"},
+{id:20,name:"Desk Lamp",price:109,img:"https://images.unsplash.com/photo-1519710164239-da123dc03ef4"},
+
+{id:21,name:"Mini Camera",price:399,img:"https://images.unsplash.com/photo-1519183071298-a2962be96a5e"},
+{id:22,name:"Action Cam",price:499,img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"},
+{id:23,name:"Keyboard",price:199,img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8"},
+{id:24,name:"Headset",price:249,img:"https://images.unsplash.com/photo-1518441902117-f0a9f0f1a0d5"},
+{id:25,name:"Mouse Pad",price:39,img:"https://images.unsplash.com/photo-1587829741301-dc798b83add3"},
+
+{id:26,name:"VR Glasses",price:599,img:"https://images.unsplash.com/photo-1518770660439-4636190af475"},
+{id:27,name:"Tablet Stand",price:89,img:"https://images.unsplash.com/photo-1515879218367-8466d910aaa4"},
+{id:28,name:"Blender",price:149,img:"https://images.unsplash.com/photo-1585238342028-4f0e5b6f8d2e"},
+{id:29,name:"Coffee Mug",price:29,img:"https://images.unsplash.com/photo-1511920170033-f8396924c348"},
+{id:30,name:"Water Bottle",price:39,img:"https://images.unsplash.com/photo-1526401485004-2aa6c3a5a9b1"},
+
+{id:31,name:"Fitness Band",price:199,img:"https://images.unsplash.com/photo-1517836357463-d25dfeac3438"},
+{id:32,name:"Yoga Mat",price:99,img:"https://images.unsplash.com/photo-1599058917212-d750089bc07e"},
+{id:33,name:"Dumbbells",price:249,img:"https://images.unsplash.com/photo-1517963879433-6ad2b056d712"},
+{id:34,name:"Jump Rope",price:49,img:"https://images.unsplash.com/photo-1599058917765-1f6b4f2f0c12"},
+{id:35,name:"Massage Gun",price:499,img:"https://images.unsplash.com/photo-1584467735871-5f4b2b7a1a0c"},
+
+{id:36,name:"Hair Dryer",price:199,img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702"},
+{id:37,name:"Shaver",price:159,img:"https://images.unsplash.com/photo-1526045612212-70caf35c14df"},
+{id:38,name:"Perfume",price:299,img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9"},
+{id:39,name:"Lip Balm",price:19,img:"https://images.unsplash.com/photo-1514996937319-344454492b37"},
+{id:40,name:"Face Cream",price:89,img:"https://images.unsplash.com/photo-1556228453-efd6c1ff04f6"},
+
+{id:41,name:"Makeup Kit",price:249,img:"https://images.unsplash.com/photo-1522335789203-3c7c0b5d7c12"},
+{id:42,name:"Hair Brush",price:29,img:"https://images.unsplash.com/photo-1522337360788-8b13dee7a37e"},
+{id:43,name:"LED Strip",price:129,img:"https://images.unsplash.com/photo-1558008258-3256797b43f3"},
+{id:44,name:"Smart Plug",price:99,img:"https://images.unsplash.com/photo-1581091870622-4c4b0b4f2d3a"},
+{id:45,name:"Security Cam",price:349,img:"https://images.unsplash.com/photo-1580587771525-78b9dba3b914"},
+
+{id:46,name:"Router",price:299,img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8"},
+{id:47,name:"Door Lock",price:599,img:"https://images.unsplash.com/photo-1582582429416-2f4f2d3a3a1a"},
+{id:48,name:"Smart Watch Pro",price:399,img:"https://images.unsplash.com/photo-1523275335684-90a1b58e7e9c"},
+{id:49,name:"Gaming Chair",price:899,img:"https://images.unsplash.com/photo-1580894732444-8ecded7900cd"},
+{id:50,name:"RGB Light",price:149,img:"https://images.unsplash.com/photo-1558008258-3256797b43f3"}
 ]
 
 let cart=[]
 let current=null
 
-/* LOAD HOME ALWAYS FIXED */
 function load(){
 document.getElementById("home").innerHTML=
 products.map(p=>`
@@ -180,7 +223,6 @@ products.map(p=>`
 }
 load()
 
-/* OPEN PRODUCT */
 function openP(id){
 current=products.find(x=>x.id===id)
 
@@ -193,23 +235,13 @@ document.getElementById("img").src=current.img
 document.getElementById("price").innerText=current.price+" DH"
 }
 
-/* ADD CART */
 function addToCart(){
-let qty=parseInt(document.getElementById("qty").value)
-let pay=document.getElementById("payment").value
-
-cart.push({
-name:current.name,
-price:current.price,
-qty:qty,
-payment:pay
-})
-
+let qty=1
+cart.push({name:current.name,price:current.price,qty:qty})
 document.getElementById("count").innerText=cart.length
 alert("Added 🛒")
 }
 
-/* CART PAGE */
 function openCart(){
 document.getElementById("home").style.display="none"
 document.getElementById("product").style.display="none"
@@ -222,15 +254,13 @@ cart.map(c=>{
 total+=c.price*c.qty
 return `<div class="item">
 <b>${c.name}</b><br>
-${c.price} DH x ${c.qty}<br>
-Payment: ${c.payment}
+${c.price} DH x ${c.qty}
 </div>`
 }).join("")
 
 document.getElementById("total").innerText="Total: "+total+" DH"
 }
 
-/* WHATSAPP */
 function sendWhatsApp(){
 
 if(cart.length===0){
@@ -251,7 +281,7 @@ let items=""
 let total=0
 
 cart.forEach(c=>{
-items+=`- ${c.name} x${c.qty} = ${c.price*c.qty} DH | ${c.payment}\n`
+items+=`- ${c.name} x${c.qty} = ${c.price*c.qty} DH\n`
 total+=c.price*c.qty
 })
 
@@ -271,7 +301,6 @@ TOTAL: ${total} DH
 window.open("https://wa.me/212695979661?text="+encodeURIComponent(msg))
 }
 
-/* BACK HOME FIX */
 function goHome(){
 document.getElementById("product").style.display="none"
 document.getElementById("cartPage").style.display="none"
@@ -285,6 +314,18 @@ document.getElementById("home").style.display="grid"
 load()
 }
 
+function filter(){
+let v=document.getElementById("search").value.toLowerCase()
+document.getElementById("home").innerHTML=
+products.filter(p=>p.name.toLowerCase().includes(v))
+.map(p=>`
+<div class="card" onclick="openP(${p.id})">
+<img src="${p.img}">
+<p>${p.name}</p>
+<b>${p.price}</b>
+</div>
+`).join("")
+}
 </script>
 
 </body>
